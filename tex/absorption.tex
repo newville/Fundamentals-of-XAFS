@@ -1,7 +1,7 @@
 \section{X-Ray Absorption and Fluorescence}
 
 X-rays are light with energies ranging from about 500 eV to 500 keV, or
-wavelengths from about 25{\AA} to 0.25{\AA}.  In this energy regime, light
+wavelengths from about 25{\AA} to 0.025{\AA}.  In this energy regime, light
 is absorbed by all matter through the \emph{photo-electric effect}, in
 which an X-ray photon is absorbed by an electron in a tightly bound quantum
 core level (such as the 1s or 2p level) of an atom, as shown in
@@ -15,26 +15,18 @@ absorb the X-ray.  If the binding energy of the electron is less than that
 of the X-ray, the electron may be removed from its quantum level.  In this
 case, the X-ray is destroyed (that is, absorbed) and any energy in excess
 of the electronic binding energy is given to a photo-electron that is
-ejected from the atom.  While this process has been well understood for a
-century, the full implications of this process when applied to molecules,
-liquids, and solids will give rise to XAFS.
+ejected from the atom.  This process has been well understood for a more
+than a century -- Einstein received the Nobel Prize for describing this
+effect in 1905.  As we will see, the full implications of this process when
+applied to molecules, liquids, and solids will give rise to XAFS.
 
-\begin{Sfig}{width=3.0truein}{photoelectric}{xray_emission}
+\begin{Nfig}{width=3.0truein}{photoelectric}
   \caption{Right: The photoelectric effect, in which an X-ray is absorbed
     by a atom and a core-level electron is promoted out of the atom,
     creating a photo-electron and leaving behind a hole in the core
-    electron level.  Left: X-ray and Auger emission, in which the excited
-    atomic after an absorption event will decay.  For either X-ray
-    fluorescence or the Auger effect, an electron is moved from a less
-    tightly bound orbital to the empty core level, and the energy
-    difference between these levels is given to the emitted particle (X-ray
-    or electron).  The emission energies have precise values that are
-    characteristic for each atom, and can be used to identify the absorbing
-    atom.  Since the probability of emission is directly proportional to
-    the absorption probability, either X-ray fluorescence of Auger emission
-    can be used to measure EXAFS and XANES.}
+    electron level.}
   \label{Fig:XAS:photoelectric}
-\end{Sfig}
+\end{Nfig}
 
 When discussing X-ray absorption, we are primarily concerned with the
 \emph{absorption coefficient}, $\mu$ which gives the probability that
@@ -47,7 +39,9 @@ where $I_{0}$ is the X-ray intensity incident on a sample, $t$ is the
 sample thickness, and $I$ is the intensity transmitted through the sample,
 as shown in Figure~\ref{Fig:XAS:BeersLaw}. For X-rays of sufficiently low
 intensity, the X-ray intensity is proportional to the number of X-ray
-photons.
+photons.   We will ignore any non-linear or {\emph{strong field}} effects
+here, and consider only the case of absorption of one X-ray by an otherwise
+unperturbed atom.
 
 \begin{Nfig}{width=2.0truein}{beer_lambert}
   \caption{X-ray absorption and the Beer-Lambert law:  An incident beam of
@@ -96,29 +90,53 @@ species.  Since every atom has core-level electrons with well-defined
 binding energies, we can select the element to probe by tuning the X-ray
 energy to an appropriate absorption edge.  These absorption edge energies
 are well-known (usually to within a tenth of percent), and tabulated.  The
-edge energies vary with atomic number approximately as $Z^2$, and both $K$
+edge energies vary with atomic number approximately as $Z^2$ (similar to
+Moseley's law for the $Z$ dependence of the emission lines), and both $K$
 and $L$ levels can be used in the hard X-ray regime (in addition, $M$ edges
 can be for heavy elements in the soft X-ray regime), which allows most
-elements to be probed by XAFS with X-ray energies between 4 and 35 keV.
-Because the element of interest is
+elements to be probed by XAFS with X-ray energies between 4 and 35 keV, as
+shown in Figure~\ref{Fig:XAS:edges}.  Because the element of interest is
 chosen in the experiment, XAFS is \emph{element-specific}.
 
+\begin{Nfig}{width=3.5truein}{kl_edges}
+  \caption{The energies for the X-ray $K$ and $L_{\rm III}$ absorption edges
+    as a function of atomic number Z.  The energies follow $E \sim Z^2$,
+    and all elements with $Z>20$ (Ca) have an X-ray edge above 4 keV.}
+  \label{Fig:XAS:edges}
+\end{Nfig}
+
+
 Following an absorption event, the atom is said to be in an \emph{excited
-<  state}, with one of the core electron levels left empty (a so-called
+  state}, with one of the core electron levels left empty (a so-called
 \emph{core hole}), and a \emph{photo-electron} emitted from the atom.  The
 excited state will eventually decay (typically within a few femtoseconds)
 of the absorption event. Though this decay does not affect the X-ray
 absorption process, it is important for the discussion below.
 
+\begin{Nfig}{height=3.00truein}{xray_emission}
+  \caption{The excited atomic state will decay either by X-ray fluorescence
+    or the Auger effect.  In either case, an electron is moved from a less
+    tightly bound orbital to the empty core level, and the energy
+    difference between these levels is given to the emitted particle (X-ray
+    or electron).  The emission energies have precise values that are
+    characteristic for each atom, and can be used to identify the absorbing
+    atom.  Though the probability of whether the decay occurs by
+    fluorescence or Auger emission depends on the atomic number Z and
+    energy-level, the probability of emission is directly proportional to
+    the absorption probability, and so can be used to measure EXAFS and
+    XANES.}
+  \label{Fig:XAS:decay}
+\end{Nfig}
+
 There are two main mechanisms for the decay of the excited atomic state
-following an X-ray absorption event, as shown in the right panel of
-Figure~\ref{Fig:XAS:photoelectric}.  The first of these is X-ray
-fluorescence , in which a higher energy electron core-level electron fills
-the deeper core hole, ejecting an X-ray of well-defined energy.  The
-fluorescence energies emitted in this way are characteristic of the atom,
-and can be used to identify the atoms in a system, and to quantify their
-concentrations. For example, an $L$ shell electron dropping into the $K$
-level gives the $K_{\alpha }$ fluorescence line.
+following an X-ray absorption event, as shown in
+Figure~\ref{Fig:XAS:decay}.  The first of these is X-ray fluorescence , in
+which a higher energy electron core-level electron fills the deeper core
+hole, ejecting an X-ray of well-defined energy.  The fluorescence energies
+emitted in this way are characteristic of the atom, and can be used to
+identify the atoms in a system, and to quantify their concentrations. For
+example, an $L$ shell electron dropping into the $K$ level gives the
+$K_{\alpha }$ fluorescence line.
 
 The second process for de-excitation of the core hole is the Auger Effect,
 in which an electron drops from a higher electron level and a second
@@ -216,7 +234,7 @@ The different frequencies apparent in the oscillations in $\chi(k)$
 correspond to different near-neighbor coordination shells.  This can be see
 most clearly by applying a Fourier transform to the data, converting the
 data from depending on wavenumber $k$ to depending on distance $R$.  As
-seen in the right panel of Figure~\ref{Fig:XAS:chi}, the oscillations
+seen in the right-hand panel of Figure~\ref{Fig:XAS:chi}, the oscillations
 present in the EXAFS $\chi(k)$) give rather well-defined peaks as a
 function of $R$, corresponding to the distance from the absorbing atom to
 its near neighbors.

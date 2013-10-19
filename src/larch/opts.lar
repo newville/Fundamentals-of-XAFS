@@ -1,4 +1,4 @@
+save_plot('plot.pdf')
 opts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
             fullbox=False, grid=False)
 
-save_plot('plot.pdf')
