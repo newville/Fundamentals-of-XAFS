@@ -1,0 +1,18 @@
+edges = read_ascii('edge_energies.dat', labels='z mass k l1 l2 l3 m ka1 kb1 la1 lb2')
+
+popts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
+            fullbox=False, grid=False)
+
+newplot(edges.z, edges.k,
+        xmax=100, ymin=2, ymax=35,
+        ylabel=r'$E \rm\, (keV)$',
+        xlabel=r'$Z$', **popts)
+
+plot(edges.z, edges.l3, **popts)
+
+plot_text(r'$K$', 42, 27)
+plot_text(r'$L_{\rm III}$', 68, 12)
+
+
+save_plot('kl_edges.pdf')
+save_plot('kl_edges.png')
