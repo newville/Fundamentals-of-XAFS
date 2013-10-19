@@ -1,0 +1,281 @@
+
+\section{XAFS Measurements: Transmission and Fluorescence}
+
+XAFS requires a very good measure of $\mu(E)$.  Since the XAFS is a fairly
+small modulation of the total absorption, a fairly precise and accurate
+measurement of $\mu(E)$ -- typically to $10^{-3}$ -- is required.
+Statistical errors in $\mu(E)$ due to insufficient count rates in
+intensities are rarely the limiting factor for most XAFS measurements, and
+can generally be overcome by counting longer.  On the other hand,
+systematic errors in $\mu(E)$ can degrade or even destroy the XAFS, and are
+more difficult to eliminate.  Fortunately, if care is taken in sample
+preparation, setting up the measurement system, and alignment of the sample
+in the beam, it is usually not too difficult to get good XAFS measurements.
+
+A sketch of the basic experimental layout in Figure~\ref{Fig:EXPT:cartoon},
+showing a monochromatic beam of X-rays striking a sample and the
+intensities of the incident, transmitted, and emitted X-ray beams being
+measured.  From this, it can be seen that the main experimental challenges
+are 1) getting an X-ray source that can be reliably and precisely tuned to
+select a single X-ray energy, and 2) high-quality detectors of X-ray
+intensity.  For most modern experiments, the X-ray source is a synchrotron
+radiation source, which provides a highly collimated beam of X-rays with a
+broad range of energies.  A particular energy is selected with a double
+crystal monochromator, which consists of two parallel nearly perfect
+crystals, typically silicon.  The first crystal is centered in the incident
+X-ray beam from the source and rotated to a particular angle so as to
+reflect a particular energy by X-ray diffraction following Bragg's law.  By
+using near-perfect crystals, the diffracted beam is very sharply defined in
+angle and so also has a very narrow energy range, and the reflectivity is
+near unity.  The second crystal, with the same lattice spacing, is rotated
+together with the first crystal, and positioned to intercept the diffracted
+beam and re-diffract so that it is parallel to the original X-ray beam,
+though typically offset vertically from it.  Such a monochromator allows a
+wide energy range of monochromatic X-rays to be selected simply by rotating
+a single axis, and a widely used at synchrotron beamlines, and especially
+at beamlines designed for XAFS measurements.
+
+\begin{Nfig}{width=4.25truein}{exp_layout}
+  \caption{Sketch of an XAFS Experiment.  An X-ray source, typically using
+    synchrotron radiation, produces a collimated beam of x-rays with a
+    broad energy spectrum.  These X-rays are energy-selected by a slit and
+    monochromator.  The incident X-ray intensity, $I_0$, is sampled.  XAFS
+    can be recorded by measuring the intensity transmitted through the
+    sample or by measuring the intensity of a secondary emission --
+    typically X-ray fluorescence or Auger electrons resulting from the
+    X-ray absorption.  The X-ray energy is swept through and above the
+    electron binding energy for a particular energy level of the element of
+    interest.}
+  \label{Fig:EXPT:cartoon}
+\end{Nfig}
+
+
+The principle characteristics of a monochromator that are important for
+XAFS are {\emph{the energy resolution}}, the reproducibility, and the
+stability of the monochromator. Energy resolutions of $\approx 1\rm\, eV$
+at 10 keV are readily achieved with silicon monochromators using the
+Si(111) reflection, and are sufficient for most XAFS measurements.  Higher
+resolution can be achieved by using a higher order reflection, such as
+Si(220) or Si(311), but this often comes at a significant loss of
+intensity.  In addition, the angular spread of the incident X-ray beam from
+the source can contribute to the energy resolution, and many beamlines
+employ a reflective mirror that can be curved slightly to collimate the
+beam before the monochromator to improve resolution.  While poor energy
+resolution can be detrimental to XAFS measurements, and especially for
+XANES measurements, most existing beamlines have resolution sufficient for
+good XAFS measurements.
+
+Stability and reproducibility of monochromators is sometimes challenging,
+as the angular precisions of monochromators needed for XAFS are typically
+on the order of $10^{-4}$ degrees, so that a very small change in Bragg
+angle corresponds to a substantial energy shift.  Very high quality
+rotation stages can essentially eliminate such drifts, but may not be
+installed at all beamlines.  In addition, small temperature drifts of the
+monochromator can cause energy drifts, as the lattice constant of the
+crystal changes.  Stabilizing the temperature of the monochromator is very
+important, but can be challenging as the power in the white X-ray beam from
+a modern synchrotron source can easily exceed 1 kW in a few square
+millimeters.  For the most part, these issues are ones of beamline and
+monochromator design and operation, generally solved by the beamline, and
+are not a significant problem at modern beamlines designed for XAFS
+measurements.  Still, these issues are worth keeping in mind when assessing
+XAFS data.
+
+Despite their name, monochromators based on Bragg diffraction do not select
+only one energy (or color) of light, but also certain {\emph{harmonics}}
+(integer multiplies) of that energy.  While these higher energies will be
+far above the absorption edge, and so not be absorbed efficiently by the
+sample, they can cause subtle problems with the data that can be hard to
+diagnose or correct afterward.  These include sharp changes or
+{\emph{glitches}} in intensity at particular energies, and unexpectedly
+large noise in the data.  There are two main strategies for removing
+harmonics.  The first is to slightly misalign or ``de-tune'' the two
+crystals of the monochromator.  This will reduce the transmitted intensity
+of the higher-energy harmonics much more than it reduces the intensity of
+the fundamental beam.  De-tuning in this way can be done dynamically, often
+by putting a small piezo-electric crystal on the second monochromator
+crystal to allow fine motions to slightly misalign the two crystals.  The
+second method for removing harmonics is to put a reflective X-ray mirror in
+the beam so that it reflects the fundamental beam but not the higher energy
+harmonics.  Such a harmonic-rejection mirror is generally more efficient at
+removing the higher harmonics than de-tuning the monochromator crystals.
+Ideally, both of these strategies can be used, but it is generally
+necessary to use at least one of these approaches.
+
+Having linear detectors to measure $I_0$ and $I$ for transmission
+measurements is important for good XAFS measurements, and not especially
+difficult.  A simple ion chamber (a parallel plate capacitor filled with an
+inert gas such nitrogen or argon, and with a high voltage across it through
+which the X-ray beam passes) is generally more than adequate, as these
+detectors themselves are generally very linear over a wide range of X-ray
+intensities.  The currents generated from the detectors are quite low
+(often in the picoampere range, and rarely above a few microampere) and so
+need to be amplified and transmitted to a counting system.  Noise in
+transmission lines and linearity of the amplification systems used for ion
+chambers (and other detectors) can cause signal degradation, so keeping
+cables short and well-grounded is important.  Typical current amplifiers
+can have substantial non-linearities at the low and high ends of their
+amplification range, and so have a range of linearity limited to a few
+decades.  For this reason, significant dark currents are often set and one
+must be careful to check for saturation of the amplifiers.  In addition,
+one should ensure that the voltage applied across the ion chamber plates is
+sufficiently high so that all the current is collected -- simply turning up
+the voltage until the intensity measured for a incident beam of constant
+intensity is itself constant and independent of voltage is generally
+sufficient.  Such checks for detector linearity can be particularly
+important if glitches are detected in a spectrum.  For fluorescence
+measurements, several kinds of detectors can be used in addition to ion
+chambers, and linearity can become an important issue and depend on details
+of the detector.
+
+With a good source of monochromatic X-rays and a good detection system,
+accurate and precise transmission measurements on uniform samples of
+appropriate thickness, are generally easy.  Some care is required to make
+sure the beam is well-aligned on the sample and that harmonics are not
+contaminating the beam, but obtaining a noise level of $10^{-3}$ of the
+signal is generally easy for transmission measurements.  Such a noise level
+is achievable for fluorescence measurements but can be somewhat more
+challenging, especially for very low concentration samples.
+
+\subsection{Transmission XAFS measurements}
+
+For concentrated samples, in which the element of interest is a major
+component -- 10\% by weight or higher is a good rule of thumb -- XAFS
+should be measured in transmission.  To do this, one needs enough
+transmission through the sample to get a substantial signal for $I$.  With,
+${\mu}t=\ln(I/I_0)$, we typically adjust the sample thickness $t$ so that
+${\mu}t \approx 2.5$ above the absorption edge and/or the edge step $\Delta
+\mu(E)t \approx 1$.  For Fe metal, this gives $t=7\, \rm {\mu}m$, while for
+many solid metal-oxides and pure mineral phases, $t$ is typically in the
+range of 10 to 25 $\rm {\mu}m$.  For concentrated solutions, sample
+thickness may be several millimeter thick, but this can vary substantially.
+If both $\mu t \approx 2.5$ for the total absorption and an edge step
+$\Delta \mu(E)t \approx 1$ cannot be achieved, it is generally better to
+have a smaller edge step, and to keep the total absorption below $\mu t
+\approx 4$.  Tabulated values for $\mu(E)$ for the elements are widely
+available, and software such as {\scshape{hephaestus}}\cite{horae} can
+assist in these calculations.
+
+In addition to requiring the right thickness for transmission measurements,
+the sample must be of uniform thickness and free of pinholes.
+Non-uniformity (that is, variations in thickness of a factor of 2 or so)
+and pinholes in the sample can be quite damaging, as $\mu$ is logarithmic
+in $I$.  Since the portion of the beam going through a small hole in the
+sample will transmit with very high intensity, it will disproportionately
+contribute to $I$ compared to the parts of the beam that actually go
+through the sample.  For a powder, the grain size cannot be much bigger
+than an absorption length, or this too will lead to non-linear variations
+in the beam transmitted through the sample.  If these challenging
+conditions can be met, a transmission measurement is very easy to perform
+and gives excellent data.  This method is usually appropriate for pure
+mineral phases, or for other systems in which the absorbing element has a
+concentrations $>$ 10\%.
+
+A few standard methods for making uniform samples for transmission XAFS
+exist.  If one can use a solution or has a thin, single slab of the pure
+material (say, a metal foil, or a sample grown in a vacuum chamber), these
+can make ideal samples.  For many cases, however, a powder of a reagent
+grade chemical or mineral phase is the starting material.  Because the
+required total thickness is so small, and uniformity is important, grinding
+and sifting the powder to selected the finest grains can be very helpful.
+Using a solvent or other material in the grinding process can be useful.  In
+some case, suspending a powder in a solvent to skim off the smallest
+particles held up by surface tension can also be used.  Spreading or
+painting the grains onto sticky tape and shaking off any particles that
+don't stick can also be used to select the finest particles, and can make a
+fairly uniform sample, with the appropriate thickness built up by stacking
+multiple layers.  Ideally, several of these techniques can be used in
+combination.
+
+\begin{Nfig}{width=3.5truein}{fluor_spectra}
+  \caption{X-ray fluorescence spectrum from an Fe-rich mineral (a
+    feldspar), showing the Fe $K_{\alpha }$ and $K_{\beta }$ emission lines
+    around 6.4 and 7.0 keV, and the elastically (and nearly-elastically)
+    scattered peak near 8.5 keV. At lower energies, peaks for Ca, Ti, and V
+    can be seen.}
+  \label{Fig:EXPT:fluor}
+\end{Nfig}
+
+\subsection{Fluorescence XAFS measurements}
+
+For samples that cannot be made thin enough for transmission or with the
+element of interest at lower concentrations (down to the ppm level and
+occasionally lower), monitoring the X-ray fluorescence is the preferred
+technique for measuring the XAFS.  In a fluorescence XAFS measurement, the
+X-rays emitted from the sample will include the fluorescence line of
+interest, fluorescence lines from other elements in the sample, and both
+elastically and inelastically (Compton) scattered X-rays.  An example
+fluorescence spectrum is shown in Figure~\ref{Fig:EXPT:fluor}.  This shows Fe
+$K_{\alpha}$ and $K_{\beta}$ fluorescence lines along with the elastically
+scattered peak (unresolvable from the Compton scatter), as well as
+fluorescence lines from Ca, Ti, and V.  In many cases the scatter or
+fluorescence lines from other elements will dominate the fluorescence
+spectrum.
+
+There are two main considerations for making good fluorescence XAFS
+measurements: the solid angle collected by the detector, and the energy
+resolution for fluorescence lines. The need for solid angle is easy to
+understand.  The fluorescence is emitted isotropically, and we'd like to
+collect as much of the available signal as possible.  X-rays that are
+elastically and inelastically scattered (for example, by the Compton
+scattering process) by the sample are not emitted isotropically because the
+X-rays from a synchrotron are \emph{polarized} in the plane of the
+synchrotron, (a fact we've neglected up to this point).  This polarization
+means that elastic scatter is greatly suppressed at $90^{\circ}$ to the
+incident beam, in the horizontal plane.  Therefore, fluorescence detectors
+are normally placed at a right angle to the incident beam.
+
+Energy resolution for a fluorescence detector can be important as it allows
+discrimination of signals based on energy, so that scattered X-rays and
+fluorescence lines from other elements can be suppressed relative to the
+intensity of the fluorescence lines of interest.  This lowers the
+background intensity, and increases the signal-to-noise level.  Energy
+discrimination can be accomplished either physically, by filtering out
+unwanted emission before it gets to the detector, or electronically after
+it is detected, or both.
+
+A simple way to physically filter out unwanted background scatter is to
+place a Mn-rich material between an Fe-bearing sample and the fluorescence
+detector.  Due to the Mn $K$ absorption edge, the filter will
+preferentially absorb the elastic and inelastic scatter peak and pass the
+Fe $K_{\alpha }$ line.  For most $K$ edges, the element with $Z-1$ of the
+element of interest can be used to make an appropriate filter, and filter
+materials can be found for most of the $L$ edges.
+
+Energy discrimination can also be done electronically on the measured X-ray
+emission spectrum after it has been collected in the detector.  A common
+example of this approach uses a solid-state Si or Ge detector, which can
+achieve energy resolutions of a $\approx 200\, \rm{ eV}$ or better.  The
+spectrum shown in Figure~\ref{Fig:EXPT:fluor} was collected with such a Ge
+solid-state detector.  These detectors have an impressive advantage of
+being able to measure the full X-ray fluorescence spectrum, which is useful
+in its own right for being able to identify and quantify the concentrations
+of other elements in the sample.  Because unwanted portions of the
+fluorescence spectrum can be completely rejected electronically, these
+detectors can have excellent signal-to-background ratios and be used for
+XAFS measurements with concentrations down to ppm levels.  Though
+solid-state detectors have many advantages, they have a few drawbacks:
+
+\begin{description}
+\item[Dead time:] The electronic energy discrimination takes a finite
+  amount of time, which limits the total amount of signal that can be
+  processed.  These detectors typically saturate at $\approx 10^{5}\, \rm{
+    Hz}$ of {\emph{total}} count rate or so.  When these rates are
+  exceeded, the detector is effectively unable to count all the
+  fluorescence, and is said to be ``dead'' for some fraction of the time.
+  It is common to use ten or more such detectors in parallel.  Even then,
+  the limit on total intensity incident for these detectors can limit the
+  quality of the measured XAFS.  This will be discussed more below.
+
+\item[Complicated:] Maintaining, setting up, and using one of these is much
+  more work than using an ion chamber.  For example, germanium solid-state
+  detectors must be kept at liquid nitrogen temperatures.  The electronics
+  electronics needed for energy discrimination can be complicated,
+  expensive, and delicate.
+\end{description}
+\noindent
+Despite these drawbacks, the use of solid-state detectors is now fairly
+common practice for XAFS, especially for dilute and heterogeneous samples,
+and the detectors and electronics themselves are continually being
+improved.
+

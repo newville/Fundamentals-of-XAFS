@@ -1,0 +1,394 @@
+\section{XAFS Data Reduction}
+
+For all XAFS data, whether measured in transmission or fluorescence (or
+electron emission), the data reduction and analysis are essentially the
+same.  First, the measured intensity signals are converted to $\mu(E)$, and
+then reduced to $\chi(k)$.  After this data reduction, $\chi(k)$ can be
+analyzed and modeled using the XAFS equation.  In this section, we'll go
+through the steps of data reduction, from measured intensities to
+$\chi(k)$, which generally proceeds as:
+
+\begin{enumerate}
+\item Convert measured intensities to $\mu(E)$, possibly correcting
+  systematic measurement errors such as self-absorption effects and detector
+  deadtime.
+
+\item Identify the threshold energy $E_0$, typically as the energy of the
+  maximum derivative of $\mu(E)$.
+
+\item Subtract a smooth pre-edge function from $\mu(E)$ to get rid of any
+  instrumental background and absorption from other edges.
+
+\item Determine the edge jump, $\Delta\mu$, at the threshold energy, and
+  normalize $\mu(E)$, so that the pre-edge subtracted and normalized
+  $\mu(E)$ goes from approximately 0 below the threshold energy to 1 well
+  above the threshold energy.  This represents the absorption of a single
+  X-ray, and is useful for XANES analysis.
+
+\item Remove a smooth post-edge background function approximating
+  $\mu_0(E)$, thereby isolating the XAFS $\chi = {(\mu-\mu_0)} /
+  \Delta\mu$.
+
+\item convert $\chi$ from energy $E$ to photo-electron wavenumber  $k =
+  \sqrt{2m(E-E_0)/\hbar^2}$.
+
+\item $k$-weight the XAFS $\chi(k)$ and Fourier transform into $R$-space
+\end{enumerate}
+\noindent
+We'll go through each of these steps in slightly more detail, and show them
+graphically using real XAFS data.
+
+As with many things, the first step is often the most challenging.  Here,
+the differences between measurements made in  transmission and fluorescence
+mode are most pronounced.   For transmission measurements, we simply ignore
+the sample thickness, and use
+\begin{equation}
+  \mu(E) =\ln (I_0/I)
+\end{equation}
+\noindent where $I_0$ and $I$ are the signals measured from the ion
+chambers.  Typically, the signals measured as $I_0$ and $I$ are actually
+integrated voltages over some predefined time where the voltages are taken
+from the output of current amplifiers with input currents from ion chambers
+as input.  Thus the measurements are not the incident flux in photons per
+second.  Rather, they are scaled measures of the flux {\emph{absorbed}} in
+the ion chamber.  For the most part, the difference between what we think
+of as $I_0$ (incident X-ray flux, in photons/second) and what we actually
+measure for $I_0$ (scaled, integrated current generated from X-rays
+absorbed in the ion chamber) is not very significant, as when we take the
+ratio between two ion chambers most of the factors that distinguish the
+conceptual intensity from the measured signal will either cancel out, give
+an arbitrary offset, or give a slowly varying monotonic drift with energy.
+Thus, it is common to see experimental values reported for ``raw'' $\mu(E)$
+in the literature that do not have dimensions of inverse length,   and which
+might even have values that are negative.  For real values of $\mu(E)$ in
+inverse length,   these measurements would be non-sensical, but for XAFS work
+this is of no importance, as we'll subtract off a slowly varying background
+anyway.
+
+For fluorescence measurements,  the situation is similar, except that one uses
+\begin{equation}
+  \mu(E) = I_f/I
+\end{equation}
+\noindent where $I_f$ is the integrated fluorescence signal of interest.
+As with the transmission measurements, there is generally no need to worry
+about getting absolute intensities, and one can simply use the ratio of
+measured intensities.    Because the instrumental drifts for a solid-state,
+energy-discriminating fluorescence detector may be different than for a
+gas-filled ion chamber, it is not unusual for $\mu(E)$ for fluorescence XAFS
+measurements to have an overall upward drift with energy, where
+transmission XAFS tends to drift down with energy.
+
+In addition to the corrections for over-absorption and deadtime effects
+discussed in the previous section, other corrections may need to be made to
+the measured $\mu(E)$ data.  For example, sometimes bad glitches appear in
+the data, and are not normalized away by dividing by $I_0$.  This is often
+an indication of insufficient voltage on ion chambers, of too much harmonic
+content in the X-ray beam, poorly uniform samples, incomplete deadtime
+correction, or a combination of these.  If possible, it is preferred to
+address these problems during the measurement, but this is not always
+possible.  For such glitches, the best approach is simply to remove them
+from the data -- asserting that they were not valid measurements of
+$\mu(E)$.
+
+Another example of a correction that can be made in the data reduction step
+is for cases where another absorption edge occurs in the spectrum.  This
+could be from the same element (as is over the case for measurements made
+at the $L_{\rm III}$ edge, where the $L_{\rm II}$ edge will eventually be
+excited, or from a different element in a complex sample.  As with a
+glitch, the appearance of another edge means that $\mu(E)$ is no longer
+from the edge and element of interest, and it is best to simply truncate
+the data at the other edge.
+
+\begin{Nfig}{width=3.5truein}{mu_deriv}
+  \caption{The XANES portion of the XAFS spectrum (blue), and the
+    identification of $E_0$ from the maximum of the derivative $d\mu/dE$
+    (red).  This selection of $E_0$ is easily reproduced but somewhat
+    arbitrary, so we may need to refine this value later in the analysis.}
+  \label{Fig:RED:e0}
+\end{Nfig}
+
+\subsection{Pre-edge Subtraction and Normalization}
+
+Once the measurement is converted to $\mu(E)$, the next step is usually to
+identify the edge energy.  Since XANES features can easily move the edge by
+several eV, and because calibrations vary between monochromators and
+beamlines, it is helpful to be able to do this in an automated way that is
+independent of the spectra.  Though clearly a crude approximation, the most
+common approach is to take the maximum of the first derivative of $\mu(E)$.
+Though it has little theoretical justification, it is easily reproduced,
+and so can readily be checked and verified.
+
+
+\begin{Nfig}{width=3.5truein}{mu_preedge}
+  \caption{XAFS pre-edge subtraction and normalization. A line (or simple,
+    low-order polynomial) is fit to the spectrum below the edge, and a
+    separate low-order polynomial is fit to the spectrum well above the
+    edge.  The edge jump, $\Delta\mu_0$, is approximated as the difference
+    between these two curves at $E_0$.  Subtracting the pre-edge polynomial
+    from the full spectrum and dividing by the edge jump gives a normalized
+    spectrum.}
+  \label{Fig:RED:preedge}
+\end{Nfig}
+
+
+Instrumental drifts from detector systems can be crudely approximated by a
+simple linear dependence in energy.  That is a linear fit to the pre-edge
+range of the measured spectrum is found, and subtracted.  In some cases, a
+so-called Victoreen pre-edge function (in which one fits a line to $E^{n}
+\mu(E)$ for some value of $n$, typically 1, 2 or 3).  Such a fit can do a
+slightly better job at approximating the instrumental drifts for most XAFS
+spectra, especially for dilute data measured in fluorescence with a
+solid-state detector, where the contribution from elastic and
+Compton-scattered intensity into the energy window of the peak of interest
+will decrease substantially with energy, as the elastic peak moves up in
+energy.
+
+The next step in the process is to adjust the scale of $\mu(E)$ to account
+for the absorption of 1 photo-electron.  By convention, we
+{\emph{normalize}} the spectrum to go from approximately 0 below the edge
+to approximately 1 above the edge.  To do this, we find the edge step,
+$\Delta\mu$, and divide $\mu(E)$ by this value.   Typically, a low-order polynomial
+is fitted to $\mu(E)$ well above the edge  (away from the XANES region),
+and the value of this polynomial is extrapolated to $E_0$ to give the edge
+step.  It should be emphasized that this convention is fairly crude and can
+introduce systematic errors.
+
+
+Examples of these processing steps (location of $E_0$, subtraction of
+pre-edge, and normalization to an edge jump of 1) for transmission XAFS
+data at the Fe $K$-edge of FeO are shown in Figures~\ref{Fig:RED:e0} and
+~\ref{Fig:RED:preedge}.  For XANES analysis, this amount of data reduction
+is generally all that is needed.  For both XANES and EXAFS analysis, the
+most important part of these steps is the normalization to the edge step.
+For XANES analysis, spectra are generally compared by amplitude, so an
+error in the edge step for any spectra will directly affect the weight
+given to that spectra.  For EXAFS, the edge step is used to scale
+$\chi(k)$, and so is directly proportional to coordination number.  Errors
+in the edge step will translate directly to errors in coordination number.
+Getting good normalization (such that $\mu(E)$ goes to 1 above the edge) is
+generally not hard, but requires some care, and it is important to assess
+how well and how consistently this normalization process actually works for
+a particular data set.  Most existing analysis packages do these steps
+reasonably well, especially in making spectra be normalized consistently,
+but it is not at all unusual for such automated, initial estimates of the
+edge step to need an adjustment of 10\%.
+
+
+\subsection{Background Subtraction}
+
+\begin{Nfig}{width=3.5truein}{bkg}
+  \caption{Post-edge background subtraction of FeO EXAFS. The background
+    $\mu_0(E)$ shown in red is a smooth spline function that matches the
+    low-$R$ components of $\mu(E)$, in this case using 1 {\AA} for $R_{\rm
+      bkg}$.}
+  \label{Fig:RED:bkg}
+\end{Nfig}
+
+Perhaps the most confusing and error-prone step in XAFS data reduction is
+the determination and removal of the post-edge background function that
+approximates $\mu_0((E)$. This is somewhat unfortunate, as it does not need
+to be especially difficult.  Since $\mu_0(E)$ represents the absorption
+coefficient from the absorbing atom without the presence of the neighboring
+atoms, we cannot actually measure this function separately from the EXAFS.
+In fact, even if possible, measuring $\mu(E)$ for an element in the gas
+phases would not really be correct, as $\mu_0(E)$ represents the absorbing
+atom embedded in the molecular or solid environment, just without the
+scattering from the core electrons of the neighboring atoms.  Instead of
+even trying to measure an idealized $\mu_0(E)$, we determine it empirically
+by fitting a {\emph{spline}} function to $\mu(E)$.  A spline is a
+piece-polynomial function that is designed to be adjustable enough to
+smoothly approximate an arbitrary waveform, while maintaining convenient
+mathematical properties such has continuous first and second derivatives.
+This is certainly an {\emph{ad hoc}} approach, without any real physical
+justification.  Still, it is widely used for EXAFS analysis, and has the
+advantage of being able to account for those systematic drifts in our
+measurement of $\mu(E)$ that make it differ from the true $\mu(E)$, as long
+as those drifts vary slowly with energy.  The main challenge with using an
+arbitrary mathematical spline to approximate $\mu_0(E)$ is to decide how
+flexible to allow it to be, so as to ensure that it does not follow
+$\mu(E)$ closely enough to remove the EXAFS.  That is, we want a $\mu_0(E)$
+to remove the slowly varying parts of $\mu(E)$ while not changing
+$\chi(k)$, the part of $\mu(E)$ that varies more quickly with $E$.
+
+
+A simple approach for determining $\mu_0(E)$ that works well for most cases
+relies on the Fourier transform to mathematically express the idea that
+$\mu_0(E)$ should match the slowly varying parts of $\mu(E)$ while leaving
+the more quickly varying parts of $\mu(E)$ to give the EXAFS $\chi$.  The
+Fourier transform is critical to EXAFS analysis, and we'll discuss it in
+more detail shortly, but for now the most important thing to know is that
+it gives a weight for each frequency making up a waveform.  For EXAFS, the
+Fourier transform converts $\chi$ from wavenumber $k$ to distance $R$.
+
+
+\begin{Nfig}{width=3.5truein}{chik_kw}
+  \caption{The EXAFS $\chi(k)$ (blue) isolated afer background subtraction.
+    The EXAFS decays quickly with $k$, and weighting by $k^2$ (red)
+    amplifies the oscillations at high $k$.}
+  \label{Fig:RED:chik}
+\end{Nfig}
+
+
+For determining the background $\mu_0(E)$, we want a smoothly varying
+spline function that removes the low-$R$ components of $\chi$, while
+retaining the high-$R$ components.  Conveniently, we have a physically
+meaningful measure of what distinguishes ``low-$R$'' from ``high-$R$'', in
+that we can usually guess the distance to the nearest neighboring atom, and
+therefore assert that there should be no signal in the EXAFS originating
+from atoms at shorter $R$.  As a realistic rule of thumb, it is rare for
+atoms to be closer together than about 1.5 {\AA} -- this is especially true
+for the heavier elements for which EXAFS is usually applied.  Thus, we can
+assert that a spline should be chosen for $\mu_0(E)$ that makes the
+resulting $\chi$ have as little weight between 0 and 1 {\AA} as possible,
+while ignoring the higher $R$ components of $\chi$.  This approach and the
+use of $R_{\rm bkg}$ as the cutoff value for $R$\cite{autobk}, is not
+always perfect, but can be applied easily to any spectra to give a spline
+function that reasonably approximates $\mu_0(E)$ for most spectra with at
+least some physically meaningful basis.  Figure~\ref{Fig:RED:bkg} shows a
+typical background spline found for FeO, using a high-$R$ cutoff $R_{\rm
+  bkg}$ of 1.0 {\AA}.  The resulting $\chi(k)$ is shown in
+Figure~\ref{Fig:RED:chik}.
+
+
+\subsection{EXAFS Fourier Transforms}
+
+As mentioned above, the Fourier transform is central for the understanding
+and modeling of EXAFS data.  Indeed, the initial understanding of the
+phenomena was aided greatly by the ability to perform Fourier transforms on
+measured EXAFS spectra.  While there are certainly ample resources
+describing Fourier transforms, a few important points about the use of
+Fourier transforms for EXAFS will be made here.
+
+The first thing to notice from Figure~\ref{Fig:RED:chir} is that two peaks are
+clearly visible -- these correspond to the Fe-O and Fe-Fe distances in
+FeO.  Thus the Fourier transformed XAFS can be used to isolate and identify
+different coordination spheres around the absorbing Fe atom.  Indeed,
+$|\chi(R)|$ almost looks like a radial distribution function, $g(R)$.
+While EXAFS does depend on the partial pair distribution -- the probability
+of finding an atom at a distance $R$ from an atom of the absorbing species
+-- $\chi(R)$ is certainly not just a pair distribution function.  This can
+be seen from the additional parts to the EXAFS Equation, including the
+non-smooth $k$ dependence of the scattering factor $f(k)$ and phase-shift
+$\delta(k)$.
+
+A very important thing to notice about $\chi(R)$ is that $R$ positions of
+the peaks are shifted to lower $R$ from what $g(R)$ would give.  For FeO,
+the first main peak occurs at 1.6 {\AA}, while the FeO distance in FeO is
+more like 2.14 {\AA}. This is not an error, but is due to the scattering
+phase-shift -- recall that the EXAFS goes as $\sin{[2kR +
+  \delta(k)]}$. This phase-shift is typically -0.5 {\AA} or so, suggesting
+that $\delta(k) \sim -k$, which can be verified as a decent approximation
+from Figure~\ref{Fig:THE:scatt}.
+
+\begin{Nfig}{width=3.5truein}{chir_magreal}
+  \caption{The Fourier Transformed XAFS, $\chi(R)$. The magnitude
+    $|\chi(R)|$ (blue) is the most common way to view the data, but the
+    Fourier transform makes $\chi(R)$ a complex function, with both a real
+    (red) and imaginary part, and the magnitude hides the important
+    oscillations in the complex $\chi(R)$.}
+  \label{Fig:RED:chir}
+\end{Nfig}
+
+The Fourier Transform results in a complex function for $\chi(R)$ even
+though $\chi(k)$ is a strictly real function.  It is common to display only
+the magnitude of $\chi(R)$ as shown on the left of Figure~\ref{Fig:RED:chir},
+but the real and imaginary components contain important information that
+cannot be ignored.  When we get to modeling the XAFS, it will be important
+to keep in mind that $\chi(R)$ has both real and imaginary components.
+
+The standard definition for a Fourier transform of a signal $f(t)$ can be written as
+
+\begin{eqnarray}
+  {\tilde{f}}(\omega) &=& \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty}
+  f(t) e^{-i{\omega}t} dt \\
+  f(t) &=& \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty}
+  {\tilde{f}}(\omega) e^{i{\omega}t} d{\omega} \\
+\end{eqnarray}
+\noindent
+where the symmetric normalization is one of the more common conventions.
+This gives Fourier conjugate variables of $\omega$ and $t$, typically
+representing frequency and time, respectively.
+
+Because the XAFS equation (see Eq.~\ref{Eq:xafs1} for example) has $\chi(k)
+\propto \sin[2kR + \delta(k)] $, the conjugate variables in XAFS are
+generally taken to be $k$ and $2R$.  While the normalization for $\chi(R)$
+and $\chi(k)$ is a matter of convention, we follow the symmetric case above
+(with $t$ replaced by $k$ and $\omega$ replaced by $2R$).
+
+There are a few important modifications to mention for the typical use of
+Fourier transforms in XAFS analysis.  First, an XAFS Fourier transform
+multiplies $\chi(k)$ by a power of $k$, typically $k^2$ or $k^3$, as shown
+in Figure~\ref{Fig:RED:chik}.  This weighting helps compensate for the strong
+decay with $k$ of $\chi(k)$, and allows either emphasizing different
+portions of the spectra, or giving a fairly uniform intensity to the
+oscillations over the $k$ range of the data.  In addition, $\chi(k)$ is
+multiplied by a window function $\Omega(k)$ which acts to smooth the
+resulting Fourier transform and remove ripple and ringing that would result
+from a sudden truncation of $\chi(k)$ at the ends of the data range.
+
+The second important issue is that the continuous Fourier transform
+described above is replaced by a discrete transform.  This better matches
+the discrete sampling of energy and $k$ values of the data, and allows Fast
+Fourier Transform techniques to be used, which greatly improves
+computational performance.  Using a discrete transform does change the
+definitions of the transforms used somewhat. First, the $\chi(k)$ data must
+be interpolated onto a {\emph{uniformly spaced}} set of $k$ values.
+Typically, a spacing of $\delta k = 0.05\,\text{\AA}^{-1}$ is used.
+Second, the array size for $\chi(k)$ used in the Fourier transform should
+be a power of 2, or at least a product of powers of 2, 3, and 5.
+Typically, $N_{\rm fft} = 2048$ points are used.  With the default spacing
+between $k$ points, this would accommodate $\chi(k)$ up to $k = 102.4 \,
+AA^{-1}$.  Of course, real experimental data doesn't extend that far, so
+the array to be transformed is {\emph{zero-padded}} to the end of the
+range.
+
+The spacing of points in $R$ is given as $\delta R = \pi/{(N_{\rm fft}
+  \delta k )}$.  The zero-padding of the extended $k$ range will increase
+the density of points in $\chi(R)$ and result in smoothly interpolating the
+values.  For $N_{\rm fft} = 2048$ and $\delta k = 0.05\, \text{\AA}^{-1}$, the
+spacing in $R$ is approximately $\delta R = 0.0307 \,\text{\AA}$.
+
+For the discrete Fourier transforms with samples of $\chi(k)$ at the points
+$k_n = n \, \delta k$, and samples of $\chi(R)$ at the points $R_m = m \,
+\delta R$, the definitions for the XAFS Fourier transforms become:
+
+\begin{eqnarray*}
+  \tilde\chi(R_m) &=& \frac{i \delta k}{\sqrt{\pi N_{\rm fft}}} \,
+  \sum_{n=1}^{N_{\rm fft}} \chi(k_n) \,
+  \Omega(k_n) \, k_n^w e^{2i\pi n m/N_{\rm fft}} \\
+  \tilde\chi(k_n) &=& \frac{2 i \delta R}{\sqrt{\pi N_{\rm fft}}} \,
+  \sum_{m=1}^{N_{\rm fft}} \tilde\chi(R_m) \,
+  \Omega(R_m) \, e^{-2i\pi n m/N_{\rm fft}} \\
+\end{eqnarray*}
+\noindent
+These normalization conventions preserve the symmetry properties of the Fourier
+Transforms with conjugate variables $k$ and $2R$.
+
+As mentioned above, the window function $\Omega(k)$ will smooth the
+resulting Fourier transform and reduce the amount of ripple that would
+arise from a sharp cut-off $\chi(k)$ at the ends of the data range.  Since
+Fourier transforms are used widely in many fields of engineering and
+science, there is an extensive literature on such window functions, and a
+lot of choices and parameters available for constructing windows.  In
+general terms, $\Omega(k)$ will gradually increases from 0 to 1 over the
+low-$k$ region, and decrease form 1 to 0 over the high-$k$ region, and may
+stay with a value 1 over some central portion.  Several functional forms
+and parameters for these windoes can be used, and are available in most
+EXAFS analysis software.  Many good examples of the shapes, parameters, and
+effects of these on the resulting $\chi(R)$ are available in program
+documentation, and other on-line tutorials.
+
+In many analyses, the inverse Fourier transform is used to select a
+particular $R$ range and transform this back to $k$ space, in effect
+{\emph{filtering}} out most of the spectrum, and leaving only a narrow band
+of $R$ values in the resulting filtered $\chi(k)$.  Such filtering has the
+potential advantage of being able to isolate the EXAFS signal for a single
+shell of physical atoms around the absorbing atom, and was how many of the
+earliest EXAFS analyses were done.  This approach should be used with
+caution since, for all but the simplest of systems, it can be surprisingly
+difficult to effectively isolate the EXAFS contribution from an individual
+scattering atom this way.  It is almost never possible to isolate a second
+neighbor coordination sphere in this way.  For this reason, many modern
+analyses of EXAFS will use a Fourier transform to convert $\chi(k)$ to
+$\chi(R)$, and use $\chi(R)$ for data modeling, not bothering to try to use
+a filter to isolate shells of atoms.

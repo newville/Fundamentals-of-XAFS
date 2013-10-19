@@ -1,0 +1,281 @@
+\section{XAFS Data Modeling}\label{sect:modeling}
+
+In this section, we'll work through an example of structural refinement of
+EXAFS. The FeO data shown and reduced in the previous section will be
+analyzed here.  Of course, we know the expected results for this system,
+but it will serve to demonstrate the principles of XAFS modeling, and allow
+us to comment on a number of features and subtleties in data modeling.
+
+FeO has a simple rock salt structure, with Fe surrounded by 6 O, with
+octahedral symmetry, and then 12 Fe atoms in the next shell.  Starting with
+this simple structure, we can calculate scattering amplitudes $f(k)$ and
+phase-shifts, $\delta(k)$ theoretically. A complete description of this
+calculation is beyond the scope of this treatment, but a few details will be
+given below.
+
+Once we have these theoretical scattering factors, we can use them in the
+EXAFS equation to refine structural parameters from our data.  That is,
+we'll use the calculated functions $f(k)$ and $\delta(k)$ (and also
+$\lambda(k)$) in the EXAFS equation to predict the and modify the
+structural parameters $R$, $N$, and $\sigma^2$ from
+Eq.~\ref{Eq:xafs_final}, and also allow $E_0$ (that is, the energy for
+which $k=0$) to change until we get the best-fit to the $\chi(k)$ of the
+data.  Because of the availability of the Fourier transform, we actually
+have a choice of doing the refinement with the measured $\chi(k)$ or with
+the Fourier transformed data.  Because working in $R$-space allows us to
+selectively ignore higher coordination shells, using $R$-space for the
+fitting has several advantages and we will use it in the examples here.
+When analyzing the data this way, the full complex XAFS $\chi(R)$, not just
+the magnitude $|\chi(R)|$, must be used.  The examples shown here are done
+with the {\feff}\cite{feff6} program to construct the theoretical factors,
+and the {\ifeffit}\cite{ifeffit} package to do the analysis.  Some details
+of these particular programs will be given, but similar results would be
+obtained with any of several other EXAFS analysis tools.
+
+\subsection{Running and Using {\feff} for EXAFS calculations}
+
+In order to calculate the $f(k)$ and $\delta(k)$ needed for the analysis,
+the {\feff} program\cite{feff6} starts with a cluster of atoms, builds
+atomic potentials from this, and simulates a photo-electron with a
+particular energy being emitted by a particular absorbing atom and
+propagating along a set of scattering paths\cite{feffit}.  {\feff}
+represents a substantial work of modern theoretical condensed matter
+physics, and includes many conceptually subtle but quantitatively important
+effects, including include the finite size of the scattering atoms, and
+many-body effects due to the fact that electrons are indistinguishable
+particles that must satisfy Pauli's exclusion
+principle\cite{RehrAlbersRMP2000}.  These are beyond the scope of this
+work, but we mention them here because they have important consequences for
+how we use {\feff}.
+
+We do not, as may have been inferred from some of the earlier discussion,
+use {\feff} to calculate $f(k)$ and $\delta(k)$ for the scattering of, say,
+an oxygen atom, and use that for all scattering of oxygen.  Instead we use
+{\feff} to calculate the EXAFS for a particular path, say Fe-O-Fe taken
+from a realistic cluster of atoms.  This includes the rather complex
+propagation of the photo-electron out of the Fe atom, through the sea of
+electrons in a iron oxide material, scattering from an oxygen atom with
+finite size, and propagating back to the absorbing Fe atom.  As a result of
+this, we make rough but realistic simulations of the EXAFS with {\feff} for
+a particular set of paths, and then {\emph{refine}} the path lengths and
+coordination numbers for those paths.
+
+Starting with a cluster of atoms (which does not need to be crystalline, but
+this is often easy to use), {\feff} determines the important scattering
+paths, and writes out a separate file for the scattering contributions to
+from each scattering path.  Conveniently (and though it does not calculate
+these factors individually), it breaks up the results in a way that can be
+put into the standard form of the EXAFS equation, even for
+multiple-scattering paths.  This allows analysis procedures to easily
+refine distances, apply multiplicative factors for coordination numbers and
+$S_0^2$,  and apply disorder terms.  Because the outputs are of a uniform
+format, we can readily mix outputs from different runs of the programs,
+which is important for modeling complex structures with multiple
+coordination environments for the absorbing atom.
+
+\subsection{First-shell fitting}
+
+For an example of modeling EXAFS, we start with FeO, a transition metal
+oxide with the particularly simple rock-salt structure, while still being
+representative of many systems found in nature and studied by EXAFS, in
+that the first shell is oxygen, and the second shell is a heavier metal
+element.  We begin with modeling the first Fe-O shell of FeO, take a brief
+diversion into  the meaning and interpretation of the statistical results
+of the modeling, and then continue on to analyze the second shell.
+
+\begin{Nfig}{width=3.5truein}{feo_1shell_chirmag}
+  \caption{First shell fit to the EXAFS of FeO, showing the magnitude of
+    the Fourier transform of the EXAFS,  $|\chi(R)|$, for data (blue) and
+    best fit model (red).}
+  \label{Fig:FIT:feo1a}
+\end{Nfig}
+
+We start with the crystalline structure and generate the input format for
+{\feff}, run {\feff}, and gather the outputs.  For the rock-salt structure
+of FeO with six Fe-O near-neighbors in octahedral coordination, and twelve
+Fe-Fe second neighbors, there will be one file for the six Fe-O scattering
+paths, and one file for the twelve Fe-Fe scattering paths.  To model the
+first shell EXAFS, we use the simulation for the Fe-O scattering path, and
+refine the values for $NS_0^2$, $R$, and $\sigma^2$.  We set $S_0^2$ to
+0.75.  We also usually need to (and in this example, will) refine a value
+for $E_0$, the threshold defining where $k$ is 0.  This is usually
+necessary because the choice of $E_0$ from the maximum of the first
+derivative of the spectra is {\emph{ad hoc}}, and because the choice of
+energy threshold in the calculation is somewhat crude.  While the refined
+value for $E_0$ may be small, it is strongly correlated with $R$, so that
+getting both its value and uncertainty is important.
+
+\begin{table}[tbh]
+  \caption{Best values and uncertainties (in parentheses) for the
+    refined first shell parameters for FeO.  The refinement fit the
+    components of $\chi(R)$ between $R=[0.9, 2.0]\,\text{\AA}$ after a Fourier
+    transform using $k=[2.5, 13.5]\,\text{\AA}^{-1}$, a $k$-weight of 2, and a
+    Hanning window function.  $S_0^2$ was fixed to 0.75.}
+  \label{TABLE:FIT:feo1}
+  \begin{center}
+    \begin{tabular}{cccccc}
+    Shell & ${N}$ & ${R}\, (\text{\AA})$ & ${\sigma^2}\, ({\text{\AA}^2})$ & ${\Delta E_0}$ (eV) \\
+    \hline    \noalign{\smallskip}
+    Fe-O  &  5.5(0.5) & 2.10(0.01) & 0.015(.002) & -3.2(1.0) \\
+    \noalign{\smallskip}
+    \hline
+  \end{tabular}
+\end{center}
+\end{table}
+
+The results of the initial refinement is shown in Figure~\ref{Fig:FIT:feo1a},
+with best values and estimated uncertainties for the refined parameters
+given in Table~\ref{TABLE:FIT:feo1}.  These values are not perfect for
+crystalline FeO, especially in that the distance is contracted from the
+expected value of $2.14\, \text{\AA}$, but are reasonably close for a first
+analysis.
+
+
+It is instructive to look at this refinement more closely, and discuss a
+few of the details.  The refinement was done on the data in $R$-space,
+after a Fourier transform.  This weighted $\chi(k)$ by $k^2$, and
+multiplied it by a Hanning window function with a range between $k=[2.5,
+13.5]\,\text{\AA}^{-1}$, with a $dk$ parameter of $2 \,\text{\AA}^{-1}$.  The
+refinement used the real and imaginary components of $\chi(R)$ between
+$R=[0.9, 2.0]\,\text{\AA}$.  The $k^2\chi(k)$ for the data and best-fit model,
+as well as the window function are shown on the left side of Figure~\ref{Fig:FIT:feo1b}.
+
+From this and Figure~\ref{Fig:FIT:feo1a}, it is evident that the higher frequency
+components (that is, from the second shell of Fe-Fe) dominate $k^2\chi(k$).
+This is a useful reminder of the power of the Fourier transform in XAFS
+analysis: it allows us to concentrate on one shell at a time and ignore the
+others, even if they have larger overall amplitude.
+
+\begin{Sfig}{width=3truein}{feo_1shell_chik}{feo_1shell_chirreal}
+\caption{EXAFS $k^2\chi(k)$ (left) for data (blue) and best-fit model (red)
+  for the first shell of FeO, and the window function, $\Omega(k)$, used
+  for the Fourier transform to $\chi(R)$.  While the red curve shows the
+  best-fit to the 1st shell of the EXAFS, this is not obvious from looking
+  at $k^2\chi(k)$.  The complex Fourier transform EXAFS $\chi(R)$ (right)
+  for the real part (solid) and magnitude (dashed) of the data (blue) and
+  best-fit model (red) shows
+  the model matches the data very well for the first shell.}
+  \label{Fig:FIT:feo1b}
+\end{Sfig}
+
+The fits done here use standard definitions of fit statistics, including
+the chi-square or $\chi^2$ statistic (note the use of $\chi^2$ from
+standard statistical treatments -- don't confuse with the EXAFS $\chi$!)
+that is minimized in a least-squares fit is defined as
+\begin{equation}
+  \chi^2  =  \sum_i^{N_{\rm data}} \frac{[\chi_i^{\rm data} - \chi_i^{\rm  model}({x})]^2}{\epsilon^2}
+  \label{Eq:FIT:chisquare}
+\end{equation}
+\noindent where $\chi_i^{\rm data} $ is our experimental data, $\chi_i^{\rm
+  model}({x})$ is the model which depends on the variable fitting
+parameters $x$, $\epsilon$ is uncertainty in the data, and $N_{\rm data}$
+is the number of points being fit.  As the modeling is typically done after
+a Fourier transform, the $\chi_i^{\rm data} $ is our experimental data
+after a Fourier transform, and includes both real and imaginary components.
+
+Because of the limited range of data in $k$ and $R$, EXAFS is limited in
+the number of parameters that can be fit, with the number of independent
+measurements available from an EXAFS spectrum being given by
+\begin{equation}
+  N_{\rm ind} \approx \frac{2 \Delta k \Delta R}{\pi} + 1
+  \label{Eq:FIT:nidp}
+\end{equation}
+\noindent
+where $\Delta k$ and $\Delta R$ are the range of useful data in $k$ and
+$R$.  This value should be used as an upper limit on the number of
+parameters that can be sensibly determined from EXAFS.  Of course, a fit
+will also need to estimating uncertainties and correlations between
+variables.  This can be readily done with standard statistical methods that
+are fast and generally reliable.  The first shell fit to Fe-O had a noise
+level in the data of $\epsilon_R \approx 5\times10^{-3}$ and $\epsilon_k
+\approx 2\times10^{-4}$, which is a typical noise level for experimental
+$\chi(k)$ data.  Values for other statistics were $N_{\rm ind} \approx 8.7$
+and $\chi^2 \approx 243$.
+
+
+\subsection{Second-shell fitting}
+
+\begin{Sfig}{width=3truein}{feo_2shell_chirmag}{feo_2shell_chirreal}
+\caption{EXAFS $|\chi(R)|$ (left) and ${\rm Re}[\chi(R)]$ (right)
+  for FeO (blue) and best-fit model (red) for the
+  first two shells around Fe, including Fe-O and Fe-Feo scattering paths.}
+  \label{Fig:FIT:feo2a}
+\end{Sfig}
+
+\begin{Sfig}{width=3truein}{feo_2shell_chik}{feo_2shell_chirpaths}
+  \caption{Contributions of the first and second shell to the total model
+    fit to the Feo EXAFS. On the left, the fit (red) matches the data
+    (blue) much better than in Figure~\ref{Fig:FIT:feo1b}.  Note that,
+    compared to the Fe-O contribution the Fe-Fe contribution has a shorter
+    period corresponding to longer interatomic distance, and has magnitude
+    centered at higher $k$, as predicted by the $f(k)$ function shown in
+    Figure~\ref{Fig:THE:scatt}.   On the right, the  $|\chi(R)|$  of the
+    contributions from the two shells is shown.   Though there is a sharp
+    dip a 2 {\AA} between  peaks for the two shells, there is substantial
+    leakage from one shell to another.}
+  \label{Fig:FIT:feo2b}
+\end{Sfig}
+
+To include the second shell in the model for the FeO EXAFS, we simply add
+the path for Fe-Fe scattering to the sum in the EXAFS equation.  We will
+add variables for $R$, $N$, and $\sigma^2$ for the Fe-Fe shell to those for
+the Fe-O scattering path.  We'll use the same value for $E_0$ for both the
+Fe-O and Fe-Fe path, and keep all parameters the same as for the fit above,
+except that we'll extend the $R$ range to be $R=[0.9, 3.1]\,\text{\AA}$.
+This will increase $N_{\rm ind}$ to $\approx 15.7$, while we've increased
+the number of variables to 7.
+
+\begin{table}[bh]
+  \caption{Best values and uncertainties (in parentheses) for the
+    refined first (Fe-O) and second (Fe-Fe) shells  for FeO.  The refinement fit the
+    components of $\chi(R)$ between $R=[0.9, 3.0]\,\text{\AA}$ with all other
+    parameters as in Table~\ref{TABLE:FIT:feo1}.}
+  \label{TABLE:FIT:feo2}
+  \begin{center}
+    \begin{tabular}{cccccc}
+    Shell & ${N}$ & ${R}\, (\text{\AA})$ & $\sigma^2\, (\text{\AA}^2)$ & ${\Delta E_0}$ (eV) \\
+    \hline    \noalign{\smallskip}
+    Fe-O   &   5.3(0.5)  &   2.11(0.01) & 0.013(.002) & -1.2(0.5)\\
+    Fe-Fe  &  13.4(1.3) & 3.08(0.01) & 0.015(.001) &  -1.2(0.5)\\
+    \noalign{\smallskip}
+    \hline
+  \end{tabular}
+\end{center}
+\end{table}
+
+
+The fit is shown in Figure~\ref{Fig:FIT:feo2a} and values and uncertainties
+for the fitted variables are given in Table~\ref{TABLE:FIT:feo2}.  The fit
+gave fit statistics of $\chi^2 \approx 837$.  The structural values for
+distances and coordination number are consistent with the known crystal
+structure of FeO, though the Fe-O distance is a bit shorter than expected,
+and the Fe-Fe is a bit longer than expected, both suggesting that there may
+be some contamination of a ferric iron phase in the sample.  The fits are
+shown in Figure~\ref{Fig:FIT:feo2a}, and individual contributions to the total
+best-fit spectrum are shown in both $k$- and $R$-space in
+Figure~\ref{Fig:FIT:feo2b}.
+
+% The basic formalism for modeling EXAFS data has been given, based on the
+% Path expansion, theoretical calculations of the contributions for these
+% paths, the Fourier transform, and a statistical understanding of the
+% information present in a real EXAFS spectrum.  We have illustrated a simple
+% approach to refining a structural model using EXAFS data, and used
+% statistical methods to compare two different candidate models.  Finally we
+% have outlined the route forward to building models for more complex EXAFS
+% data.
+
+% Two distinct and essential challenges exist for EXAFS analysis.  First, the
+% complexity of the theoretical calculations for photo-electron scattering in
+% make it difficult to get theoretical scattering factors $f(k)$ and
+% $\delta(k)$ that can match the accuracy of measured EXAFS data.  By itself,
+% this has proven to not be a serious problem, as the EXAFS literature is
+% full of examples showing the accuracy of the results from EXAFS despite the
+% imperfect theoretical calculations.  Second, the limited information
+% contained in a finite EXAFS spectrum coupled with the number of scattering
+% paths needed to model real systems makes building and testing realistic
+% models for complex systems challenging.  Progress in analytics tools for
+% EXAFS continues to make the building and testing of such models easier and
+% more robust, but it still requires a fair amount of expertise and care.
+
+
+

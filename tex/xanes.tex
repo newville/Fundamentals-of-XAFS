@@ -1,0 +1,119 @@
+\section{Interpretation of XANES}
+
+Finally, we return to the XANES portion of the spectrum. Since XANES is a
+much larger signal than EXAFS, XANES can be done at lower concentrations,
+and at less-than-perfect sample conditions. The interpretation of XANES is
+complicated by the fact that there is not a simple analytic (or even
+physical) description of XANES. The main difficulty is that the EXAFS
+equation breaks down at low-$k$, due to the 1/$k$ term and the increase in
+the mean-free-path at very low-$k$. Still, there is much chemical
+information from the XANES region, notably formal valence (very difficult
+to experimentally determine in a nondestructive way) and coordination
+environment. Figure~\ref{Fig:XANES:fe} shows the XANES spectra for several
+iron compounds. Clearly, the edge position and shape is sensitive to formal
+valence state, ligand type, and coordination environment.  If nothing else,
+XANES can be used as a fingerprint to identify phases.
+
+\begin{Nfig}{width=3.5truein}{fe_models_xanes}
+  \caption{Fe $K$-edge XANES of Fe metal and several Fe compounds.}
+  \label{Fig:XANES:fe}
+\end{Nfig}
+
+Even though there is not a useful ``XANES Equation'', we can go back to the
+picture of section~\ref{Sect:theory}, and especially the concept of
+available state for the photo-electron.  For $K$ shell absorption, where
+the core-level is a $1s$ state, the photo-electron has to end up in a $p$
+state (in general, the photo-electric effect changes the orbital quantum
+number $l$ to $l\pm 1$).  Thus, even if there are available states with the
+right energy, there might be no $1s$ absorption if there are no available
+$p$ states.  For EXAFS, where the energies are well-above the threshold
+energy, this is rarely an important concern.  For XANES, on the other hand,
+this can play a very important role.  Transition metal oxides, for example,
+usually have many unfilled $3d$ electrons near the Fermi level, and a
+filled $3p$ band.  There are empty $2p$ electron states from the oxygen,
+but these are too far away to appreciably over-lap with the metal $1s$
+band.  Therefore, the metal $3d$ electrons do not normally participate in
+the absorption process unless there is a strong hybridization of the O $2p$
+and metal $3d$ levels.  The XANES spectra are then especially sensitive to
+such hybridization.
+
+The situation can be even more dramatic -- as Figure~\ref{Fig:XANES:cr} shows
+for $\rm Cr^{3+}$ and $\rm Cr^{6+}$ oxides. For ions with unfilled
+$d$-electrons bands, the pd hybridization is dramatically altered depending on
+the coordination environment, which much stronger hybridization for
+tetrahedral coordination than for octahedral coordination. Since the
+photo-electron created due to a 1s core level (a $K$-shell) must have $p$-like
+symmetry, the amount of overlap with the $d$-electron orbitals near the Fermi
+level can dramatically alter the number of available states to the
+$p$-electron, causing significant changes in the XANES spectrum. For the case
+of Cr$^{\mathrm{6+}}$ pd hybridization results in a highly localized
+molecular orbital state, giving a well-defined peak below the main
+absorption edge, indicating a transition to a bound electronic state.
+
+\begin{Nfig}{width=3.5truein}{cr_xanes}
+  \caption{Cr $K$-edge XANES for $\rm Cr^{3+}$ and $\rm Cr^{6+}$
+    oxides. Here the strong pre-edge peak in the $Cr^{6+}$ spectrum is a
+    consequence of the tetrahedral symmetry causing considerable overdue of
+    the empty $d$-electron orbitals with the $p$-states that the
+    photo-electron must fill.}
+  \label{Fig:XANES:cr}
+\end{Nfig}
+
+
+Though the lack of a simple analytic expression complicates XANES
+interpretation, XANES can be described qualitatively (and nearly
+quantitatively) in terms of
+
+\begin{description}
+\item[Coordination chemistry:] regular, distorted octahedral, tetrahedral
+  coordination, as for Cr.
+
+\item[Molecular orbitals:] $p-d$ orbital hybridization, crystal-field
+  theory, and so on.
+
+\item[Band-structure:] the density of available electronic states.
+
+\item[Multiple-scattering:] multiple bounces of the photo-electron.
+\end{description}
+
+These chemical and physical interpretations are all related, of course.  As
+discussed in the introduction, it all boils down to determining which
+electronic states the photo-electron can fill.
+
+An important and common application of XANES is to use the shift of the
+edge position to determine the valence state. Figure~\ref{Fig:XANES:feo} shows
+the valence dependence of Fe metal and oxides of $\rm Fe^{2+}$ and $\rm
+Fe^{3+}$ (and a mixture of these two). With good model spectra, $\rm
+Fe^{3+}/Fe^{2+}$ ratios can be determined with very good precision and
+reliability. Similar ratios can be made for many other ions. The heights
+and positions of pre-edge peaks can also be reliably used to empirically
+determine oxidation states and coordination chemistry. These approaches of
+assigning formal valence state based on edge features and as a
+fingerprinting technique make XANES somewhat easier to crudely interpret
+than EXAFS, even if a complete physical understanding of all spectral
+features is not available.
+
+For many systems, XANES analysis based on linear combinations of known
+spectra from ``model compounds'' is sufficient to tell ratios
+of valence states and/or phases. More sophisticated linear algebra
+techniques such as Principle Component Analysis and Factor Analysis
+can (and are) also be applied to XANES spectra.
+
+
+\begin{Nfig}{width=3.5truein}{fe_oxides_xanes}
+  \caption{Fe $K$-edge XANES of Fe metal and several Fe oxides, showing a clear
+    relationship between edge position and formal valence state.  In addition,
+    the shapes, positions, and intensities of pre-edge peaks can often be
+    correlated to oxidation state.}
+  \label{Fig:XANES:feo}
+\end{Nfig}
+
+XANES is considerably harder to fully interpret than EXAFS. Precise and
+accurate calculations of all spectral features are still difficult,
+time-consuming, and not always reliable. This situation is improving, but
+at this point, quantitative analyses of XANES using {\emph{ab initio}}
+calculations are very rare. Still, such calculations can help explain which
+bonding orbitals and/or structural characteristics give rise to certain
+spectral features, but are beyond the scope of this treatment, and will
+have to wait for another day.
+

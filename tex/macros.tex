@@ -1,0 +1,114 @@
+
+\usepackage[pdftex]{color}
+\definecolor{color0}{rgb}{0.00,0.00,0.70}
+\definecolor{color1}{rgb}{0.90,0.00,0.00}
+\definecolor{color2}{rgb}{0.00,0.00,0.70}
+\usepackage[pdftex,colorlinks,hyperindex,urlcolor=color0,%
+linkcolor=color1,citecolor=color2]{hyperref}
+
+\setlength{\oddsidemargin}{0.25in}
+\setlength{\evensidemargin}{-0.25in}
+\setlength{\topmargin}{-0.25in}
+\setlength{\headsep}{0.375in}
+\setlength{\textheight}{9.00in}
+\setlength{\textwidth}{6.00in}
+
+
+\renewcommand{\topfraction}{0.90}
+\setcounter{topnumber}{1}
+
+\newenvironment{Nfig}[2]%
+{\begin{figure}[tbh]\begin{center}\begin{minipage}{5.25truein}\begin{center}%%
+          {\includegraphics*[#1]{../figs/#2}}}%%
+{\end{center}\end{minipage}\end{center}\end{figure}}%%
+
+\newenvironment{N2fig}[3]%
+{\begin{figure}[tbh]\begin{center}\begin{minipage}{5.25truein}\begin{center}%%
+          {\includegraphics*[#1]{../figs/#2}}\hspace{0.5mm}%
+          {\includegraphics*[#1]{../figs/#3}}}%%
+{\end{center}\end{minipage}\end{center}\end{figure}}%%
+
+\newenvironment{Sfig}[3]%
+{\begin{figure}[tbh]\begin{center}%
+      {\includegraphics*[#1]{../figs/#2}\hspace{-1mm}}%
+      {\includegraphics*[#1]{../figs/#3}}}%
+{\end{center}\end{figure}}%
+
+ \pagestyle{fancy}\fancyhf{}
+ \addtolength{\headheight}{2pt}
+ \renewcommand{\headrulewidth}{0.7pt}
+ \rhead{\slshape\thepage}\lhead{\bfseries\leftmark}
+ \cfoot{}
+
+
+ \definecolor{LightGrey}{gray}{0.675}
+ \definecolor{HalfGrey}{gray}{0.5}
+ \newcommand{\greyline}{{\color{LightGrey}{\rule{\linewidth}{0.75mm}}\par}}
+ \newcommand{\ThickGreyLine}{{\color{HalfGrey}{\rule{\linewidth}{5pt}}\par}}
+
+ \newcommand{\program}[1]{{{\scshape{#1}}}}
+ \newcommand{\uwxafs}{\program{uwxafs3.0}}
+ \newcommand{\feff}{\program{feff}}
+ \newcommand{\feffit}{\program{feffit}}
+ \newcommand{\autobk}{\program{autobk}}
+ \newcommand{\atoms}{\program{atoms}}
+ \newcommand{\ifeffit}{\program{ifeffit}}
+
+\newcommand{\cmnd}[1]{{\texttt{#1()}}}
+%external file name
+\newcommand{\file}[1]{{{\slshape\ttfamily{#1}}}}
+  \newcommand{\feffndat}{\file{feffnnnn.dat}}
+  \newcommand{\feffbin}{\file{feff.bin}}
+  \newcommand{\autobkinp}{\file{autobk.inp}}
+  \newcommand{\feffitlog}{\file{feffit.log}}
+%math constructions
+  \newcommand{\Eo}{{\ensuremath{E_0}}}
+  \newcommand{\muE}{{\ensuremath{\mu(E)}}}
+  \newcommand{\Del}{{\ensuremath{\Delta \mu_0(E_0)}}}
+  \newcommand{\bkg}{{\ensuremath{\mu_{0}(E)}}}
+  \newcommand{\bkgk}{{\ensuremath{\mu_{0}(k)}}}
+  \newcommand{\CHI}{{\ensuremath{\chi}}}
+  \newcommand{\chiE}{{\ensuremath{\chi(E)}}}
+  \newcommand{\chik}{{\ensuremath{\chi(k)}}}
+  \newcommand{\chir}{{\ensuremath{\tilde\chi(R)}}}
+  \newcommand{\chiq}{{\ensuremath{\tilde\chi(k)}}}
+  \newcommand{\chisqr}{{\ensuremath{\chi^2}}}
+  \newcommand{\redchi}{{\ensuremath{\chi^2_{\nu}}}}
+
+  \newcommand{\Rmax}{{\ensuremath{R_{\rm max}}}  }
+  \newcommand{\kmin}{{\ensuremath{k_{\rm min}}}  }
+  \newcommand{\kmax}{{\ensuremath{k_{\rm max}}}  }
+  \newcommand{\Rbkg}{{\ensuremath{R_{\rm bkg}}}  }
+  \newcommand{\Nbkg}{{\ensuremath{N_{\rm bkg}}}  }
+  \newcommand{\RIst}{{\ensuremath{R_{\rm 1st}}}  }
+
+  \newcommand{\fp}{\ensuremath{{f'(E)}}}
+  \newcommand{\fpp}{\ensuremath{{f''(E)}}}
+  \newcommand{\angst}{\ensuremath{{\rm\,\AA}}}
+  \newcommand{\iangst}{\ensuremath{{\rm\,\AA^{-1}}}}
+  \newcommand{\ie}{{\emph{i.e.}}}
+  \newcommand{\eg}{{\emph{e.g.}}}
+  \newcommand{\etal}{{\emph{et al.}}}
+  \newcommand{\abinitio}{{\emph{ab initio}}}
+
+  \def\delim{\ensuremath{\langle {\rm delimiter} \rangle}}
+  \def\rmand{{\rm and\ }}      \def\rmor{{\rm or\ }}
+  \def\caret{{{\^\ \kern-0.4em}}}
+
+
+\newcommand{\Color}[2]{{\textcolor{#1}{#2}}}
+\newcommand{\Red}[1]{{\Color{black}{#1}}}
+\newcommand{\Blue}[1]{{\Color{black}{#1}}}
+
+
+\newcommand{\RRed}[1]{{\Color{RRed}{#1}}}
+\newcommand{\BrightBlue}[1]{{\Color{BrightBlue}{#1}}}
+\newcommand{\Black}[1]{{\Color{black}{#1}}}
+\newcommand{\RedM}[1]{{\Color{red}{\mbf{#1}}}}
+\newcommand{\BlueM}[1]{{\Color{blue}{\mbf{#1}}}}
+\newcommand{\BlackM}[1]{{\Color{black}{\mbf{#1}}}}
+
+\newcommand{\RedEmph}[1]{{\Color{BrightRed}{\emph{#1}}}}
+\newcommand{\RedSl}[1]{{\Color{BrightRed}{\slshape{#1}}}}
+\newcommand{\BlueSl}[1]{{\Color{BrightBlue}{\slshape{#1}}}}
+\newcommand{\BlueEmph}[1]{{\Color{BrightBlue}{\emph{#1}}}}

@@ -1,0 +1,243 @@
+\section{X-Ray Absorption and Fluorescence}
+
+X-rays are light with energies ranging from about 500 eV to 500 keV, or
+wavelengths from about 25{\AA} to 0.25{\AA}.  In this energy regime, light
+is absorbed by all matter through the \emph{photo-electric effect}, in
+which an X-ray photon is absorbed by an electron in a tightly bound quantum
+core level (such as the 1s or 2p level) of an atom, as shown in
+Figure~\ref{Fig:XAS:photoelectric}.
+
+In order for a particular electronic core level to absorb the X-ray, its
+binding energy must be less than the energy of the incident X-ray.  If the
+binding energy is greater than the energy of the X-ray, the bound electron
+will not be perturbed from the well-defined quantum state and will not
+absorb the X-ray.  If the binding energy of the electron is less than that
+of the X-ray, the electron may be removed from its quantum level.  In this
+case, the X-ray is destroyed (that is, absorbed) and any energy in excess
+of the electronic binding energy is given to a photo-electron that is
+ejected from the atom.  While this process has been well understood for a
+century, the full implications of this process when applied to molecules,
+liquids, and solids will give rise to XAFS.
+
+\begin{Sfig}{width=3.0truein}{photoelectric}{xray_emission}
+  \caption{Right: The photoelectric effect, in which an X-ray is absorbed
+    by a atom and a core-level electron is promoted out of the atom,
+    creating a photo-electron and leaving behind a hole in the core
+    electron level.  Left: X-ray and Auger emission, in which the excited
+    atomic after an absorption event will decay.  For either X-ray
+    fluorescence or the Auger effect, an electron is moved from a less
+    tightly bound orbital to the empty core level, and the energy
+    difference between these levels is given to the emitted particle (X-ray
+    or electron).  The emission energies have precise values that are
+    characteristic for each atom, and can be used to identify the absorbing
+    atom.  Since the probability of emission is directly proportional to
+    the absorption probability, either X-ray fluorescence of Auger emission
+    can be used to measure EXAFS and XANES.}
+  \label{Fig:XAS:photoelectric}
+\end{Sfig}
+
+When discussing X-ray absorption, we are primarily concerned with the
+\emph{absorption coefficient}, $\mu$ which gives the probability that
+X-rays will be absorbed according to the Beer-Lambert Law:
+\begin{equation}
+  I=I_{0}e^{-{\mu}t}
+\end{equation}
+\noindent
+where $I_{0}$ is the X-ray intensity incident on a sample, $t$ is the
+sample thickness, and $I$ is the intensity transmitted through the sample,
+as shown in Figure~\ref{Fig:XAS:BeersLaw}. For X-rays of sufficiently low
+intensity, the X-ray intensity is proportional to the number of X-ray
+photons.
+
+\begin{Nfig}{width=2.0truein}{beer_lambert}
+  \caption{X-ray absorption and the Beer-Lambert law:  An incident beam of
+    monochromatic X-rays of intensity $I_0$ passes through a sample of
+    thickness $t$, and the transmitted beam has intensity $I$.  The
+    absorption coefficient $\mu$ is given by the Beer-Lambert
+    law: $I = I_0 e^{-{\mu}t}$.}
+  \label{Fig:XAS:BeersLaw}
+\end{Nfig}
+
+At most X-ray energies, the absorption coefficient $\mu $ is a smooth
+function of energy, with a value that depends on the sample density $\rho$,
+the atomic number Z, atomic mass $A$, and the X-ray energy $E$ roughly as
+\begin{equation}
+  \mu  \approx {\frac{{\rho}Z^4}{AE^3}}.
+\end{equation}
+\noindent
+The strong dependence of $\mu$ on both $Z$ and $E$ is a fundamental
+property of X-rays, and is the key to why X-ray absorption is useful for
+medical and other imaging techniques such as X-ray computed tomography.
+Figure~\ref{Fig:XAS:abscoeff} shows the energy-dependence of $\mu/\rho$ for O,
+Fe, Cd, and Pb in the normal X-ray regime of 1 to 100 keV.  The values span
+several orders of magnitude, so that good contrast between different
+materials can be achieved for nearly any sample thickness and
+concentrations by adjusting the X-ray energy.
+
+\begin{Nfig}{width=3.5truein}{abscoeff}
+  \caption{The absorption cross-section $\mu/\rho$ for several elements
+    over the X-ray energy range of 1 to 100 keV.  Notice that there are at
+    least 5 orders of magnitude in variation in $\mu/\rho$, and that in
+    addition to the strong energy dependence, there are also sharp jumps in
+    cross-section corresponding to the core-level binding energies of the
+    atoms.}
+  \label{Fig:XAS:abscoeff}
+\end{Nfig}
+
+
+When the incident X-ray has an energy equal to that of the binding energy
+of a core-level electron, there is a sharp rise in absorption: an
+\emph{absorption edge} corresponding to the promotion of the core level to
+the continuum. For XAFS, we are concerned with the energy dependence of
+$\mu$ at energies near and just above these absorption edges.  An XAFS
+measurement is then simply a measure of the energy dependence of $\mu $ at
+and above the binding energy of a known core level of a known atomic
+species.  Since every atom has core-level electrons with well-defined
+binding energies, we can select the element to probe by tuning the X-ray
+energy to an appropriate absorption edge.  These absorption edge energies
+are well-known (usually to within a tenth of percent), and tabulated.  The
+edge energies vary with atomic number approximately as $Z^2$, and both $K$
+and $L$ levels can be used in the hard X-ray regime (in addition, $M$ edges
+can be for heavy elements in the soft X-ray regime), which allows most
+elements to be probed by XAFS with X-ray energies between 4 and 35 keV.
+Because the element of interest is
+chosen in the experiment, XAFS is \emph{element-specific}.
+
+Following an absorption event, the atom is said to be in an \emph{excited
+<  state}, with one of the core electron levels left empty (a so-called
+\emph{core hole}), and a \emph{photo-electron} emitted from the atom.  The
+excited state will eventually decay (typically within a few femtoseconds)
+of the absorption event. Though this decay does not affect the X-ray
+absorption process, it is important for the discussion below.
+
+There are two main mechanisms for the decay of the excited atomic state
+following an X-ray absorption event, as shown in the right panel of
+Figure~\ref{Fig:XAS:photoelectric}.  The first of these is X-ray
+fluorescence , in which a higher energy electron core-level electron fills
+the deeper core hole, ejecting an X-ray of well-defined energy.  The
+fluorescence energies emitted in this way are characteristic of the atom,
+and can be used to identify the atoms in a system, and to quantify their
+concentrations. For example, an $L$ shell electron dropping into the $K$
+level gives the $K_{\alpha }$ fluorescence line.
+
+The second process for de-excitation of the core hole is the Auger Effect,
+in which an electron drops from a higher electron level and a second
+electron is emitted into the continuum (and possibly even out of the
+sample).  In either case, a cascade of subsequent emissions will fill the
+newly formed, less tightly bound hole until the atom is fully relaxed.
+Either of these processes can be used to measure the absorption coefficient
+$\mu$, though the use of fluorescence is somewhat more common.  In the hard
+X-ray regime ($> 10\rm\,keV$), X-ray fluorescence is more likely to occur
+than Auger emission, but for lower energy X-ray absorption, Auger processes
+dominate.
+
+XAFS can be measured by directly measure the intensity of X-rays
+transmitted through a sample, shown in Figure~\ref{Fig:XAS:BeersLaw}, or by
+monitoring a secondary emission such as x-ray fluorescence, or Auger
+electrons, or in some cases even by monitoring visible light emitted by a
+sample as part of the cascade of decay events.  We will return to the
+details of the measurements later. For now it is enough to say that we can
+measure the energy dependence of the X-ray absorption coefficient $\mu (E)$
+either in transmission as
+\begin{equation}
+  \mu (E)=\ln (I_{0}/I)
+\end{equation}
+\noindent or in X-ray fluorescence (or Auger emission) as
+\begin{equation}
+  \mu(E) \propto I_{f}/I_{0}
+\end{equation}
+\noindent where $I_{f}$ is the monitored intensity of a fluorescence line
+(or electron emission) associated with the absorption process.
+
+A typical XAFS spectrum (measured in the transmission geometry for a powder
+of FeO) is shown in Figure~\ref{Fig:XAS:mu}. The sharp rise in $\mu(E)$ due to
+the Fe 1s electron level (near 7112 eV) is clearly visible in the spectrum,
+as are the oscillations in $\mu(E)$ that continue well past the edge.  As
+mentioned in the introduction, the XAFS is generally thought of in two
+distinct portions: the near-edge spectra (XANES) -- typically within 30 eV
+of the main absorption edge, and the extended fine-structure (EXAFS), which
+can continue for a few keV past the edge.  As we shall, the basic physical
+description of these two regimes is the same, but some important
+approximations and limits allow us to interpret the extended portion of the
+spectrum in a simpler and more quantitative way than is currently possible
+for the near-edge spectra.
+
+\begin{Nfig}{width=3.5truein}{mu_xanes_exafs}
+  \caption{XAFS $\mu(E)$ for the Fe $K$ edge of FeO, showing
+    the near-edge (XANES) region and
+    the extended fine structure (EXAFS).}
+  \label{Fig:XAS:mu}
+\end{Nfig}
+
+For the EXAFS, we are interested in the oscillations well above the
+absorption edge, and define the EXAFS fine-structure function $\chi(E)$, as
+
+\begin{eqnarray}
+  \mu(E) &=& \mu_0(E) [ 1  + \chi(E)]  \\
+  \chi(E) &=&   {\displaystyle  {\frac{{\mu(E) - \mu_0(E)}}{\Delta\mu}}}
+  \label{Eq:mu2chi}
+\end{eqnarray}
+\noindent
+where $\mu(E)$ is the measured absorption coefficient, $\mu_{0}(E)$ is a
+smooth background function representing the absorption of an isolated atom,
+and $\Delta \mu$ is the measured jump in the absorption $\mu(E)$ at
+the threshold energy.
+
+\begin{Sfig}{width=3.0truein}{xafs_chik}{xafs_chir}
+  \caption{Isolated EXAFS for the Fe $K$ edge of FeO, shown weighted by
+    $k^2$ (left) to emphasize the high-$k$ portion of the spectrum, and the
+    Fourier transform of the $k$-weighted XAFS, $\chi(R)$ (right), showing
+    the contribution from Fe-O and Fe-Fe neighbors.}
+  \label{Fig:XAS:chi}
+\end{Sfig}
+
+As we will see, EXAFS is best understood in terms of the wave behavior of
+the photo-electron created in the absorption process. Because of this, it
+is common to convert the X-ray energy to $k$, the wave number of the
+photo-electron, which has dimensions of 1/distance and is defined as
+
+\begin{equation}
+  k= \sqrt{ \frac{2m(E-E_0)}{{\hbar}^2}}
+  \label{Eq:ABS:kdef}
+\end{equation}
+\noindent
+where $E_0$ is the absorption edge energy, $m$ is the electron mass, and
+$\hbar$ is Planck's constant.  The primary quantity for EXAFS is then
+$\chi(k)$, the isolated variation in absorption coefficient as a function
+of photo-electron wave number, and $\chi(k)$ is often referred to simply as
+``the EXAFS''.  The EXAFS extracted from the Fe $K$-edge for FeO is shown
+in the left panel of Figure~\ref{Fig:XAS:chi}.  The EXAFS signal is
+oscillatory, and also decays quickly with $k$.  To emphasize the
+oscillations, $\chi(k)$ is often multiplied by a power of $k$ typically
+$k^{2}$ or $k^{3}$ for display, as is done for the plot in
+Figure~\ref{Fig:XAS:chi}.
+
+The different frequencies apparent in the oscillations in $\chi(k)$
+correspond to different near-neighbor coordination shells.  This can be see
+most clearly by applying a Fourier transform to the data, converting the
+data from depending on wavenumber $k$ to depending on distance $R$.  As
+seen in the right panel of Figure~\ref{Fig:XAS:chi}, the oscillations
+present in the EXAFS $\chi(k)$) give rather well-defined peaks as a
+function of $R$, corresponding to the distance from the absorbing atom to
+its near neighbors.
+
+A remarkable feature of EXAFS is that the contributions to the EXAFS from
+scattering from different neighboring atoms can be described by a
+relatively straightforward \emph{EXAFS Equation}, a simplified form of
+which is
+\begin{equation}
+  \chi(k) = \sum_j {   \frac{N_j f_j(k) e^{-2k^2\sigma_j^2}}  {k{R_j}^2}
+      \sin[2kR_j + \delta_j(k) ]}.
+  \label{Eq:ABS:EXAFSEq}
+\end{equation}
+\noindent
+Here $f(k)$ and $\delta(k)$ are scattering properties of the photo-electron
+emitted in the absorption process by the atoms neighboring the excited
+atom, $N$ is the number of neighboring atoms, $R$ is the distance to the
+neighboring atom, and $\sigma^2$ is the disorder in the neighbor distance.
+Though slightly complicated, the EXAFS equation is simple enough to enable
+us to model EXAFS data reliably, in that we can determine $N$, $R$, and
+$\sigma^2$ once we know the scattering amplitude $f(k)$ and phase-shifts
+$\delta(k)$.  Furthermore, because these scattering factors depend on the
+$Z$ of the neighboring atom, EXAFS is also sensitive to the atomic species
+of the neighboring atom.
