@@ -1,0 +1,16 @@
+#
+# Reduction of FeO XAFS Data:   data  -->  chi(R)
+
+feo = read_ascii('feo_rsp.dat', labels='r chir_mag chir_re chir_im')
+
+newplot(feo.r, feo.chir_mag, color='blue',
+        xlabel=r'$R\rm\,(\AA)$', xmax=9, ymin=-1.0, ymax=1.5,
+        ylabel=r'$|\chi(R)| \rm\,(\AA^{-3})$')
+
+plot(feo.r, feo.chir_re, color='red', style='solid', linewidth=3,
+     side='right', ymin=-1.0, ymax=1.5,
+     y2label=r'${\rm Re}[\chi(R)] \rm\,(\AA^{-3})$')
+
+
+
+

@@ -1,0 +1,54 @@
+
+\documentclass{article}
+\usepackage{tikz}
+
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}
+
+\usetikzlibrary{decorations.pathmorphing, arrows, intersections, snakes}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.25]
+    \begin{scope} % Energy levels
+        \draw (1,   0) node[left] {$1s$}      --  ++(18, 0) node[right] {$K$};
+        \draw (1,   7) node[left] {$2s$}     --  ++(18, 0) node[right] {$L_1$};
+        \draw (1, 8.5) node[left] {$2p$}     --  ++(18 ,0) node[right] {$L_2,L_3$};
+
+        \draw (1,  12) node[left] {$3s$}     --  ++(18, 0) node[right] {$M_1$};
+        \draw (1, 13.5) node[left] {$3p$}     --  ++(18 ,0) node[right] {$M_2,M_3$};
+        \draw (1,   15) node[left] {$3d$}     --  ++(18 ,0) node[right] {$M_4,M_5$};
+
+
+        \draw (1,   22) %% node[right=38, above=-1] {{\small{conduction band}}} -- 
+                  -- ++(18,0) node[right] {$E_{\rm vacuum}$};
+       \draw[->,>=latex,  thick] (26, 0) -- ++(0, 30) node[sloped,right=0,below=2, midway] {Energy};
+    \end{scope}
+
+    \begin{scope} % core electrons
+        \foreach \x in {1,3,5, 7, 9, 11, 13, 15, 17,19}  \filldraw (\x, 15) circle (.25);
+        \foreach \x in {5, 7, 9, 11, 13, 15}  \filldraw (\x, 13.5) circle (.25);
+        \foreach \x in {9, 11}       \filldraw (\x, 12) circle (.25);
+        \foreach \x in {5, 7, 9, 11, 13, 15}  \filldraw (\x, 8.5) circle (.25);
+        \foreach \x in {9, 11}       \filldraw (\x, 7) circle (.25);
+        \filldraw (11, 0) circle (.25);
+        \draw   (9, 0) circle (.25);
+    \end{scope}
+     \begin{scope}[color=red!35!yellow!65]
+        \draw[->,very thick, >=latex] (4.75, 8.25) to [out=255, in=135] (8.75, 0.5) ;
+        \draw[->,very thick, >=latex] (13.25, 13.25) to [out=285, in=50] (9.25, 0.5) ;
+         \draw[->,very thick, >=latex] (7.0, 8.25) to [out=275, in=85] (9.0, 0.5) ;
+          \draw[->,very thick, >=latex] (6.75, 8.75) to [out=105, in=255] (8.25, 25.5)  ;
+    \end{scope}
+    \begin{scope}[color=blue!70!black]
+         \draw[->, thick, >=stealth', shorten >=-5pt, decorate, decoration={snake, amplitude=2.5}] (6.0, 3.5)  -- 
+            node[above=4, midway] {{\small{$K_\alpha$}}} (0.5, 4.5);
+          \draw[->, thick, >=stealth', shorten >=-5pt, decorate, decoration={snake, amplitude=2.5}] (11.75, 3.5)  -- 
+            node[above=4, midway] {{\small{$K_\beta$}}} (17.5, 4.5);
+          \draw (10, 26) node {{\small{Auger $e^{-}$}}} ;
+   \end{scope}
+
+    \end{tikzpicture}
+\end{document}
+

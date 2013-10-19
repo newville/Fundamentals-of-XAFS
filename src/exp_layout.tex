@@ -1,0 +1,45 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+
+\begin{document}
+\begin{tikzpicture}[scale=0.6]
+
+\draw[very thick](3, 4) ellipse (2 and 1) node[above=15]{X-ray source} ;
+
+\draw[-latex, thick] (3, 5) -- (5.5, 5);
+\draw[thick] (5.25, 5) -- (8.68, 5);
+\draw[thick] (30:10) -- (30:12) ; 
+\draw[-latex, thick] (10.38, 6) -- (14, 6);
+\draw[thick] (14.5, 6) -- (16.25, 6);
+\draw[-latex, thick] (17.0, 6) -- (19, 6);
+
+\begin{scope}[rotate=15]
+   \draw[thick,  gray!70, fill=gray!70](9.14, 2.28) rectangle ++(1,0.25) ;
+   \draw[thick,  gray!70, fill=gray!70](11.1, 3.17) rectangle ++(1,0.25) ;
+\end{scope}
+
+\draw[very thick] (6.5, 4.5) -- (6.5, 4.9);
+\draw[very thick] (6.5, 5.1) -- (6.5, 5.5) node[above] {slits};
+
+\draw[very thick] (13, 5.5) -- (13, 5.9);
+\draw[very thick] (13, 6.1) -- (13, 6.5) node[above] {slits};
+
+\draw[thick,  gray!90, fill=gray!10](14.0, 5.25) node[below=6, right=-4, black]{$I_0$} rectangle ++(0.5, 1.5) ; 
+\draw[thick,  gray!90, fill=gray!10](19.0, 5.25) node[below=6, right=-4, black]{$I$}  rectangle ++(0.5, 1.5);
+
+\draw[thick,  gray!90, fill=gray!10](16.2, 5.25) -- (16.8, 5.25) -- (16.8, 4.1) -- (17.5, 4.1) -- 
+                                             (17.5, 3.25)  node[below=8, left=6, black]{$I_f$}  -- (15.5, 3.25) -- (15.5, 4.1) -- 
+                                             (16.2, 4.1) -- (16.2, 5.25);
+
+\draw[thick,  gray!90, fill=red!25!gray!30] (16.125, 6.25) -- (16.375, 6.5) -- (16.625, 6.25) --  (16.875, 6) -- 
+                                                       (17, 5.875) -- (16.75, 5.625) --    (16.625, 5.75) -- ( 16.125, 6.25);
+ 
+\draw[] (10, 4) node {monochromator} ;
+\draw[] (16.75, 6.85) node {sample} ;                               
+
+\end{tikzpicture}
+\end{document} 
+

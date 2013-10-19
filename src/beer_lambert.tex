@@ -1,0 +1,81 @@
+% Lambert-Beer law parameters drawing
+% Author: Michele Muccioli
+% Compile with LuaLaTeX
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{calc,fadings,decorations.markings}
+\usepackage{amsmath}
+%\usepackage[active, tightpage]{preview}
+%\setlength\PreviewBorder{5pt}%
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}
+
+
+\makeatletter
+\pgfkeys{/pgf/decoration/.cd,
+         start color/.store in = \startcolor,
+         end color/.store in   = \endcolor
+        }
+
+\pgfdeclaredecoration{color change}{initial}{
+% Initial state
+\state{initial}[%
+    width                     = 0pt,
+    next state                = line,
+    persistent precomputation = {\pgfmathdivide{50}{\pgfdecoratedpathlength}%
+                                 \let\increment=\pgfmathresult%
+                                 \def\x{0}}]%
+{}%
+
+% Line state
+\state{line}[%
+    width                      = .5pt,
+    persistent postcomputation = {\pgfmathadd@{\x}{\increment}%
+                                  \let\x=\pgfmathresult}]%
+{%
+  \pgfsetlinewidth{\pgflinewidth}%
+  \pgfsetarrows{-}%
+  \pgfpathmoveto{\pgfpointorigin}%
+  \pgfpathlineto{\pgfqpoint{.75pt}{0pt}}%
+  \pgfsetstrokecolor{\endcolor!\x!\startcolor}%
+  \pgfusepath{stroke}%
+}%
+
+% Final state
+\state{final}{%
+  \pgfsetlinewidth{\pgflinewidth}%
+  \pgfpathmoveto{\pgfpointorigin}%
+  \color{\endcolor!\x!\startcolor}%
+  \pgfusepath{stroke}%
+}
+}
+\makeatother
+
+\begin{document}
+
+
+\begin{tikzpicture}[scale=0.25, line width=2pt]
+
+\draw[gray!10!brown!10,fill=gray!10!brown!10, line width=0.25] (0, 7) rectangle +(7, 6);
+
+
+\draw[black, decoration = {markings,
+        mark = at position 0.5 with {\arrow[]{latex}}},
+        postaction = {decorate}] (-5 , 10)--++ (5,0)node[midway, above, black]{$I_0$};
+
+\draw[decoration = {color change,  start color = black, end color   = black!15!white}, decorate] (0, 10)--++ (7, 0);
+
+\draw[black!15!white, decoration = {markings,
+        mark = at position 0.5 with {\arrow[]{latex}}},
+        postaction = {decorate}] (7, 10)--++(5,  0)node[midway, above, black]{$I$};
+
+
+\draw[|<->|, >= latex, line width=0.8] ($(0, 12.75)+(0,1)$)--++ (7, 0)node[midway, above]{$t$};
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+\end{tikzpicture}
+\end{document}

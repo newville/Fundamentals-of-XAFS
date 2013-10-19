@@ -1,0 +1,45 @@
+#
+# Reduction of FeO XAFS Data:   data  -->  chi(R)
+
+#
+# read in energy, i0, it data
+opts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
+            fullbox=False, grid=False)
+
+feo = read_ascii('feo.dat', labels='energy time i0 it')
+feo.xmu = ln(feo.i0/feo.it)
+pre_edge(feo.energy, feo.xmu, norm1=150, norm2=750, group=feo)
+
+newplot(feo.energy, feo.xmu, xlabel= 'E (eV)', ylabel=r'$\mu(E)$', **opts)
+
+# set feo.normline = norm_c0 + norm_c1  * feo.energy + norm_c2  * feo.energy^2
+plot(feo.energy, feo.pre_edge, key='pre-edge', zorder=2, **opts)
+
+plot(feo.energy, feo.post_edge, key='normalization', zorder=2,
+     xmin=6950, xmax=7750, **opts)
+
+plot_text(r'$\Delta\mu_0$', 7020, 0.6)
+plot_text('pre-edge line', 7520, -0.25)
+
+panel = get_display().panel
+panel.axes.annotate('', xy=(7118, -0.2),  xycoords='data',
+                    xytext=(7118, 1.3), textcoords='data',
+                    arrowprops=dict(arrowstyle="<->",
+                                connectionstyle="arc3,rad=.2"))
+panel.draw()
+
+save_plot('../figs/mu_preedge.pdf')
+
+newplot(feo.energy, feo.norm,
+        xmin =7090, xmax=7230, ymin=-0.05,  ymax=1.5,
+	xlabel= 'E (eV)', ylabel=r'$\mu(E)$', win=2, **opts)
+plot(feo.energy, 0.5+2.5*smooth(feo.energy, deriv(feo.norm)/deriv(feo.energy), 0.1),
+     xmin =7090, xmax=7230, win=2, **opts)
+
+plot_text(r'$E_0$', 7120, 0.05, win=2)
+plot_text(r'$d\mu/dE$', 7180, 0.55, win=2)
+plot_axvline(feo.e0, win=2, linewidth=1.5, ymin=0.12,
+             color='black', linestyle='dashed', zorder=3)
+
+save_plot('../figs/mu_deriv.pdf', win=2)
+

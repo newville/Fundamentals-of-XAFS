@@ -1,0 +1,23 @@
+#
+# Reduction of FeO XAFS Data:   data  -->  chi(R)
+
+opts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
+            fullbox=True, grid=False)
+
+feo = read_ascii('feo_ksp.dat', labels='k chi chik2')
+
+newplot(feo.k, feo.chi, color='blue',
+        xlabel=r'$k\rm\,(\AA^{-1})$',
+        ylabel=r'$\chi(k)$', **opts)
+
+
+plot(feo.k, feo.chi*feo.k**2, side='right', color='red',
+     xmax=14.5, y2label=r'$k^2\chi(k)\rm\,(\AA^{-2})$', **opts)
+
+ax = get_display().panel.axes
+ax.xaxis.set_ticks_position('bottom')
+ax.spines['top'].set_visible(False)
+
+get_display().panel.draw()
+
+save_plot('../figs/chik_kw.pdf')

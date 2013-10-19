@@ -1,0 +1,28 @@
+
+edges = read_ascii('edge_energies.dat', labels='z mass k l1 l2 l3 m ka1 kb1 la1 lb2')
+
+
+newplot(edges.z, edges.k, xmin=1, xmax=95, linewidth=3,
+        ymin=2, ymax=35, ylabel=r'$E \rm\, (keV)$',
+        xlabel=r'$Z$')
+
+
+plot(edges.z, edges.l3, linewidth=3)
+
+plot_text(r'$K$', 42, 27)
+plot_text(r'$L_{\rm III}$', 68, 12)
+ 
+# 
+#     
+# set nokey
+# set xlabel "Z" 0, -0.2 
+# set xrange [1:95]
+# set yrange [2:35]
+# set ylabel ' $ E \rm\,(keV) $ '  0.5, 0
+# set format y "%2.0f"
+# set label 1 " $ K $ " at  40.0, 26.
+# set label 2 ' $ L_{\rm III} $ ' at  65.0, 12.
+# 
+# plot "energies.dat" u 1:6 w l ls 2, \
+#      "energies.dat" u 1:3 w l ls 1
+# 

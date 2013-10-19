@@ -1,0 +1,21 @@
+
+ cr6  = read_ascii( "cr_6.dat" , labels='en mu')
+ cr3  = read_ascii( "cr_3.dat" , labels='en mu')
+
+opts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
+            fullbox=False, grid=False, ymin=0, xmin=5975, xmax=6100)
+
+plot(cr6.en, cr6.mu,
+     new=True, xlabel=r'$E \rm\, (eV)$', ylabel=r'$\mu(E)$',
+     **opts)
+plot(cr3.en,  cr3.mu, color='red', **opts)
+#
+plot_text(r'$\mathrm{Cr^{3+}}$',   6020, 1.30)
+plot_text(r'$\mathrm{Cr^{6+}}$',   5990, 0.90)
+
+
+
+
+
+
+

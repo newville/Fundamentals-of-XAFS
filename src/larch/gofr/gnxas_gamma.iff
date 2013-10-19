@@ -1,0 +1,19 @@
+
+set sigma= 0.1
+set beta = 0.5
+set r0   = 3.0
+set N    = 1
+
+set my.r =  range(2.5,4.0,0.01)
+
+def qq   = 4 / beta^2
+def prefactor = 2 * N / (sigma*abs(beta)*gamma(qq))
+
+def my.alpha = qq + (2*(my.r-r0)) / (beta*sigma)
+
+def my.gr =  prefactor * max(0,exp(-my.alpha)*my.alpha^(qq-1))
+
+newplot my.r, my.gr
+$title = 'GNXAS-like distribution function'
+
+write_data(file=gamma.dat, my.r, my.gr, sigma,beta,r0,qq,N,prefactor,$title)

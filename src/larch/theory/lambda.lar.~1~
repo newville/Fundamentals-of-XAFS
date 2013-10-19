@@ -1,0 +1,9 @@
+
+fe = read_ascii('fe_fe.dat',)
+# show(fe)
+xlabel=r'$  k \rm\, (\AA^{-1}) $'
+ylabel=r' $ \lambda(k) \rm\, (\AA) $ '
+
+newplot(fe.k, fe._lambda, linewidth=3, color='black',
+        xlabel=xlabel, ylabel=ylabel, labelfontsize=10)
+

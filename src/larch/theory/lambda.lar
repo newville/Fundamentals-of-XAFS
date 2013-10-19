@@ -1,0 +1,13 @@
+opts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
+            fullbox=False, grid=False)
+
+fe = read_ascii('fe_fe.dat')
+# show(fe)
+xlabel=r'$  k \rm\, (\AA^{-1}) $'
+ylabel=r' $ \lambda(k) \rm\, (\AA) $ '
+
+newplot(fe.k, fe._lambda, color='blue',
+        xlabel=xlabel, ylabel=ylabel, **opts)
+
+
+save_plot('../../figs/lambda.pdf')

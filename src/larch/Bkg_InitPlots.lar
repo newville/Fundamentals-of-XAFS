@@ -1,0 +1,28 @@
+#
+# Reduction of FeO XAFS Data:   data  -->  chi(R)
+
+opts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
+            fullbox=False, grid=False)
+
+
+feo = read_ascii('feo.dat', labels='energy time i0 it')
+
+feo.xmu = ln(feo.i0/feo.it)
+
+pre_edge(feo.energy, feo.xmu, norm1=150, norm2=750, group=feo)
+
+feo1 = group(energy=feo.energy*1.0, xmu=feo.norm*1.0)
+
+autobk(feo1.energy, feo1.xmu, group=feo1, kweight=2, rbkg=1.0)
+fftparams = dict(kmin=2., kmax=13., kweight=2, dk=4.5, window='kaiser')
+xftf(feo1.k, feo1.chi, group=feo1, **fftparams)
+
+
+newplot(feo.energy, feo.norm, zorder=50, label=r'$\mu$',
+        xmin =7050, xmax=7450, ymin=-0.05,  ymax=1.45,
+	xlabel= 'E (eV)', ylabel=r'$\mu(E)$', win=1, **opts)
+plot(feo1.energy, feo1.bkg, label=r'$R_{\rm bkg}=1.0\AA$',
+     **opts)
+
+
+save_plot('../figs/bkg.pdf')

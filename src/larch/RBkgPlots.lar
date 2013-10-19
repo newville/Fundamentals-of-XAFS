@@ -1,0 +1,136 @@
+#
+# Reduction of FeO XAFS Data:   data  -->  chi(R)
+
+#
+# read in energy, i0, it data
+
+feo = read_ascii('feo.dat', labels='energy time i0 it')
+
+# newplot(feo.energy, feo.i0/feo.time, xlabel= 'E (eV)', ylabel= 'Intensity',   linewidth=4)
+# newplot(feo.energy, feo.it/feo.time, key = 'I')
+
+
+feo.xmu = ln(feo.i0/feo.it)
+
+# newplot(feo.energy, feo.xmu, xlabel= 'E (eV)', ylabel=r'$\mu(E)$')
+
+#
+# pre-edge subtraction:
+
+pre_edge(feo.energy, feo.xmu, norm1=150, norm2=750, group=feo)
+
+#
+# # newplot(feo.energy, feo.xmu, xlabel= 'E (eV)', ylabel=r'$\mu(E)$')
+#
+# show(feo)
+# # set feo.normline = norm_c0 + norm_c1  * feo.energy + norm_c2  * feo.energy^2
+# plot(feo.energy, feo.pre_edge, key='pre-edge', zorder=2)
+#
+# plot(feo.energy, feo.post_edge, key='normalization', zorder=2,
+#      xmin=6950, xmax=7750)
+#
+# plot_text(r'$\Delta\mu_0$', 7020, 0.6)
+# plot_text('pre-edge line', 7520, -0.25)
+#
+# panel = get_display().panel
+# panel.axes.annotate('', xy=(7118, -0.2),  xycoords='data',
+#                     xytext=(7118, 1.3), textcoords='data',
+#                     arrowprops=dict(arrowstyle="<->",
+#                                 connectionstyle="arc3,rad=.2"))
+#
+#
+# panel.draw()
+#
+#
+# newplot(feo.energy, feo.norm,
+#         xmin =7090, xmax=7230, ymin=-0.05,  ymax=1.5,
+# 	xlabel= 'E (eV)', ylabel=r'$\mu(E)$', win=3)
+# plot(feo.energy, smooth(feo.energy, deriv(feo.norm)/deriv(feo.energy), 0.1),
+#      side='right', y2label=r'$d\mu/dE$',
+#      xmin =7090, xmax=7230, ymin=-0.2,  ymax=0.5, win=3)
+#
+# # plot_text(, 7185, 0.55, win=3)
+# plot_text(r'$E_0$', 7120, 0.05, win=3)
+#
+# plot_axvline(feo.e0, win=3, linewidth=1.5, ymin=0.12, color='black', linestyle='dashed', zorder=3)
+#
+
+feo1 = group(energy=feo.energy*1.0, xmu=feo.norm*1.0)
+feo2 = group(energy=feo.energy*1.0, xmu=feo.norm*1.0)
+feo3 = group(energy=feo.energy*1.0, xmu=feo.norm*1.0)
+
+autobk(feo1.energy, feo1.xmu, group=feo1, kweight=2, rbkg=1.0)
+autobk(feo2.energy, feo2.xmu, group=feo2, kweight=2, rbkg=0.2)
+autobk(feo3.energy, feo3.xmu, group=feo3, kweight=1, rbkg=4.0)
+fftparams = dict(kmin=2., kmax=13., kweight=2, dk=4.5, window='kaiser')
+
+
+xftf(feo1.k, feo1.chi, group=feo1, **fftparams)
+xftf(feo2.k, feo2.chi, group=feo2, **fftparams)
+xftf(feo3.k, feo3.chi, group=feo3, **fftparams)
+
+feo1.plotopts = dict(color='blue',  linewidth=3, label=r'$R_{\rm bkg}=1.0\AA$')
+feo2.plotopts = dict(color='red',   linewidth=3, label=r'$R_{\rm bkg}=0.2\AA$')
+feo3.plotopts = dict(color='black', linewidth=3, label=r'$R_{\rm bkg}=4.0\AA$')
+
+newplot(feo.energy, feo.norm, zorder=50, linewidth=1, marker='+', markersize=7,
+        label=r'$\mu$', textsize=10, legendsize=10, show_legend=True,
+        xmin =7100, xmax=7300, ymin=0.82,  ymax=1.45,
+	xlabel= 'E (eV)', ylabel=r'$\mu(E)$', win=1)
+plot(feo3.energy, feo3.bkg, **feo3.plotopts)
+plot(feo2.energy, feo2.bkg, **feo2.plotopts)
+plot(feo1.energy, feo1.bkg, **feo1.plotopts)
+
+
+newplot(feo3.k, 1+feo3.chi*feo2.k**2,  textsize=10, legendsize=10, show_legend=True,
+        xlabel=r'$k\rm\,(\AA^{-1})$', ylabel=r'$k^2\chi(k) \rm\,(\AA^{-2})$', win=2, ymax=2.50,
+        **feo3.plotopts)
+  plot(feo2.k,  0+feo2.chi*feo2.k**2, win=2,  **feo2.plotopts)
+  plot(feo2.k, -1+feo1.chi*feo1.k**2, win=2,  **feo1.plotopts)
+
+newplot(feo3.r, 0.4+feo3.chir_mag, textsize=10, legendsize=10, show_legend=True,
+        xlabel=r'$R\rm\, (\AA)$', ylabel=r'$|\chi(R)|\rm\,(\AA^{-3})$', win=3,ymax=1.35,
+        **feo3.plotopts)
+  plot(feo2.r,  0.2+feo2.chir_mag, win=3,         **feo2.plotopts)
+  plot(feo3.r,  0.0+feo1.chir_mag, win=3,         **feo1.plotopts)
+
+
+# 	xlabel= 'E (eV)', ylabel= '\gm(E)')
+# plot(feo.energy, feo.bkg,  key= '\gm\d0\u')
+#
+# write_data(file = 'feo.bkg', feo.energy, feo.xmu, feo.bkg, feo.norm,
+#           feo.preline,feo.normline)
+#
+# pause == hit enter for isolated EXAFS chi(k)
+#
+# newplot(feo.k, feo.chi, xlabel = 'k (\A\u-1\d)',
+#         title = 'Extracted EXAFS \gx(k)',
+#         ylabel = '\gx(k) (\A\u-1\d)')
+#
+# pause == hit enter for isolated k^2 * chi(k)
+#
+# feo.chi_kw = feo.chi * feo.k^2
+#
+# newplot(feo.k, feo.chi_kw,
+#         title = 'k-weighted EXAFS k\u2\d\gx(k)',
+#         ylabel = 'k\u2\d\gx(k) (\A\u-2\d)')
+#
+# fftf(feo.chi,kmin=2.5, kmax=13., kweight=2, dk=1.5)
+#
+# pause == hit enter for Fourier Transform Window
+#
+# feo.win2 = feo.win*5
+# plot(feo.k, feo.win*5, key='Window')
+#
+# write_data(file = 'feo.chi', feo.k, feo.chi, feo.chi_kw,feo.win, feo.win2)
+#
+# pause == hit enter for Fourier Transform chi(R)
+#
+# newplot(feo.r, feo.chir_mag, xlabel = 'R (\A)',
+#         title = 'Fourier Transformed EXAFS |\gx(R)|',
+#         ylabel = '|\gx(R)| (\A\u-3\d)')
+#
+#
+# write_data(file = 'feo.rsp', feo.r, feo.chir_mag, feo.chir_re)
+#
+#

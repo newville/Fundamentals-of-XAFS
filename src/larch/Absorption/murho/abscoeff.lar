@@ -1,0 +1,30 @@
+fe = read_ascii('fe.dat', labels='en mu')
+ox = read_ascii('o.dat', labels='en mu')
+cd = read_ascii('cd.dat', labels='en mu')
+pb = read_ascii('pb.dat', labels='en mu')
+
+xlabel = r'$ E \rm\, (keV) $'
+ylabel = r'$ \mu/\rho \rm\,(barns/atom) $'
+
+opts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
+            fullbox=False, grid=False)
+
+newplot(fe.en, fe.mu, xlabel=xlabel, ylabel=ylabel, xmin=1, xmax=100, **opts)
+ plot(ox.en, ox.mu, **opts)
+ plot(cd.en, cd.mu, **opts)
+ plot(pb.en, pb.mu, ymin=1.5, ymax=8e6, **opts)
+
+plot_text("O" ,    1.8,  40000.)
+plot_text("Fe" ,   5.0,  26000.)
+plot_text("Cd" ,  20.0,   7000.)
+plot_text("Pb" ,  65.0,   2500.)
+
+axes = get_display().panel.axes
+axes.set_xscale('log', base=10)
+axes.set_yscale('log', base=10)
+axes.xaxis.set_ticklabels(['1', '10', '100'])
+
+_plotter.plot1.panel.Refresh()
+
+save_plot('abscoeff.pdf')
+

@@ -1,0 +1,44 @@
+from scipy.special import gamma
+
+
+def leftrightaxes(win=1):
+    panel  = get_display(win=win).panel
+    ax = panel.axes
+    ax.xaxis.tick_bottom()
+    ax.yaxis.tick_left()
+    ax.spines['top'].set_visible(False)
+    ax.spines['right'].set_visible(False)
+    panel.draw()
+    return ax
+enddef
+
+sigma= 0.1
+beta = 0.5
+r0   = 3.0
+n    = 1
+qq   = 4. / beta**2
+prefactor = 2 * n / (sigma*abs(beta)*gamma(qq))
+
+r =  linspace(2.5, 3.5, 201)
+alpha = qq + (2*(r-r0)) / (beta*sigma)
+gr =  prefactor * exp(-alpha)*alpha**(qq-1)
+gr[where(gr<0)] = 0
+
+newplot(r, gr, grid=False, xlabel=r'$R\,\rm(\AA)$', ylabel=r'$g(R)$')
+
+leftrightaxes(win=1)
+
+title = 'GNXAS-like distribution function'
+
+
+rx =  linspace(2.5, 3.5, 21)
+ax = qq + (2*(rx-r0)) / (beta*sigma)
+gx =  prefactor * exp(-ax)*ax**(qq-1)
+tgx = "n*beta^2/(2*sigma*beta) * exp[4/beta^2 + (r-r0)/(beta*sigma)] "
+gx[where(gx<0)] = 0
+
+newplot(r, gr, win=2, grid=False, xlabel=r'$R\,\rm(\AA)$', ylabel=r'$g(R)$')
+
+ax  = get_display(win=2).panel.axes
+ax.hist(rx, weights=gx, bins=len(rx), rwidth=0.25, color='k')
+leftrightaxes(win=2)

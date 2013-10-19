@@ -1,0 +1,11 @@
+
+feo = read_ascii('feo_rsp.dat', labels='r mag re im')
+
+
+newplot(feo.r, feo.mag, xmin=0, xmax=8,  linewidth=3,
+        xlabel=r'$  R \rm\, (\AA) $', ymax=1.6,
+        ylabel=r'$ |\chi(R)|\rm\, (\AA^{-3}) $')
+
+
+plot_text('Fe-O',  1.1, 0.9)
+plot_text('Fe-Fe', 2.3, 1.4)

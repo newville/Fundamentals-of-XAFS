@@ -1,0 +1,14 @@
+
+feo = read_ascii('feo_bkg.dat', labels='energy mu bkg preline normline ee chie')
+
+opts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
+            fullbox=False, grid=False)
+
+newplot(feo.energy, feo.mu, xmin=7050, xmax=7600, ymin=-0.2, ymax=2.2,
+        xlabel=r'$E \rm\, (eV)$', ylabel=r'$\mu(E)$', **opts)
+
+plot_text('XANES', 7115, 1.95)
+plot_text('EXAFS', 7420, 1.05)
+
+save_plot('../figs/mu_xanes_exafs.pdf')
+

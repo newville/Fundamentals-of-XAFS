@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+
+\newcommand*{\ArcRadius}{0.5}%
+\begin{document}
+\begin{tikzpicture}[scale=1.5]
+
+\draw[-latex, thick](14.5, 6) node[above=8,  right=5]{$I_0$} -- ++ (1, 0) ;
+\draw[-latex, thick](15, 6) -- ++ (2.5, 0);
+
+% slit box
+%\draw[black, fill=gray!10] (16.0, 4.8) -- (17, 4.8) -- (17, 5) -- (16, 5) -- (16, 4.8) -- (16.3, 4.8); 
+
+% slits
+\foreach \x in {16.0,16.1, 16.2, 16.3, 16.4, 16.5, 16.6, 16.7, 16.8, 16.9, 17.0} { \draw (16.5, 6) -- (\x, 4.8); } 
+
+%mask out lines from origin 
+\draw[white, fill=white] (16.5, 6) -- (16.0, 5.0) -- (17.0, 5.0) -- (16.5, 6.0); 
+
+% slit box
+\draw[gray!50] (16, 4.8) -- (17, 4.8) -- (17, 5) -- (16, 5) -- (16, 4.8) -- (16.3, 4.8);
+
+% draw dashed lines for x-rays out
+\foreach \x in {16.0, 16.1, 16.2, 16.3, 16.4, 16.5, 16.6, 16.7, 16.8, 16.9} { 
+            \draw[ gray!70, dashed] (16.5, 6) -- (\x+0.05, 5.12);
+          } 
+
+% Z-1 filter
+\draw[blue!60, fill=blue!60] (16.0, 5.03) -- (17.0, 5.03) -- (17.0, 5.05) -- (16.0, 5.05) -- (16.0, 5.03) -- (16.3, 5.03) ; 
+                                                                            
+\draw (15.6, 5.05) node {\tiny{Z-1 filter}}; 
+                                      
+\draw (15.6, 4.9) node {\tiny{Soller slit}}; 
+
+% sample
+\draw[red!40!gray!30, fill=red!25!gray!30] (16.5, 6.0) -- (17, 5.5)  -- (17.25, 5.75) -- (16.25, 6.75) -- (16.0, 6.5) -- ((16.5, 6.0);
+
+\draw (17.0, 6.6) node {sample} ;
+\draw (15.8, 4.6)  node[left=8, below, black]{$I_f$} ;
+
+% fluor detector
+\draw[thick,  gray!50, fill=gray!10](16.0, 4.75) -- (17.0, 4.75) -- (17.0, 4) -- (16.0, 4) -- (16.0, 4.75) -- (16.5, 4.75);
+
+
+\end{tikzpicture}
+\end{document}
+

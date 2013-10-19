@@ -1,0 +1,32 @@
+
+metal = read_ascii( "fe_metal.dat" , labels='en mu')
+fes2  = read_ascii( "fes2.dat" , labels='en mu')
+sid   = read_ascii( "fe_siderite.dat" , labels='en mu')
+feo   = read_ascii( "feo.dat" , labels='en mu')
+fe2o3 = read_ascii( "fe2o3.dat" , labels='en mu')
+goeth = read_ascii( "fe_goethite.dat" , labels='en mu')
+ferri = read_ascii( "fe_ferrihydrite.dat" , labels='en mu')
+
+opts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
+            fullbox=False, grid=False, xmin=7090, xmax=7190)
+
+plot(metal.en, metal.mu,
+     new=True, xlabel=r'$E \rm\, (eV)$', ylabel=r'$\mu(E)$',
+     **opts)
+
+plot(fes2.en, fes2.mu, color='red', **opts)
+plot(sid.en,  sid.mu, color='black', **opts)
+plot(feo.en,  feo.mu, color='blue', style='short dashed', **opts)
+plot(fe2o3.en, fe2o3.mu, color='red', style='short dashed', **opts)
+plot(goeth.en, goeth.mu, color='black', style='short dashed', **opts)
+plot(ferri.en, ferri.mu, color='blue', style='solid', **opts)
+
+plot_text('metal',               7094, 2.33)
+plot_text(r'$\mathrm{FeS_2}$',   7094, 1.93)
+plot_text(r'$\mathrm{FeCO_3}$',  7094, 1.55)
+plot_text(r'$\mathrm{FeO}$',     7094, 1.18)
+plot_text(r'$\mathrm{Fe_2O_3}$', 7094, 0.85)
+plot_text(r'$\mathrm{FeO(OH)}$', 7094, 0.53)
+plot_text(r'ferrihydrite',       7094, 0.18)
+
+

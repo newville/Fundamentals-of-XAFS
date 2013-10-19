@@ -1,0 +1,78 @@
+% Principle of X-ray photoelectron spectroscopy (XPS)
+% Author: Mathias Laurin
+\documentclass{article}
+\usepackage{tikz}
+
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+%%
+
+\usetikzlibrary{decorations.pathmorphing, arrows, intersections, snakes}
+
+\pgfdeclareradialshading[tikz@ball]{ball}{\pgfqpoint{-10bp}{10bp}}{%
+  color(0bp)=(tikz@ball!50!white);
+  color(9bp)=(tikz@ball!75!white);
+  color(18bp)=(tikz@ball!90!black);
+  color(25bp)=(tikz@ball!70!black);
+  color(50bp)=(black)}
+
+\begin{document}
+\begin{tikzpicture}[scale=0.4]
+
+
+    \begin{scope} % core electrons
+        \foreach \x in {10, 20, 25, 30}     \shadedraw [ball color=black] (\x, 20,  0) circle(0.5); 
+        \foreach \x in {10, 20, 25, 30}     \shadedraw [ball color=black] (\x, 15,  0) circle(0.5);
+        \foreach \x in {5,  15, 25}         \shadedraw [ball color=black] (\x, 10,  0) circle(0.5); 
+        \foreach \x in {5,  10, 15, 25, 30} \shadedraw [ball color=black] (\x,  5,  0) circle(0.5);
+ 
+        \shadedraw [ball color=gray!40!blue!40] (5,  20,  0) circle(0.5);
+        \shadedraw [ball color=gray!40!blue!40] (15,  20,  0) circle(0.5);
+        \shadedraw [ball color=gray!40!blue!40] (5,  15,  0) circle(0.5);
+        \shadedraw [ball color=gray!40!blue!40] (10,  10,  0) circle(0.5);
+        \shadedraw [ball color=gray!40!blue!40] (20,  5,  0) circle(0.5);
+        \shadedraw [ball color=gray!40!blue!40] (20,  10,  0) circle(0.5);
+        \shadedraw [ball color=gray!40!blue!40] (30,  10,  0) circle(0.5);
+        \shadedraw [ball color=gray!40!blue!40] (15,  15,  0) circle(0.5);
+
+   
+      \end{scope}
+     \draw[-latex,thick](5.5, 20.5)  to[out= 10, in=170] (9.5,20.5) node[above=10, left=-10] {Single Scattering};
+     \draw[-latex,thick](9.5, 19.5)  to[out=190, in=350] (5.5,19.5) ; 
+
+     \draw[-latex,thick](5.5, 15.5)  to[out= 10, in=170] (9.5,15.5) node[above=10,left=-3] {Triangle Paths};
+     \draw[-latex,thick](9.75, 14.25) to[out=250, in=30] (5.75, 9.75) ; 
+     \draw[-latex,thick](4.5, 10.5)  to[out=100, in=260] (4.5, 14.5) ; 
+
+     \draw[-latex,thick](10.5, 9.5)  to[out= 280, in=80] (10.5,5.5) ;
+     \draw[-latex,thick](9.5,  4.5)  to[out=190, in=350] (5.5, 4.5) ; 
+     \draw[-latex,thick](5.25, 5.75)  to[out=60, in=210] (9.25, 9.75) ; 
+     
+     
+     \draw[-latex,thick](15.5, 20.5)  to[out= 10, in=170] (19.5, 20.5) node[above=10] {Focused Multiple Scattering};
+     \draw[-latex,thick](20.5, 20.5)  to[out= 10, in=170] (24.5, 20.5) ; 
+     \draw[-latex,thick](24.5, 19.5)  to[out=190, in=350] (15.5, 19.5) ; 
+ 
+     \draw[-latex,thick](15.5, 15.5)  to[out= 10, in=170] (19.5, 15.5) ;
+     \draw[-latex,thick](20.5, 15.5)  to[out= 10, in=170] (24.5, 15.5) ; 
+     \draw[-latex,thick](24.5, 14.5)  to[out=190, in=350] (20.5, 14.5) ; 
+     \draw[-latex,thick](19.5, 14.5)  to[out=190, in=350] (15.5, 14.5) ; 
+     
+     \draw[-latex,thick](15.5, 10.5)  to[out= 10, in=170] (19.5, 10.5) ;
+     \draw[-latex,thick](20.5, 10.5)  to[out= 10, in=170] (24.5, 10.5) ; 
+     \draw[-latex,thick](24.5,  9.5)  to[out=190, in=350] (20.5,  9.5) ; 
+     \draw[-latex,thick](19.5,  9.5)  to[out=190, in=350] (15.5,  9.5) ; 
+  
+     \draw[-latex,thick](15.5,  5.5)  to[out= 10, in=170] (19.5, 5.5) ;
+     \draw[-latex,thick](20.5,  5.5)  to[out= 10, in=170] (24.5, 5.5) ; 
+     \draw[-latex,thick](24.5,  4.5)  to[out=190, in=350] (15.5, 4.5) ; 
+
+     \draw[-latex,thick](29.75, 10.5) to[out= 100, in=260] (29.75, 14.5) ;
+     \draw[-latex,thick](30.25, 14.5) to[out= 280, in= 80] (30.25, 10.5) ;
+     \draw[-latex,thick](29.25, 10.5) to[out= 110, in=250] (29.25, 14.5) ;
+     \draw[-latex,thick](28.75, 14.5) to[out= 240, in=120] (28.75, 10.5) ;
+    \end{tikzpicture}
+\end{document}
+

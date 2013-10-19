@@ -1,0 +1,5 @@
+
+icr = linspace(0, 1, 501)*1e3
+ocr = icr*exp(-icr*2.e-3)
+newplot(icr, ocr, xlabel=r'$I_{\rm inp}\rm\, (kHz)$', ylabel=r'$I_{\rm out}\rm\, (kHz)$', ymax=250, xmax=800)
+plot(icr, icr)

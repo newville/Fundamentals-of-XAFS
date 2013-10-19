@@ -1,0 +1,69 @@
+
+macro do_fft gr
+  fftf($1.chi,  kmin=2.0, kmax=13.5, dk=3, kwindow='kaiser',  kweight=2)
+  set $1.chik = $1.chi * $1.k^2
+end macro
+
+macro get_path 1  path1
+  ff2chi($1, group = $2)
+  do_fft $2
+end macro
+
+
+# read chi(k) data
+read_data(file = 'feo.chi',  group=data, label  = 'k chi')
+
+
+# define fitting variables
+guess e0     = 0.0    # move energy origin of calculation to match data
+set   s02    = 0.7   # overall amplitude of calculation
+guess n1     = 6.0    # Fe-O coordination
+
+guess dr_1   = 0.0    # shift of R -- neighbor distance
+guess sig2_1 = 0.0    # add a mean-square-disorder term
+
+# define theoretical XAFS paths for Fe:
+
+path(index = 1,
+     file  = feff/feff0001.dat,
+     label = 'FeO 1st neighbor (6 O @ 2.14A)',
+     degen = 1,
+     s02   = s02 * n1,
+     e0    = e0,
+     delr  = dr_1,
+     sigma2= sig2_1 )
+
+#
+do_fft data
+
+newplot (data.r, data.chir_mag, key='data',
+	 xlabel = 'R (\A)',
+          ylabel = '|\gx(R)| (\A\u-3\d)')
+
+feffit(chi= data.chi, 1,  group=fit,
+       rmin = 1.0, rmax = 2.0 )
+
+do_fft fit
+plot (fit.r, fit.chir_mag, key='best-fit')
+
+#  (create path1.k and path1.chi)
+get_path 1 path1
+
+newplot ( data.r,  data.chir_mag, key='data')
+plot    (  fit.r,   fit.chir_mag, key='best-fit')
+plot    (path1.r, path1.chir_mag, key='path 1')
+
+echo "Best fit values for the fitted variables:"
+
+show @variables
+
+
+$title = "data: k, chik, win, fit_k, fit_chik, path1, path2"
+set p1.chik = path1.chik-1.5
+write_data(file=fe_kfit1.dat,  data.k, data.chik, data.win, fit.k,fit.chik,
+                               p1.chik, $title)
+
+$title = "data: r, chi, fit, path1, path2"
+write_data(file=fe_rfit1.dat,  data.r, data.chir_mag,  fit.chir_mag,
+                               data.chir_re, fit.chir_re)
+

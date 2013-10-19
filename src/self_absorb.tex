@@ -1,0 +1,30 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage[active,tightpage]{preview}
+\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{5pt}%
+
+\newcommand*{\ArcRadius}{0.5}%
+\begin{document}
+\begin{tikzpicture}[scale=1.5]
+
+\draw[-latex, thick](14.5, 6) node[above=8,  right=5]{$I_0$} -- ++ (1, 0) ;
+\draw[-latex, thick](15, 6) -- ++ (2.5, 0);
+
+\draw[fill=gray!50!yellow!50] (16.5, 6) -- (16.5-\ArcRadius, 6) arc (180:135:\ArcRadius)  node[left=2] { {$\theta$}};
+\draw[fill=gray!50!yellow!50] (16.5, 6) -- (16.5, 6-\ArcRadius) arc (270:315:\ArcRadius)  node[right, below=2] { {$\phi$}};
+
+\draw[-latex, thick](16.5, 6) -- ++(0, -1); 
+ 
+% sample
+\draw[red!40!gray!30, fill=red!25!gray!30] (16.5, 6.0) -- (17, 5.5)  -- (17.25, 5.75) -- (16.25, 6.75) -- (16.0, 6.5) -- ((16.5, 6.0);
+
+\draw (17.0, 6.6) node {sample} ;
+\draw (15.8, 4.6)  node[left=8, below, black]{$I_f$} ;
+
+% fluor detector
+\draw[thick,  gray!50, fill=gray!10](16.0, 4.75) -- (17.0, 4.75) -- (17.0, 4) -- (16.0, 4) -- (16.0, 4.75) -- (16.5, 4.75);
+
+\end{tikzpicture}
+\end{document}
+

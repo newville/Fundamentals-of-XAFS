@@ -1,0 +1,30 @@
+
+metal = read_ascii( "xfe_metal.dat" , labels='en mu')
+fe2o3 = read_ascii( "xfe2o3.dat" , labels='en mu')
+feo   = read_ascii( "xfeo.dat" , labels='en mu')
+fe3o4 = read_ascii( "xfe3o4.dat" , labels='en mu')
+
+#  set label 1 ' $\rm Fe_2O_3 $ '  at   7135 , 1.45
+#  set label 2 ' $\rm Fe_3O_4 $ '  at   7132 , 1.11
+#  set label 3 ' FeO '             at   7120 , 1.27
+#  set label 4 ' metal '  at   7110 , 0.48
+
+opts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
+            fullbox=False, grid=False, xmin=7104, xmax=7150, ymin=0)
+
+plot(metal.en, metal.mu,
+     new=True, xlabel=r'$E \rm\, (eV)$', ylabel=r'$\mu(E)$',
+     **opts)
+
+plot(feo.en,    feo.mu, color='black', style='solid', **opts)
+plot(fe2o3.en, fe2o3.mu, color='black', style='short dashed', **opts)
+plot(fe3o4.en, fe3o4.mu, color='red', style='solid', **opts)
+
+plot_text('metal',               7111, 0.43)
+plot_text(r'$\mathrm{FeO}$',     7122, 1.27)
+plot_text(r'$\mathrm{Fe_2O_3}$', 7136, 1.45)
+plot_text(r'$\mathrm{Fe_3O_4}$', 7133, 1.11)
+
+
+
+

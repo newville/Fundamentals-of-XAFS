@@ -1,0 +1,48 @@
+## examples/feffit/doc_feffit4.lar
+
+feo_dat = read_ascii('feo_xafs.dat', labels = 'energy xmu')
+autobk(feo_dat.energy, feo_dat.xmu, kweight=2, rbkg=0.8, group=feo_dat)
+
+# define fitting parameter group
+pars = group(n1     = param(6, vary=True),
+             n2     = param(12, vary=True),
+             s02    = 0.750,
+             de0    = guess(0.1),
+             de0_2  = param(expr='de0'),
+             # de0_2  = guess(0.1),
+             sig2_1 = param(0.002, vary=True),
+             delr_1 = guess(0.),
+             sig2_2 = param(0.002, vary=True),
+             delr_2 = guess(0.)
+             )
+
+# define Feff Paths, give expressions for Path Parameters
+path_feo = feffpath('feff_feo01.dat',
+                    degen = 1,
+                    s02    = 's02*n1',
+                    e0     = 'de0',
+                    sigma2 = 'sig2_1',
+                    deltar = 'delr_1')
+
+path_fefe = feffpath('feff_feo02.dat',
+                     degen = 1,
+                     s02    = 's02*n2',
+                     e0     = 'de0_2',
+                     sigma2 = 'sig2_2',
+                     deltar = 'delr_2')
+
+# set tranform / fit ranges
+trans = feffit_transform(kmin=2.5, kmax=13.5, kweight=2,
+                         dk=2,  window='hanning',
+                         rmin=0.9, rmax=3.0, fitspace='r')
+
+# define dataset to include data, pathlist, transform
+dset  = feffit_dataset(data=feo_dat, pathlist=[path_feo, path_fefe],
+                       transform=trans)
+out = feffit(pars, dset)
+print feffit_report(out, min_correl=0.8)
+run('doc_macros.lar')
+
+## plot_chifit(dset, title=None, show_legend=False, rmax=7, rmag_only=False) # '1st shell fit to FeO')
+
+#  plot(dset.data.k, dset.data.kwin, color='black', linewidth=3, win=1, zorder=4)

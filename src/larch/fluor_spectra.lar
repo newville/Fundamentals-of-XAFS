@@ -1,0 +1,20 @@
+xrf = read_ascii('feldspar_std_9.xrf', labels = 'energy counts')
+
+opts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
+            fullbox=False, grid=False)
+newplot (xrf.energy, (xrf.counts/1000.0), xlabel = r' $  E \rm\, (keV) $ ',
+         ylabel = 'Fluorescence (kHz)',  xmin=1, xmax=10, **opts)
+
+plot_text(r'Fe $K_{\alpha}$ ', x=6.3, y=370)
+plot_text(r'Fe $K_{\beta}$ ',  x=6.9, y=88)
+plot_text(r'Scatter',          x=8.2, y=220)
+
+save_plot('../figs/fluor_spectra.pdf')
+
+efilt = linspace(4, 9, 251)
+mu_mn = mu_elam('Mn', energy=efilt*1000)/2.0
+
+plot(efilt, mu_mn, **opts)
+plot_text(r'Mn $\mu(E)$',       x=4.3, y=104)
+
+save_plot('../figs/filter_spectra.pdf')

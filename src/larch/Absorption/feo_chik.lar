@@ -1,0 +1,8 @@
+
+feo = read_ascii('feo_ksp.dat', labels='k chi chi2 kw kw2')
+
+
+newplot(feo.k, feo.chi*feo.k**2, xmin=0, xmax=14.5, ymin=-1.5, ymax=1.6, linewidth=3,
+        xlabel=r'$ k \rm\, (\AA^{-1}) $',    ylabel=r'$k^2\chi(k) \rm\, (\AA^{-2}) $')
+
+

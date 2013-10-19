@@ -1,0 +1,11 @@
+
+feo = read_ascii('feo_bkg.dat', labels='energy mu bkg preline normline ee chie')
+
+
+newplot(feo.energy, feo.mu, xmin=7050, xmax=7600, ymin=-0.2, ymax=2.2, linewidth=3,
+        xlabel=r'$E \rm\, (eV)$', ylabel=r'$\mu(E)$')
+
+plot_text('XANES', 7115, 1.95)
+plot_text('EXAFS', 7420, 1.05)
+ 
+
