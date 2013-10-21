@@ -234,13 +234,41 @@ discrimination can be accomplished either physically, by filtering out
 unwanted emission before it gets to the detector, or electronically after
 it is detected, or both.
 
-A simple way to physically filter out unwanted background scatter is to
-place a Mn-rich material between an Fe-bearing sample and the fluorescence
-detector.  Due to the Mn $K$ absorption edge, the filter will
-preferentially absorb the elastic and inelastic scatter peak and pass the
-Fe $K_{\alpha }$ line.  For most $K$ edges, the element with $Z-1$ of the
-element of interest can be used to make an appropriate filter, and filter
-materials can be found for most of the $L$ edges.
+\begin{Nfig}{width=3.5truein}{filtered_spectra}
+  \caption{The effect of a ``Z-1'' filter on a measured fluorescence
+    spectrum.  A filter of Mn placed between sample and detector will absorb
+    most of the scatter peak, while transmitting most of the Fe
+    $K_{\alpha}$ emission. For samples dominated by the scatter peak, such
+    a filter can dramatically improve the signal-to-noise level.}
+  \label{Fig:EXPT:filt}
+\end{Nfig}
+
+An example of a commonly used physical filter is to place a Mn-rich
+material between an Fe-bearing sample and the fluorescence detector.  Due
+to the Mn $K$ absorption edge, the filter will preferentially absorb the
+elastic and inelastic scatter peak and pass the Fe $K_{\alpha }$ line, as
+shown in Figure~\ref{Fig:EXPT:filt}. For most $K$ edges, the element with
+$Z-1$ of the element of interest can be used to make an appropriate filter,
+and appropriate filters can be found for most of the $L$ edges.  A simple
+filter like this can be used with a detector without any intrinsic energy
+resolution, such as an ion chamber. To avoid re-radiation from the filter
+itself, Soller slits, as shown in Figure~\ref{Fig:EXPT:soller}, can be used
+to preferentially collect emission from the sample and block any signal
+generated away from the sample from getting into the fluorescence detector,
+including emission from the fiter itself.  Such an arrangement can be very
+effective especially when the signal is dominated by scatter, as when the
+concentration of the element of interest is in the range of hundreds of ppm
+or lower.
+
+\begin{Nfig}{width=2.0truein}{soller}
+  \caption{The practical use of ``Z-1'' filter for energy discrimination of
+    a fluorescence spectrum.  The filter placed between sample and detector
+    will absorb most of the scatter peak.  Because the filter can itself
+    re-radiate, a set of metal Soller slits pointing at the sample will
+    preferentially absorb the emission from the filter and prevent it from
+    entering the detector.}
+  \label{Fig:EXPT:soller}
+\end{Nfig}
 
 Energy discrimination can also be done electronically on the measured X-ray
 emission spectrum after it has been collected in the detector.  A common
@@ -279,3 +307,200 @@ common practice for XAFS, especially for dilute and heterogeneous samples,
 and the detectors and electronics themselves are continually being
 improved.
 
+Before we leave this section, there are two import effect to discuss for
+XAFS measurements made in fluorescence mode.  These are
+\emph{self-absorption} or over-absorption from the sample, and a more
+detailed explanantion of deadtime effects for measurements made with
+solid-state detectors.  If not dealt with properly, these effects can
+substantially comprise otherwise good XAFS data, and so it is worth some
+attention to understand these in more detail.
+
+\subsection{Self-Absorption (or Over-Absorption) of Fluorescence XAFS}
+
+The term \emph{self-absorption} when referred to fluorescence XAFS can be
+somewhat confusing.  Certainly, the sample itself can absorb many of the
+fluoresced X-rays.  For example for a dilute element (say, Ca) in a
+relatively dense matrix (say, iron oxide), the Ca fluorescence will be
+severely attenuated by the sample and the measured fluorescence signal for
+Ca will be dictated by the escape depth of the emitted X-ray in the matrix.
+
+Though that is an important consideration, and the meaning of the term
+{\emph{self-absorption}} in quantitative X-ray fluorescence analysis, this
+is not what is usually meant by the term in EXAFS.  Rather, the term
+self-absorption for EXAFS usually refers to the case where the penetration
+depth into the sample is dominated by the element of interest, and so is
+one special case of the term as used in X-ray fluorescence analysis.  In
+the worst case for self-absorption (a very thick sample of a pure element),
+the XAFS simply changes the penetration depth into the sample, but
+essentially all the X-rays are absorbed by the element of interest.  The
+escape depth for the fluoresced X-ray is generally much longer than the
+penetration depth, so that most absorbed X-rays will generate a fluoresced
+X-ray that will escape from the sample.  This severely dampens the XAFS
+oscillations, and for a very concentrated sample, there may be no XAFS
+oscillations at all.  With this understanding of the effect, the term
+{\emph{over-absorption}}\cite{ManceauRIMG2002} is probably a better
+description, and should be preferred to {\emph{self-absorption}} even
+though the latter is in more common usage.
+
+\begin{Nfig}{width=2.0truein}{self_absorb}
+  \caption{fluorescence X-ray absorption measurements, showing incident
+    angle $\theta$ and exit angle $\phi$. }
+  \label{Fig:MEAS:expt1}
+\end{Nfig}
+
+
+Earlier we said that for XAFS measured in fluorescence
+\begin{equation}
+  \mu (E) \propto I_{f}/I_{0}.
+\end{equation}
+\noindent
+This is a slight oversimplification. The probability of fluorescence is
+proportional to the absorption probability but the fluorescence intensity
+that we measure has to travel back through the sample to get to the
+detector. Since all matter attenuates X-rays, the fluorescence intensity,
+and therefore the XAFS oscillations, can be damped.  More correctly, the
+measured fluorescence intensity goes as (see Fig.~\ref{Fig:MEAS:expt1})
+
+\begin{equation}
+  I_f = I_0 {\frac{\epsilon\Delta\Omega}{4\pi}} \,
+  {\frac{\mu_{\chi}(E) \big\{ 1- e^{-[\mu_{\rm tot}(E)/\sin\theta +
+        \mu_{\rm tot}(E_f)/\sin\phi]t}\big\}}{\mu_{\rm tot}(E)/\sin\theta
+      +\mu_{\rm tot}(E_f)/\sin\phi}}
+  \label{EQ:selfabs}
+\end{equation}
+\noindent
+where $\epsilon$ is the fluorescence efficiency, $\Delta\Omega$ is the
+solid angle of the detector, ${E_f}$ is the energy of the fluorescence
+X-ray, $\theta$ is the incident angle (between incident X-ray and sample
+surface), $\phi$ is the exit angle (between fluoresced X-ray and sample
+surface), ${\mu_{\chi}(E)}$ is the absorption from the
+element of interest,  and ${\mu_{\rm tot}(E)}$ is the {\emph{total}}
+absorption in the sample,
+\begin{equation}
+ \mu_{\rm tot}(E) = \mu_{\chi}(E) + \mu_{\rm other}(E)
+\end{equation}
+
+Eq.~\ref{EQ:selfabs} has several interesting limits that are common for
+real XAFS measurements.  First, there is the {\emph{thin sample limit}},
+for which $\mu t \ll 1$.  The $ 1 - e^{-\mu t} $ term then becomes
+(by a Taylor series expansion)
+\begin{equation*}
+ 1 - e^{-\mu t} \approx [{\mu_{\rm tot}(E)/\sin\theta +\mu_{\rm
+     tot}(E_f)/\sin\phi}]\, t
+\end{equation*}
+\noindent which cancels the denominator, so that
+
+\begin{equation}
+  I_f \approx I_0 {\frac{\epsilon\Delta\Omega}{4\pi}}
+{\mu_{\chi}(E)} t
+\end{equation}
+
+Alternatively, there is the {\emph{thick, dilute sample limit}}, for which
+$\mu t \gg 1$ and $\mu_\chi \ll \mu_{\rm other}$.  Now the exponential term
+goes to 0, so that
+\begin{equation}
+  I_f = I_0 {\frac{\epsilon\Delta\Omega}{4\pi}} \,
+  {\frac{\mu_{\chi}(E)}{\mu_{\rm tot}(E)/\sin\theta
+      +\mu_{\rm tot}(E_f)/\sin\phi}}    .
+\end{equation}
+\noindent
+We can then ignore the energy  dependence of $\mu_{\rm tot}$, leaving
+\begin{equation}
+  I_f \propto I_0 \mu_{\chi}(E)
+\end{equation}
+\noindent
+These two limits (very thin or thick, dilute samples) are the best cases
+for fluorescence measurements.
+
+For relatively thick, concentrated samples, for which $\mu_\chi \approx
+\mu_{\rm other}$, so that $ \mu_\chi \approx \mu_{\rm tot} $ we cannot ignore
+the energy dependence of $\mu_{\rm tot}$, and must correct for the
+oscillations in $\mu_{\rm tot}(E)$ in Eq.~\ref{EQ:selfabs}. As said above,
+for very concentrated samples, $ \mu_{\rm tot}(E) \approx \mu_{\chi}(E)$,
+and the XAFS can be completely lost.  On the other hand, if the
+self-absorption is not too severe, it can be corrected using the above
+equations\cite{BoothBridges2005,Pfalzer1999}.
+
+Finally, these self-absorption effects can be reduced for thick,
+concentrated samples by rotating the sample so that it is nearly normal to
+the incident beam.  With $\phi \rightarrow 0$ or the {\emph{grazing exit
+    limit}}, $\mu_{\rm tot}(E_f)/\sin\phi \gg \mu_{\rm tot}(E)/\sin\theta$,
+giving
+\begin{equation}
+  I_f \approx I_0 {\frac{\epsilon\Delta\Omega}{4\pi}} \,
+  {\frac{\mu_{\chi}(E)}{\mu_{\rm tot}(E_f)/\sin\phi}}
+\end{equation}
+\noindent
+which gets rid of the energy dependence of the denominator.
+
+
+In certain situations, monitoring the intensity of emitted electrons (which
+includes both Auger electrons and lower-energy secondary electrons) can be
+used to measure the XAFS. The escape depth for electrons from material is
+generally much less than a micron, making these measurements more
+surface-sensitive than X-ray fluorescence measurements, and essentially
+immune to over-absorption.  These electron yield measurements are generally
+most appropriate for samples that are metallic or semiconductor (that is,
+electrically conducting enough so that the emitted electrons can be
+replenished from a connection to ground, without the sample becoming
+charged).  For these reasons, measuring the XAFS in electron yield is not
+very common, and details of these measurements will be left for further
+reading.
+
+
+\subsection{Deadtime Corrections for Fluorescence XAFS }
+
+For fluorescence XAFS data measured with an energy discriminating
+fluorescence detector, such as a solid-state Ge or Si detector, it is often
+necessary to correct for the so-called {\emph{deadtime effect}}.  This
+accounts for the fact that a finite amount of time is needed to measure the
+energy of each X-ray detected, and the electronics used to make this
+measurement can only process one photon at at time.  At high enough
+incident count rates, the detector electronics cannot process any more
+counts and is said to be {\emph{saturated}}.  These effects can be
+particularly important when the absorbing atom is of relatively high
+concentration (above 1 \% by weight or so), because the intensity of the
+monitored fluorescence line is negligible below the edge, and grows
+dramatically at the absorption edge.  This can add a non-linear reduction
+of the fluorescence intensity, and so give non-linear artifact to the EXAFS
+and XANES.
+
+\begin{Nfig}{width=3.0truein}{deadtime}
+  \caption{Typical deadtime curve for a pulse-counting,
+    energy-discriminating detector with a deatime $\tau$ of 2 $\rm{\mu}s$.
+    At low input count rate, the output count rate -- the rate of
+    successfully processed data -- rises linearly.  As the count rate
+    increases, some of the pulses cannot be processed, resulting in a
+    reduced output count rate lower.  At {\emph{saturation}}, the output
+    count rate cannot go any higher, and increasing the input count rate
+    will decrease the output rate.  The dashed line shows a line with unity
+    slope, for a detector with no deadtime.}
+  \label{Fig:RED:deadtime}
+\end{Nfig}
+
+Fortunately, most energy discriminating detector and electronics systems
+can be characterized with a simple parameter $\tau$ that relates the
+incident count rate with the output count rate actually processed as
+\begin{equation}
+I_{\rm out} = I_{\rm inp} e^{( - I_{\rm inp} \tau)}
+\end{equation}
+\noindent where $I_{\rm inp} $ is the incident count rate to the detector,
+$I_{\rm out} $ is the output count rate, giving the intensity reported by
+the detector, and $\tau$ is the deadtime, characteristic of the detector
+and electronics system.  For a realistic value of $\tau = 2{\rm\,\mu s}$,
+the relation of input count rate and output count rate is shown in
+Figure~\ref{Fig:RED:deadtime}.  For many detector systems, there is some
+ability to adjust the maximum output count rate, and so $\tau$, that can be
+achieved, at the expense of energy resolution of the fluorescence spectra.
+Of course, to make this correction, one wants to get $I_{\rm inp}$ given
+$I_{\rm out}$ which can be complicated for very high count rates.  For some
+detector systems, one can simply record $I_{\rm inp}$ and $I_{\rm out}$ for
+each measurement as an output of the detector and electronics system.
+Alternatively, one can separately measure $\tau$ so that the corrections
+can be applied easily.  Otherwise, a good rule of thumb is that spectra can
+be corrected up to a rate for which $I_{\rm out}$ is half of $I_{\rm inp}$
+($I_{\rm inp}$ around 350 kHz for the curve shown in
+Figure~\ref{Fig:RED:deadtime}).  Importantly, for multi-element detector
+systems, each detector element will have its own deadtime, and corrections
+should be made for each detector before summing the signals from multiple
+detectors.
