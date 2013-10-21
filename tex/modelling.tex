@@ -32,7 +32,7 @@ and the {\ifeffit}\cite{ifeffit} package to do the analysis.  Some details
 of these particular programs will be given, but similar results would be
 obtained with any of several other EXAFS analysis tools.
 
-\subsection{Running and Using {\feff} for EXAFS calculations}
+\subsection{Running and Using FEFF for EXAFS calculations}
 
 In order to calculate the $f(k)$ and $\delta(k)$ needed for the analysis,
 the {\feff} program\cite{feff6} starts with a cluster of atoms, builds
@@ -102,8 +102,8 @@ for $E_0$, the threshold defining where $k$ is 0.  This is usually
 necessary because the choice of $E_0$ from the maximum of the first
 derivative of the spectra is {\emph{ad hoc}}, and because the choice of
 energy threshold in the calculation is somewhat crude.  While the refined
-value for $E_0$ may be small, it is strongly correlated with $R$, so that
-getting both its value and uncertainty is important.
+value for $E_0$ may be small, we will see that $E_0$ is strongly correlated
+with $R$, so that getting both its value and uncertainty is important.
 
 \begin{table}[tbh]
   \caption{Best values and uncertainties (in parentheses) for the
@@ -153,44 +153,223 @@ others, even if they have larger overall amplitude.
   best-fit to the 1st shell of the EXAFS, this is not obvious from looking
   at $k^2\chi(k)$.  The complex Fourier transform EXAFS $\chi(R)$ (right)
   for the real part (solid) and magnitude (dashed) of the data (blue) and
-  best-fit model (red) shows
+  best-fit model (red) in the region of the first and second shell shows
   the model matches the data very well for the first shell.}
   \label{Fig:FIT:feo1b}
 \end{Sfig}
 
-The fits done here use standard definitions of fit statistics, including
-the chi-square or $\chi^2$ statistic (note the use of $\chi^2$ from
-standard statistical treatments -- don't confuse with the EXAFS $\chi$!)
-that is minimized in a least-squares fit is defined as
+\subsection{Fit statistics and estimated uncertainties}
+
+
+At this point, we should pause to discuss some details of the fit,
+including the fit statistics and how the best-fit values and uncertainties
+are determined in the refinement.  Because the EXAFS equation is complex,
+and non-linear in the parameters we wish to refine, the refinement is done
+with a non-linear least-squares fit.    Such a fit uses the standard statistical
+definitions for chi-square  and least-squares  to determine the
+best values for the set of  parameters varied as those that find the
+smallest possible sum of squares of the difference in the model and data.
+The standard definition of the chi-square or $\chi^2$ statistic (note the
+use of $\chi^2$ from standard statistical treatments -- don't confuse with
+the EXAFS $\chi$!) that is minimized in a least-squares fit is defined as
 \begin{equation}
-  \chi^2  =  \sum_i^{N_{\rm data}} \frac{[\chi_i^{\rm data} - \chi_i^{\rm  model}({x})]^2}{\epsilon^2}
+  \chi^2  =  \sum_i^{N_{\rm data}} \frac{[y_i^{\rm data} - y_i^{\rm  model}({x})]^2}{\epsilon^2}
   \label{Eq:FIT:chisquare}
 \end{equation}
-\noindent where $\chi_i^{\rm data} $ is our experimental data, $\chi_i^{\rm
+\noindent where $y_i^{\rm data} $ is our experimental data, $y_i^{\rm
   model}({x})$ is the model which depends on the variable fitting
-parameters $x$, $\epsilon$ is uncertainty in the data, and $N_{\rm data}$
-is the number of points being fit.  As the modeling is typically done after
-a Fourier transform, the $\chi_i^{\rm data} $ is our experimental data
-after a Fourier transform, and includes both real and imaginary components.
+parameters $x$, $\epsilon$ is uncertainty in the data, and $N_{\rm data}$ is
+the number of points being fit.  Each of
+these terms deserves more discussion, and we will expand on these, while
+striving for brevity.
 
-Because of the limited range of data in $k$ and $R$, EXAFS is limited in
-the number of parameters that can be fit, with the number of independent
-measurements available from an EXAFS spectrum being given by
+The set of variable parameters $x$ are the values actually changed in the
+fit.  If we had fixed a value (say, for $N$), it would not be a variable.
+Below, we will impose relationships between parameters in the EXAFS
+equation, for example, using a single variable to give the value for $E_0$ for
+multiple paths.   This counts as one variable in the fit, even though it may
+influence the value of several physical parameters for multiple paths.
+
+Importantly, the $\chi^2$ definition does not actually specify what is
+meant by the data $y$.  In the fit above, we used the real and imaginary
+components of $\chi(R)$, after Fourier transforming the data with a
+particular window function and $k$-weight.  Using different parameters for
+the transform would result in different data (and model) to be fit, and
+could change the results.  We could have tried to fit the $k^2\chi(k)$
+without Fourier transforming, but as can be seen from
+Fig.~\ref{Fig:FIT:feo1b}, the fit may have been substantially worse.  But,
+as we are at liberty to decide what is meant by ``the data'' to be modeled,
+we can include using multiple spectra that we wish to model with one set of
+parameters $x$.  Of course, any transformation or extensions we make to the
+data must be applied equally to the model for the data.   In general, we
+find that fitting EXAFS data in $R$-space strikes a good balance between
+not changing the data substantially, and allowing us to select the $k$ and
+$R$ ranges we wish to and are able to model.
+
+The uncertainty in the data is represented by $\epsilon$ in the above
+definition for $\chi^2$.  Of course, this too must match what we mean by
+``the data'', and will generally mean the uncertainty in $\chi(R)$ in the
+range of the data we're modeling.  There are many general strategies for
+estimating uncertainties in data, usually based on involved statistical
+treatment of many measurements.  Such efforts are very useful, but tend to
+be challenging to apply for every EXAFS measurement.  A convenient if crude
+approach is to rely on the fact that EXAFS decays rapidly with $R$ and to
+assert that the data at very high $R$ (say, above $15\, \text{\AA}$) reflects
+the noise level.  Applying this to the $R$ range of our data assumes that
+the noise is independent of $R$ (white noise), which is surely an
+approximation.  The advantage of the approach is that it can be applied
+automatically for any set of data.  Tests have shown that it gives a
+reasonable estimate for data of low to normal quality, and underestimates
+the noise level for very good data.  A simple relationship based on
+Parseval's theorem and Fourier analysis can be used to relate $\epsilon_R$,
+the noise estimate in $\chi(R)$ to $\epsilon_k$, the noise in $\chi(k)$\cite{NewvilleBoyanov}.
+
+There are a couple additional statistics that are particularly useful\cite{StandCrit}.  One
+of these is reduced chi-square, defined as $\chi^2_{\nu} = \chi^2 / (N_{\rm
+  data} - N_{\rm varys})$ where $N_{\rm varys}$ is the number of variable
+parameters in the fit.  This has the feature of being a measure of
+goodness-of-fit that is takes into account the number of variables used.
+In principle, for a good fit and data with well-characterized
+uncertainties, $\epsilon$, this value should approach 1.  $\chi^2_{\nu}$ is
+especially useful when comparing whether one fit is better than another.  In
+simplest terms, a fit with a lower value for $\chi^2_{\nu}$ is said to be
+better than one with a higher value.  Of course, there is some statistical
+uncertainty in this assertion, and confidence intervals and $F$ tests can
+be applied to do a more rigorous analysis.  For EXAFS analysis, a principle
+difficulty is that the values of $\chi^2_{\nu}$ are often several orders of
+magnitude worse than 1, far worse than can be ascribed to a poor estimate
+of $\epsilon$.  Partly because of this, another statistic is $\cal{R}$,
+defined as
+\begin{equation}
+  {\cal{R}} = \frac{\sum_i^{N_{\rm data}}[y_i^{\rm data} -
+    yi^{\rm model}({x})]^2 }{
+    \sum_i^{N_{\rm data}} [{y_i^{\rm data}}]^2}
+  \label{Eq:FIT:rfactor}
+\end{equation}
+\noindent
+which gives the size of the misfit relative to the norm of the data.  This
+value is typically found to below 0.05 or so for good fits, and is often
+found to be much better than that.
+
+Last, and possibly most surprising, we discuss the problem of identifying
+$N_{\rm data}$.  When measuring $\mu(E)$ we are free to sample as many
+energy points as we wish, but increasing the number of points in $\mu(E)$
+doesn't necessarily mean we have a better measure of the first shell EXAFS.
+In the previous chapter, we mentioned that the zero-padding and fine
+spacing of $k$ data sets the spacing of data in $R$.  We should be clear
+that this can (and usually does) greatly over-sample the data in $R$ space.
+
+
+For any waveform or signal, the Nyquist-Shannon sampling theorem tells us
+that the maximum $R$ that can be measured is related to the spacing of
+sample in $k$, according to (for EXAFS, with conjugate Fourier variables of
+$k$ and $2R$)
+\begin{equation}
+  R_{\rm max} = \frac{\pi}{2\delta k}
+  \label{Eq:FIT:rmax}
+\end{equation}
+\noindent
+where $R_{\rm max}$ is the maximum $R$ value we can detect, and $\delta k$
+is the spacing for the $\chi(k)$ data.  Using $\delta k =
+0.05\,\text{\AA}^{-1}$ is common in EXAFS, which means we cannot detect EXAFS
+contributions beyond $31.4\, \text{\AA}$.  As the converse of this, the
+resolution for an EXAFS spectrum -- the separation in $R$ below which two
+peaks can be independently measured -- is given as
+\begin{equation}
+  \delta R = \frac{\pi}{2k_{\rm max}}
+  \label{Eq:FIT:rres}
+\end{equation}
+\noindent
+where $k_{\rm max}$ is the maximum measured value of $k$.  In short, what
+matters most for determining how well $\chi(R)$ is measured the signal at
+any particular value of $R$ is how many oscillations we have in $\chi(k)$.
+
+Related to both $R_{\rm max}$ and the resolution $\delta R$, and also
+resulting from basic signal processing theory and Fourier analysis, the
+number of independent measurements in a band-limited waveform is
 \begin{equation}
   N_{\rm ind} \approx \frac{2 \Delta k \Delta R}{\pi} + 1
   \label{Eq:FIT:nidp}
 \end{equation}
 \noindent
 where $\Delta k$ and $\Delta R$ are the range of useful data in $k$ and
-$R$.  This value should be used as an upper limit on the number of
-parameters that can be sensibly determined from EXAFS.  Of course, a fit
-will also need to estimating uncertainties and correlations between
-variables.  This can be readily done with standard statistical methods that
-are fast and generally reliable.  The first shell fit to Fe-O had a noise
-level in the data of $\epsilon_R \approx 5\times10^{-3}$ and $\epsilon_k
-\approx 2\times10^{-4}$, which is a typical noise level for experimental
-$\chi(k)$ data.  Values for other statistics were $N_{\rm ind} \approx 8.7$
-and $\chi^2 \approx 243$.
+$R$.  For completeness, the above equation is often given with a ``+2''
+instead of a ``+1''\cite{Stern93} in the EXAFS literature, though we will
+follow the more conservative estimate, and note that it would give an upper
+limit on the number of variables that could be determined from a set of
+data.  In any event, making finer measurements of $\mu(E)$ and $\chi(k$)
+might allow us to reliably see data at higher $R$ values, but it does
+provide finer resolution of the distances well below the Nyquist cut off
+frequency, $R_{\rm max}$.  In order to be able to extract more information
+for a particular range of $R$, data to higher $k$ is needed.
+
+Thus, we should  modify  the  definition of $\chi^2$ (and $\chi^2_{\nu}$)
+used to reflect the number of truly independent data points in the data, as
+\begin{equation}
+  \chi^2  = \frac{N_{\rm ind}}{N_{\rm data}} \sum_i^{N_{\rm data}}
+  \frac{[y_i^{\rm data} - y_i^{\rm  model}({x})]^2}{\epsilon^2}
+  \label{Eq:FIT:chisquare_nidp}
+\end{equation}
+\noindent where $N_{\rm ind}$ is given by Eq.~\ref{Eq:FIT:nidp} and $N_{\rm
+  data}$ is the number of samples used for the data, even if this far
+exceeds $N_{\rm ind}$ .  Values of $N_{\rm ind}$ for real EXAFS data is not
+very large.  In the first shell fit to FeO, we used $k=[2.5,
+13.5]\,\text{\AA}^{-1}$ and $R=[0.9, 2.0]\,\text{\AA}$ which gives $N_{\rm ind}
+\approx 8.7$, and we used 4 variables in the fit -- roughly half the
+maximum.  For higher shells and more complicated structures, we will have
+to come up with ways to limit the number of variables in fits.
+
+By measuring how $\chi^2$ changes as variables are moved way from their
+best-fit values, estimates of the uncertainties for variables and
+correlations between pairs of variables can be determined.  Standard
+statistical arguments indicate that 1-$\sigma$ error bars (that indicate a
+68\% confidence in the value) should increase $\chi^2$ by 1 from its
+best-fit value.  This assumes that $\chi^2_{\nu} \approx 1$, which is
+usually not true for EXAFS data.  As a consequence, it it common in the
+EXAFS literature to report uncertainties for values that increase $\chi^2$
+by $\chi^2_{\nu}$.  This is equivalent to asserting that a fit is actually
+good, and scaling $\epsilon$ so that $\chi^2_{\nu}$ is 1.
+
+Estimating uncertainties and correlations between variables can be very
+fast, as the computational algorithms for minimization compute and use
+intermediate values related to these (in the form of the covariance matrix)
+to find the best values. Uncertainties determined this way include the
+effect of correlations (that is, moving the value for one variable away
+from its best value may change what the best value for another variable
+would be), but also make some assumptions about how the values of the
+variable interact.  More sophisticated approaches, including brute-force
+exploration of values by stepping a variable through a set of
+values and repeatedly refining the rest of the variables, can give better
+measures of uncertainties, but are more computationally expensive.
+
+Though the aim of a fit is to find the best values for the fitting
+parameters $x$, the computational techniques used do no guarantee that the
+``global'' minimum of $\chi^2$ is found, only that a ``local'' minima is
+found based on the starting values.  This, of course, can cause
+considerable concern.  Care should be taken to check that the results found
+are not too sensitive to the starting values for the variables or data
+manipulation parameters including Fourier transform ranges and weights, and
+background subtraction parameters.  Checking for false global minima is
+somewhat more involved.  Fortunately, for EXAFS analysis with reasonably
+well-defined shells, false minima usually give obviously non-physical
+results, such as negative or huge coordination number, negative values for
+$\sigma^2$.  Another warning sign for a poor model is an $E_0$ shift away
+from the maximum of the first derivative by 10 eV or more.  This can
+sometimes happen, but can also indicate that the model $\chi(k)$ has jumped
+a half or whole period away from its correct position, and that the
+amplitude parameters may be very far off, as if the $Z$ for the scatterer
+is wrong.
+
+Our diversion into fitting statistics is complete, and we can return to our
+first shell fit to Fe-O before continuing on.  The data was estimated to
+have a $\epsilon_R \approx 5\times10^{-3}$ and $\epsilon_k \approx
+2\times10^{-4}$, which is a typical noise level for experimental $\chi(k)$ data.
+With a standard $k$ grid of $0.05\,\text{\AA}^{-1}$, and an $R$ grid of
+$\approx 0.0307\, \text{\AA}$, the fit had 72 data points, but $N_{\rm ind}
+\approx 8.7$.  Scaled to $N_{\rm ind}$ as in
+Eq.~\ref{Eq:FIT:chisquare_nidp}, the fit has $\chi^2 \approx 243$ and
+$\chi^2_{\nu} \approx 51.7$ (again with 4 variables), and ${\cal{R}}
+\approx 0.005$.
 
 
 \subsection{Second-shell fitting}
@@ -202,30 +381,18 @@ and $\chi^2 \approx 243$.
   \label{Fig:FIT:feo2a}
 \end{Sfig}
 
-\begin{Sfig}{width=3truein}{feo_2shell_chik}{feo_2shell_chirpaths}
-  \caption{Contributions of the first and second shell to the total model
-    fit to the Feo EXAFS. On the left, the fit (red) matches the data
-    (blue) much better than in Figure~\ref{Fig:FIT:feo1b}.  Note that,
-    compared to the Fe-O contribution the Fe-Fe contribution has a shorter
-    period corresponding to longer interatomic distance, and has magnitude
-    centered at higher $k$, as predicted by the $f(k)$ function shown in
-    Figure~\ref{Fig:THE:scatt}.   On the right, the  $|\chi(R)|$  of the
-    contributions from the two shells is shown.   Though there is a sharp
-    dip a 2 {\AA} between  peaks for the two shells, there is substantial
-    leakage from one shell to another.}
-  \label{Fig:FIT:feo2b}
-\end{Sfig}
+We are now ready to include the second shell in the model for the FeO
+EXAFS.  To do this, we simply add the path for Fe-Fe scattering to the sum
+in the EXAFS equation.  We will add variables for $R$, $N$, and $\sigma^2$
+for the Fe-Fe shell to those for the Fe-O scattering path.  We'll use the
+same value for $E_0$ for both the Fe-O and Fe-Fe path, and keep all
+parameters  the same as for the fit above, except that we'll extend the $R$
+range to be $R=[0.9, 3.1]\,\text{\AA}$.   This will increase  $N_{\rm ind}$ to
+$\approx 15.7$, while we've increased the number of variables to 7.
 
-To include the second shell in the model for the FeO EXAFS, we simply add
-the path for Fe-Fe scattering to the sum in the EXAFS equation.  We will
-add variables for $R$, $N$, and $\sigma^2$ for the Fe-Fe shell to those for
-the Fe-O scattering path.  We'll use the same value for $E_0$ for both the
-Fe-O and Fe-Fe path, and keep all parameters the same as for the fit above,
-except that we'll extend the $R$ range to be $R=[0.9, 3.1]\,\text{\AA}$.
-This will increase $N_{\rm ind}$ to $\approx 15.7$, while we've increased
-the number of variables to 7.
 
-\begin{table}[bh]
+
+\begin{table}[tbh]
   \caption{Best values and uncertainties (in parentheses) for the
     refined first (Fe-O) and second (Fe-Fe) shells  for FeO.  The refinement fit the
     components of $\chi(R)$ between $R=[0.9, 3.0]\,\text{\AA}$ with all other
@@ -243,39 +410,135 @@ the number of variables to 7.
 \end{center}
 \end{table}
 
+\begin{Sfig}{width=3truein}{feo_2shell_chik}{feo_2shell_chirpaths}
+  \caption{Contributions of the first and second shell to the total model
+    fit to the Feo EXAFS. On the left, the fit (red) matches the data
+    (blue) much better than in Figure~\ref{Fig:FIT:feo1b}.  Note that,
+    compared to the Fe-O contribution the Fe-Fe contribution has a shorter
+    period corresponding to longer interatomic distance, and has magnitude
+    centered at higher $k$, as predicted by the $f(k)$ function shown in
+    Figure~\ref{Fig:THE:scatt}.   On the right, the  $|\chi(R)|$  of the
+    contributions from the two shells is shown.   Though there is a sharp
+    dip a 2 {\AA} between  peaks for the two shells, there is substantial
+    leakage from one shell to another.}
+  \label{Fig:FIT:feo2b}
+\end{Sfig}
 
 The fit is shown in Figure~\ref{Fig:FIT:feo2a} and values and uncertainties
 for the fitted variables are given in Table~\ref{TABLE:FIT:feo2}.  The fit
-gave fit statistics of $\chi^2 \approx 837$.  The structural values for
-distances and coordination number are consistent with the known crystal
-structure of FeO, though the Fe-O distance is a bit shorter than expected,
-and the Fe-Fe is a bit longer than expected, both suggesting that there may
-be some contamination of a ferric iron phase in the sample.  The fits are
-shown in Figure~\ref{Fig:FIT:feo2a}, and individual contributions to the total
-best-fit spectrum are shown in both $k$- and $R$-space in
-Figure~\ref{Fig:FIT:feo2b}.
+gave fit statistics of $\chi^2 \approx 837$, $\chi^2_\nu \approx 96$, and
+${\cal{R}} \approx 0.0059$.  The structural values for distances and
+coordination number are consistent with the known crystal structure of FeO,
+though the Fe-O distance is a bit shorter than expected, and the Fe-Fe is a
+bit longer than expected, both suggesting that there may be some
+contamination of a ferric iron phase in the sample.  The fits are shown in
+Figure~\ref{Fig:FIT:feo2a}, and individual contributions to the total best-fit
+spectrum are shown in both $k$- and $R$-space in Figure~\ref{Fig:FIT:feo2b}.
+An important aspect of using fitting techniques to model experimental data
+is the ability to compare different fits to decide which of two different
+models is better.  We will illustrate this by questioning the assumption in
+the above the model that the $E_0$ parameter should be exactly the same for
+the Fe-O and Fe-Fe scattering path.  Changing this model to allow another
+variable parameter and re-running the fit is straightforward.  For this
+data set, the fit results are close enough to the previous fit that the
+graphs of $\chi(k)$ and $\chi(R)$ are nearly unchanged.  The newly refined
+values for the parameter are given in Table~\ref{TABLE:FIT:feo3}.  Compared
+to the values in Table~\ref{TABLE:FIT:feo2}, the results are very similar
+except for the values of $E_0$ and a slight increase in uncertainties.
 
-% The basic formalism for modeling EXAFS data has been given, based on the
-% Path expansion, theoretical calculations of the contributions for these
-% paths, the Fourier transform, and a statistical understanding of the
-% information present in a real EXAFS spectrum.  We have illustrated a simple
-% approach to refining a structural model using EXAFS data, and used
-% statistical methods to compare two different candidate models.  Finally we
-% have outlined the route forward to building models for more complex EXAFS
-% data.
+\begin{table}[tbh]
+  \caption{Best values and uncertainties (in parentheses) for the
+    refined first (Fe-O) and second (Fe-Fe) shells  for FeO for a model
+    just like that shown in Table~\ref{TABLE:FIT:feo2} except that the 2
+    values for $E_0$ are allowed to vary independently.}
+  \label{TABLE:FIT:feo3}
+  \begin{center}
+    \begin{tabular}{cccccc}
+    Shell & ${N}$ & ${R}\, (\text{\AA})$ & $\sigma^2\, (\text{\AA}^2)$ & ${\Delta E_0}$ (eV) \\
+    \hline    \noalign{\smallskip}
+    Fe-O   &   5.3(0.6)  &   2.12(0.01) & 0.013(.002) & -0.7(1.2)\\
+    Fe-Fe  &  13.3(1.3) & 3.08(0.01) & 0.015(.001) &  -1.5(0.8)\\
+    \noalign{\smallskip}
+    \hline
+  \end{tabular}
+\end{center}
+\end{table}
 
-% Two distinct and essential challenges exist for EXAFS analysis.  First, the
-% complexity of the theoretical calculations for photo-electron scattering in
-% make it difficult to get theoretical scattering factors $f(k)$ and
-% $\delta(k)$ that can match the accuracy of measured EXAFS data.  By itself,
-% this has proven to not be a serious problem, as the EXAFS literature is
-% full of examples showing the accuracy of the results from EXAFS despite the
-% imperfect theoretical calculations.  Second, the limited information
-% contained in a finite EXAFS spectrum coupled with the number of scattering
-% paths needed to model real systems makes building and testing realistic
-% models for complex systems challenging.  Progress in analytics tools for
-% EXAFS continues to make the building and testing of such models easier and
-% more robust, but it still requires a fair amount of expertise and care.
 
+The fit statistics for this refinement are $\chi^2 \approx 811$,
+$\chi^2_\nu \approx 105$, and ${\cal{R}} \approx 0.0057$.  Since both
+$\chi^2$ and $\cal{R}$ have decreased, the model with 2 independent $E_0$
+values is clearly a closer match to the data.  But we added a variable to
+the model, so it is reasonable to expect that the fit should be better.
+But is it better enough to justify the additional variable?  The simplest
+approach to answering this question is to ask if $\chi^2_\nu$ has improved.
+In this case, it has not -- it went from roughly 96 to 105.  Since these
+statistics all have uncertainties associated with them, a slightly more
+subtle question is: what is the probability that the second fit is better
+than the first?  A standard statistical $F$-test can be used to give this
+probability, which turns out to be about 32\% for these two fits (that is,
+with $N_{\rm ind}=15.7$, $\chi^2 \approx 837$ for 8 variables and $\chi^2
+\approx 811$ for 7 variables).
+
+Another way to look at this is to ask if the added variable ($E_0$ for the
+Fe-Fe shell) found a value that was significantly different from the value
+it would have otherwise had.  The two values for $E_0$ in the ``2 $E_0$
+model'' are noticeably different from one another -- approximately at the
+limits of their uncertainties -- but both are consistent with the value
+found in the ``1 $E_0$ model''.  This also leads us to the conclusion that
+the additional variable $E_0$ is not actually necessary for modeling this
+data.
+
+We've seen that structural refinement of EXAFS data can be somewhat
+complicated, even for a relatively straightforward system such as FeO.
+Many real systems can be much more challenging, but the fundamental
+principles described here remain the same.  The ability to alter which of
+the physical parameters describing the different paths in the EXAFS sum are
+independently varied in the refinement, and test the robustness of these,
+can be especially important for more sophisticated analysis.  One way to
+think about this is that in the first version of the above example, we used
+the value of one variable for two different path variables -- $E_0$ for the
+Fe-O and Fe-Fe paths, and then demonstrated that using one value for these
+two physical parameters was robust.  That would be the simplest possible
+type of placing constraints on an EXAFS analysis, and it had the noticeable
+advantage of improving the fit because it used fewer independent variables.
+For a mixed coordination shell, perhaps a mixture of Fe-O and Fe-S, one may
+want to include paths for Fe-O and Fe-S and ask the model not to simply
+refine the weight of each of these independently but rather to ask what
+fraction of the Fe atoms are coordinated by oxygen.  To do this, one would
+vary the fraction $x_{\rm FeO}$ as a pre-factor to the amplitude term for
+the Fe-O path and constrain the coordination number for the Fe-S path to
+use $1 - x_{\rm FeO}$.  More complex constraints can be imposed when
+simultaneously refining data from different edges or different temperatures
+measured on the same sample.  In a sense, the use of multiple paths for
+different parts of the $R$ range for $\chi(R)$ in the fit above is merely
+the starting point for thinking about how different contributions can be
+put together to make a model for a set of data.
+
+The basic formalism for modeling EXAFS data has been given, based on the
+Path expansion, theoretical calculations of the contributions for these
+paths, the Fourier transform, and a statistical understanding of the
+information present in a real EXAFS spectrum.  We have illustrated a simple
+approach to refining a structural model using EXAFS data, and used
+statistical methods to compare two different candidate models.  Finally we
+have outlined the route forward to building models for more complex EXAFS
+data.
+
+Two distinct and essential challenges exist for EXAFS analysis.  First, the
+complexity of the theoretical calculations for photo-electron scattering in
+make it difficult to get theoretical scattering factors $f(k)$ and
+$\delta(k)$ that can match the accuracy of measured EXAFS data.  By itself,
+this has proven to not be a serious problem, as the EXAFS literature is
+full of examples showing the accuracy of the results from EXAFS despite the
+imperfect theoretical calculations.  Second, the limited information
+contained in a finite EXAFS spectrum coupled with the number of scattering
+paths needed to model real systems makes building and testing realistic
+models for complex systems challenging.  Progress in analytics tools for
+EXAFS continues to make the building and testing of such models easier and
+more robust, but it still requires a fair amount of expertise and care.
+Despite the challenges, EXAFS has been proven to give reproducible and
+reliable measures of the local structure around selected atoms that cannot
+be obtained in any other way, and the number of scientists using EXAFS in
+mature and new and exciting fields continues to grow.
 
 
