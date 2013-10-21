@@ -9,7 +9,7 @@ plot_text(r'Fe $K_{\alpha}$ ', x=6.3, y=370)
 plot_text(r'Fe $K_{\beta}$ ',  x=6.9, y=88)
 plot_text(r'Scatter',          x=8.2, y=220)
 
-save_plot('../figs/fluor_spectra.pdf')
+save_plot('fluor_spectra.pdf')
 
 efilt = linspace(4, 9, 251)
 mu_mn = mu_elam('Mn', energy=efilt*1000)/2.0
@@ -17,4 +17,4 @@ mu_mn = mu_elam('Mn', energy=efilt*1000)/2.0
 plot(efilt, mu_mn, **opts)
 plot_text(r'Mn $\mu(E)$',       x=4.3, y=104)
 
-save_plot('../figs/filter_spectra.pdf')
+save_plot('filter_spectra.pdf')
