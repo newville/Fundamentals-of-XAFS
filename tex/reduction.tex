@@ -249,6 +249,42 @@ typical background spline found for FeO, using a high-$R$ cutoff $R_{\rm
   bkg}$ of 1.0 {\AA}.  The resulting $\chi(k)$ is shown in
 Figure~\ref{Fig:RED:chik}.
 
+\begin{figure}[tbh]
+\begin{center}
+        \includegraphics*[width=3.5truein]{../figs/rbkg_mu}\vspace{0.25mm}
+
+        \includegraphics*[width=2.75truein]{../figs/rbkg_chi}\hspace{-0.25mm}%%
+        \includegraphics*[width=2.75truein]{../figs/rbkg_chir}
+\end{center}
+\caption{The effect of changing $R_{\rm bkg}$ on $\mu_0(E)$ and $\chi$.  A
+  typical value for $R_{\rm bkg}$ of $1.0\,\text{\AA} $ (solid blue) results in
+  a spline for $\mu_0(E)$ that can follow the low-$R$ variations in
+  $\mu(E)$ while not removing the EXAFS.  A value too small ($R_{\rm bkg} =
+  0.2\,\text{\AA} $, solid red) gives a spline that is not flexible enough,
+  leaving a low-$R$ artifact, but one that will not greatly impact further
+  analysis. On the other hand, a value too large ($R_{\rm bkg} =
+  4.0\,\text{\AA} $, solid black) gives a spline flexible enough to completely
+  remove the first and second shells of the EXAFS.}
+  \label{Fig:RED:rbkg}
+\end{figure}
+
+The effect of varying $R_{\rm bkg}$ on the resulting spline for $\mu_0(E)$
+and $\chi$ in both $k$- and $R$-space can be seen in
+Figure~\ref{Fig:RED:rbkg}.  Here $\mu_0(E)$ for the same FeO $\mu(E)$
+spectra is shown using values for $R_{\rm bkg}$ of 0.2, 1.0, and 4.0 {\AA}.
+Having $R_{\rm bkg}$ too small (shown in red) results in a $\mu_0(E)$ that
+is does not vary enough, giving a slow oscillation in $\chi(k)$, and
+spurious peak below 0.5 {\AA} in $|\chi(R)|$.  On the other hand, setting
+$R_{\rm bkg}$ too high (shown in black) can result in a $\mu_0(E)$ that
+matches all the EXAFS oscillations of interest.  Indeed, with $R_{\rm bkg}
+= 4\, \text{\AA}$, both the first and second shells of the FeO EXAFS are
+entirely removed, leaving only the highest $R$ components.  This is clearly
+undesirable.  In general, it is not too difficult to find a suitable value
+for $R_{\rm bkg}$, with 1 {\AA} or half the near-neighbor distance being
+fine default choices.  As we can see from Figure~\ref{Fig:RED:rbkg}, having
+$R_{\rm bkg}$ too small is not always a significant problem -- the low $R$
+peak can simply be ignored in the modeling of the spectra, and there is
+little effect on the spectrum at higher $R$.
 
 \subsection{EXAFS Fourier Transforms}
 

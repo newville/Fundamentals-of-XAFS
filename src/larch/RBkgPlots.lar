@@ -73,6 +73,14 @@ feo1.plotopts = dict(color='blue',  linewidth=3, label=r'$R_{\rm bkg}=1.0\AA$')
 feo2.plotopts = dict(color='red',   linewidth=3, label=r'$R_{\rm bkg}=0.2\AA$')
 feo3.plotopts = dict(color='black', linewidth=3, label=r'$R_{\rm bkg}=4.0\AA$')
 
+opts = dict(linewidth=3, labelfontsize=10, legendfontsize=10,
+            fullbox=False, grid=False)
+
+
+feo1.plotopts.update(opts)
+feo2.plotopts.update(opts)
+feo3.plotopts.update(opts)
+
 newplot(feo.energy, feo.norm, zorder=50, linewidth=1, marker='+', markersize=7,
         label=r'$\mu$', textsize=10, legendsize=10, show_legend=True,
         xmin =7100, xmax=7300, ymin=0.82,  ymax=1.45,
@@ -82,18 +90,22 @@ plot(feo2.energy, feo2.bkg, **feo2.plotopts)
 plot(feo1.energy, feo1.bkg, **feo1.plotopts)
 
 
-newplot(feo3.k, 1+feo3.chi*feo2.k**2,  textsize=10, legendsize=10, show_legend=True,
+save_plot('rbkg_mu.pdf')
+
+newplot(feo3.k, 1+feo3.chi*feo2.k**2,  textsize=10, legendsize=10, show_legend=False,
         xlabel=r'$k\rm\,(\AA^{-1})$', ylabel=r'$k^2\chi(k) \rm\,(\AA^{-2})$', win=2, ymax=2.50,
         **feo3.plotopts)
   plot(feo2.k,  0+feo2.chi*feo2.k**2, win=2,  **feo2.plotopts)
   plot(feo2.k, -1+feo1.chi*feo1.k**2, win=2,  **feo1.plotopts)
 
-newplot(feo3.r, 0.4+feo3.chir_mag, textsize=10, legendsize=10, show_legend=True,
+save_plot('rbkg_chi.pdf', win=2)
+
+newplot(feo3.r, 0.4+feo3.chir_mag, textsize=10, legendsize=10, show_legend=False,
         xlabel=r'$R\rm\, (\AA)$', ylabel=r'$|\chi(R)|\rm\,(\AA^{-3})$', win=3,ymax=1.35,
         **feo3.plotopts)
   plot(feo2.r,  0.2+feo2.chir_mag, win=3,         **feo2.plotopts)
   plot(feo3.r,  0.0+feo1.chir_mag, win=3,         **feo1.plotopts)
-
+save_plot('rbkg_chir.pdf', win=3)
 
 # 	xlabel= 'E (eV)', ylabel= '\gm(E)')
 # plot(feo.energy, feo.bkg,  key= '\gm\d0\u')
