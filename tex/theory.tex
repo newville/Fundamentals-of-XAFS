@@ -4,22 +4,23 @@ In this section, a simple physical description of the XAFS process and the
 origin of the EXAFS Equation will be given.  Other useful treatments on a
 similar level can be found in other
 places\cite{Stern1988,RehrAlbersRMP2000} as well.  We start with the
-photoelectric effect, now shown in Figure~\ref{Fig:THE:absorption}, in which
-an X-ray of energy $E$ is absorbed by a core-level electron of a particular
-atom with binding energy $E_0$.  Any energy from the X-ray in excess of
-this binding energy is given to a photo-electron that propagates away from
-the absorbing atom.  We will treat the photo-electron as a wave with
-wavelength is proportional to $1/\sqrt{E-E_0}$.  It is most common to
-describe the photo-electron by its {\emph{wavenumber}}, $k = 2\pi/\lambda$,
-given in Eq.~\ref{Eq:ABS:kdef}.
+photoelectric effect, now shown in Figure~\ref{Fig:THE:absorption}, in
+which an X-ray of energy $E$ is absorbed by a core-level electron of a
+particular atom with binding energy $E_0$.  Any energy from the X-ray in
+excess of this binding energy is given to a photo-electron that propagates
+away from the absorbing atom.  We will treat the photo-electron as a wave,
+noting that its wavelength is proportional to $1/\sqrt{E-E_0}$.  It is most
+common to describe the photo-electron by its {\emph{wavenumber}}, $k =
+2\pi/\lambda$, given in Eq.~\ref{Eq:ABS:kdef}.
 
 \begin{Nfig}{width=3.5truein}{xafscartoon_bare}
-  \caption{X-ray absorption by the photoelectric effect.  As the energy of
-    the X-rays is increased above the energy of a core electron level,
-    $E_0$, the probability of absorption has a sharp rise -- an edge jump.
-    On absorbing the X-ray, the tightly bound core-level is destroyed, and
-    a photo-electron with wavelength proportional to $1/\sqrt{(E-E_0)}$ is
-    created.}
+  \caption{Cartoon of X-ray absorption by the photoelectric effect.  As the
+    energy of the X-rays is increased to just above the energy of a tightly
+    bound core electron level, $E_0$, the probability of absorption has a
+    sharp rise -- an edge jump.  In the absorption process, the tightly
+    bound core-level is destroyed, and a photo-electron is created. The
+    photo-electron travels as a wave with wavelength proportional to
+    $1/\sqrt{(E-E_0)}$.}
   \label{Fig:THE:absorption}
 \end{Nfig}
 
@@ -29,15 +30,16 @@ there to be an \emph{available quantum state} for the ejected
 photo-electron to go to.  If no suitable state is available, there will be
 no absorption from that core level.  At X-ray energies below the $1s$
 binding energy (for example, below 7.1 keV for iron) the $1s$ electron
-could only be promoted to a valence electron level below the Fermi level.
-Since all the valence levels are filled, there is no state for the $1s$
-electron to fill and so there is no absorption from that core-level.  Of
-course, the sample isn't transparent to X-ray, as the higher level
-electrons can be promoted into the continuum, but there is a sharp jump in
-the probability of absorption as the X-ray energy is increased above a core
-level binding energy.  These binding levels are often referred to as
-{\emph{ absorption edges}} due to this strong increase in absorption
-probability.
+could only be promoted to a valence electron level below the Fermi level --
+there is simply not enough energy to put the electron into the conduction
+band.  Since all the valence levels are filled, there is no state for the
+$1s$ electron to fill, and so there is no absorption from that core-level.
+Of course, a sample is not transparent to X-rays with energies below the
+$1s$ binding level, as the higher level electrons can be promoted into the
+continuum, but there is a sharp jump in the probability of absorption as
+the X-ray energy is increased above a core level binding energy.  These
+binding levels are often referred to as {\emph{ absorption edges}} due to
+this strong increase in absorption probability.
 
 It should be noted that the quantum state that the photo-electron occupies
 has not only the right energy, but also the right angular momentum.  For
@@ -47,26 +49,27 @@ can be excited into either an $s$ or $d$ level.  This is important for a
 detailed, quantitative description of the XAFS, but is not crucial to basic
 discussion of XAFS here, as we are generally dealing with energies far
 above the continuum which have large density of states.  On the other hand,
-the momentum state can be extremely important when considering XANES, as
-the available energy states of the unfilled anti-bonding orbitals still
-have well-defined and specific angular momentum states above the continuum
-level.
+the momentum state can be extremely important when considering XANES, the
+near-edge portion of the spectra, as the available energy states of the
+unfilled anti-bonding orbitals still have well-defined and specific angular
+momentum states above the continuum level.
 
 \begin{Nfig}{width=3.5truein}{xafscartoon_scatter}
   \caption{The photo-electron can scatter from a neighboring atom and
     return to the absorbing atom.  This modulates the amplitude of the
     photo-electron wave-function at the absorbing atom, and also modulates
-    the absorption coefficient $\mu(E)$.}
+    the absorption coefficient $\mu(E)$, causing the XAFS.}
   \label{Fig:THE:exafs}
 \end{Nfig}
 
-When a neighboring atom is included in the picture, as shown in
+The picture above described absorption for an isolated atom.  When a
+neighboring atom is included in the picture, as shown in
 Figure~\ref{Fig:THE:exafs}, the photo-electron can scatter from the
-electrons of this atom, and some part of the scattered photo-electron can
-return to the absorbing atom.  Of course, the simple one-dimensional
-picture shown suggests that the probability of scattering the
-photo-electron by the neighboring atom is quite large.  In fact, the
-photo-electron wavefunction spreads radially out and has a fairly low
+electrons of this neighboring atom, and some part of the scattered
+photo-electron can return to the absorbing atom.  Of course, the simple
+one-dimensional picture shown suggests that the probability of scattering
+the photo-electron by the neighboring atom is quite large.  In
+a real, three dimensional sample, the photo-electron wavefunction spreads radially out and has a fairly low
 probability of scattering from the electrons in the neighboring atoms, so
 that the EXAFS is a relatively small change in the total absorption
 coefficient.
@@ -82,50 +85,126 @@ of XAFS.
 
 \subsection{The EXAFS equation}
 
+We'll now spend some effort developing the standard EXAFS equation using a
+slightly more formal description of this simple physical picture above, but
+still somewhat less rigorous than a full-blown quantum mechanical
+description.  The goal here is to describe enough of the basic physics to
+identify where the different components of the EXAFS equation arise from,
+and so what they mean for use in the analysis of spectra.
 
-\begin{Nfig}{width=3.5truein}{lambda}
-  \caption{The photo-electron mean-free-path for XAFS $\lambda(k)$,
-    representing how far the photo-electron can travel and still participate
-    in the XAFS.  This term accounts for both the inelastic scattering of the
-    photo-electron, and the finite lifetime of the core-hole.}
-  \label{Fig:THE:lambda}
-\end{Nfig}
+Since X-ray absorption is a {\emph{transition}} between two quantum states
+(from an initial state with an X-ray, a core electron, and no
+photo-electron to a final state with no X-ray, a core hole, and a
+photo-electron), we describe $\mu(E)$ with Fermi's Golden Rule:
 
-We can arrive at the EXAFS equation (Eq.~\ref{Eq:ABS:EXAFSEq}) by
-considering the photo-electron to be a spherical wavefunction leaving the
-absorbing atom.  Recognizing that an electron in a solid or liquid can be
-scattered by other electrons, we actually use a damped spherical
-wavefunction,
 \begin{equation}
-  \psi(k,r) = {\frac{e^{ikr} e^{-r/\lambda(k)}}{kr}},
-    \label{Eq:damped}
+ \mu(E) \propto   { | \langle i | {\cal{H}} | f \rangle |^2   }
+ \label{Eq:fermi}
 \end{equation}
 \noindent
-where, $\lambda$ is the {\emph{mean free path}} of the photo-electron,
-representing how far it can typically travel before scattering
-inelastically or before the core hole is filled by a decay process (which
-typically happens within $10^{-15}$ s, or so)..  The mean-free-path is
-typically 5 to 30 {\AA} and varies with $k$ with a fairly universal
-dependence on $k$, as shown in Figure~\ref{Fig:THE:lambda}.
+where $ \langle i | $ represents the initial state (an X-ray, a core
+electron, and no photo-electron), $|f\rangle$ is the final state (no X-ray,
+a core-hole, and a photo-electron), and $\cal{H}$ is the interaction term,
+which we'll come back to shortly.  Since the core-level electron is very
+tightly bound to the absorbing atom, the initial state will not be altered
+by the presence of the neighboring atom, at least to first approximation.
+The final state, on the other hand, will be affected by the neighboring
+atom because the photo-electron will be able to scatter from it.  If we
+expand $|f\rangle$ into two pieces, one that is the ``bare atom'' portion
+($|f_0\rangle$), and one that is the effect of the neighboring atom
+($|\Delta f\rangle$) as
+\begin{equation}
+  |f\rangle = |f_0\rangle + |\Delta f\rangle,
+\end{equation}
+\noindent
+we can then expand Eq.~\ref{Eq:fermi} to
+\begin{equation}
+  \mu(E) \propto {{| \langle i | {\cal{H}} | f_0 \rangle |^2}}
+  \bigl[ 1 + {{\langle i | {\cal{H}}| \Delta f \rangle }}
+    { \frac{   {\langle f_0 | {\cal{H}} | i \rangle }^{*}
+      }{ | \langle i | {\cal{H}} | f_0 \rangle |^2 } }  + C.C \bigr]
+\end{equation}
+\noindent
+where C.C. means complex conjugate. We've arranged the terms here so that
+this expression resembles a slight variation on our previous relationship
+between $\mu(E)$ and
+$\chi(E)$   in Eq.~\ref{Eq:mu2chi},
+\begin{equation}
+  \mu(E)  = \mu_0(E) [ 1 + \chi(E)].
+\end{equation}
+\noindent
+where we're allowing the $\Delta\mu_0$ in Eq.~\ref{Eq:mu2chi} to be the
+energy-dependent $\mu_0(E)$ .  We can now assign $\mu_0 = | \langle i |
+{\cal{H}} | f_0 \rangle |^2 $ as the ``bare atom absorption'', which
+depends only on the absorbing atom -- as if the neighboring atom wasn't
+even there.  We can also see that the fine-structure $\chi$ will be
+proportional to the term with $|\Delta f\rangle$:
+\begin{equation}
+  \chi(E)  \propto \langle i | {\cal{H}}| \Delta f \rangle.
+\end{equation}
+\noindent
+which indicates that the EXAFS is due to the interaction of the scattered
+portion of the photo-electron and the initial absorbing atom.
 
-From the cartoon in Figure~\ref{Fig:THE:exafs}, we can see that the EXAFS
-should be described as the photo-electron propagating away from the
-absorbing, scattering from the neighbor atom a distance $R$ away, and
-returning to the absorbing atom.  With the wavefunction for the
-photo-electron above, we write this as
+We can work this term out as an integral equation fairly easily, if
+approximately.  The interaction term ${\cal{H}}$ represents the process of
+changing between two energy, momentum states.  In quantum radiation theory,
+the interaction term needed is the ${p{\cdot}A}$ term, where ${A}$ is the
+quantized vector potential (there is also an ${A{\cdot}A}$ term, but this
+does not contribute to absorption).  For the purposes here, this reduces to
+a term that is proportional to $e^{ikr}$.  The initial state is a tightly
+bound core-level, which we can approximate by a delta function (a 1s level
+for atomic number $Z$ extends to around $a_0 / Z$, where $a_0$ is the Bohr
+radius of $\approx 0.529\,\text{\AA}$, so this is a good approximation for
+heavy elements, but less good for very light elements).  The change in
+final state is just the wave-function of the scattered photo-electron,
+$\psi_{\rm{scatter}}(r)$.  Putting these terms together gives a simple
+expression for the EXAFS:
 
 \begin{Sfig}{width=3truein}{scatt_amp}{scatt_pha}
-  \caption{Photo-electron scattering amplitudes $f(k)$ (left) and
-    phase-shifts $\delta(k)$ (right) for O, Fe, and Pb showing the
-    dependence of these terms on atomic number Z. The variations in
-    functional form allow Z to be determined ($\pm 5$ or so) from analysis
-    of the EXAFS.}
+  \caption{Functional forms for $f(k)$ (left) and $\delta(k)$ (right) for
+    O, Fe, and Pb showing the dependence of these terms on atomic number
+    Z. The variations in functional form allow Z to be determined ($\pm 5$
+    or so) from analysis of the EXAFS.}
   \label{Fig:THE:scatt}
 \end{Sfig}
 
 \begin{equation}
-  \chi(k) \propto   {\frac{e^{ikR}e^{-R/\lambda(k)}}{kR}}\>
-    [{2k f(k)e^{i\delta(k)}}] \>  {\frac{e^{ikR} e^{-R/\lambda(k)}}{kR}} + C.C.
+\chi(E) \propto \int dr \delta(r) e^{ikr}
+      \psi_{\rm{scatter}}(r)  =  \psi_{\rm{scatter}}(0).
+\end{equation}
+\noindent
+In words, this simply states the physical picture shown in
+Figure~\ref{Fig:THE:exafs}:
+
+\begin{center}
+  \fcolorbox{black}{white}{
+    \begin{minipage}{4.0truein}
+      \textbf{The EXAFS $\chi(E)$ is proportional to the amplitude of the
+        scattered photo-electron at the absorbing atom.}
+  \end{minipage}
+  }
+\end{center}
+
+
+We can now evaluate the amplitude of the scattered photo-electron at the
+absorbing atom to get the EXAFS equation.  Using the simple physical
+picture from Figure~\ref{Fig:THE:exafs}, we can describe the outgoing
+photo-electron wave-function $\psi(k,r)$ traveling as a spherical wave,
+\begin{equation}
+  \psi(k,r) = {\frac{e^{ikr}}{kr}},
+  \label{Eq:spherical}
+\end{equation}
+
+\noindent
+traveling a distance $R$ to the neighboring atom, then scattering from a
+neighbor atom, and traveling as a spherical wave a distance $R$ back to the
+absorbing atom. We simply multiply all these factors together to get
+\begin{equation}
+  \chi(k) \propto \psi_{\rm{scatter}}(k,r=0) =
+  {\frac{e^{ikR}}{kR}}\>
+    [{2k f(k)e^{i\delta(k)}}] \>
+    {\frac{e^{ikR}}{kR}} + C.C.
     \label{Eq:xafs0}
 \end{equation}
 \noindent
@@ -138,26 +217,38 @@ function, we get
 
 \begin{equation}
   \chi(k) =
-    {\frac{f(k) e^{-2R/\lambda(k)}}{kR^2}}\>  \sin[2kR + \delta(k)]
+    {\frac{f(k)}{kR^2}}\>
+    \sin[2kR + \delta(k)]
 \label{Eq:xafs1}
 \end{equation}
 \noindent
-which looks much like the standard EXAFS equation.  So far, the treatment
-describes one pair of absorbing atom and scattering atom, but for a real
-measurement we'll average over billions of X-ray absorption events and so
-atom pairs. Even for neighboring atoms of the same type, the thermal and
-static disorder in the bond distances will give a range of distances that
-will affect the XAFS. As a first approximation, the bonding environment and
-disorder will change the XAFS equation from Eq.~\ref{Eq:xafs1} to
+which looks much like the standard EXAFS equation.  For
+mathematical convenience,  the EXAFS Equation is sometimes written with the
+$\sin$ term replaced with the imaginary part of an exponential:
 \begin{equation}
   \chi(k) =
-      {{ \frac{N e^{-2k^2\sigma^2} f(k)e^{-2R/\lambda(k)} }{kR^2}}}\>
+    {\frac{f(k)}{kR^2}}\> {\rm{Im}}  [e^{i[2kR + \delta(k)]}]
+\label{Eq:xafs1a}
+\end{equation}
+we'll use this form on occasion.
+
+The treatment to get to Eq.~\ref{Eq:xafs1} was for one pair of absorbing
+atom and scattering atom, but for a real measurement we'll average over
+billions of X-ray absorption events and so atom pairs. Even for neighboring
+atoms of the same type, the thermal and static disorder in the bond
+distances will give a range of distances that will affect the XAFS. As a
+first approximation, the bonding environment and disorder will change the
+XAFS equation from Eq.~\ref{Eq:xafs1} to
+\begin{equation}
+  \chi(k) =
+      {{ \frac{N e^{-2k^2\sigma^2} f(k)}{kR^2}}}\>
       \sin[2kR + \delta(k)]
       \label{Eq:xafs2}
 \end{equation}
 \noindent
 where $N$ is the coordination number and $\sigma^2$ is the
-mean-square-displacement in the bond distance $R$.
+mean-square-displacement in the bond distance $R$.    We'll return to this
+topic later.
 
 Of course, real systems usually have more that one type of neighboring atom
 around a particular absorbing atom.  This is easily accommodated in the
@@ -165,7 +256,7 @@ XAFS formalism, as the measured XAFS will simply be a sum of the
 contributions from each scattering atom type or \emph{coordination shell}:
 \begin{equation}
   \chi(k) = \sum_j {
-    {{ \frac{N_j e^{-2k^2\sigma_j^2}  e^{-2R/\lambda(k)} f_j(k)}{kR_j^2}}}\>
+    {{ \frac{N_j e^{-2k^2\sigma_j^2} f_j(k)}{kR_j^2}}}\>
       \sin[2kR_j + \delta_j(k)] }
       \label{Eq:xafs3}
 \end{equation}
@@ -176,74 +267,106 @@ there can be many such shells, but as shells of similar Z become close
 enough (say, within a 0.05 {\AA} of each other), they become difficult to
 distinguish from one another.
 
-The use of $Ne^{-2k^2\sigma^2}$ above where $N$ is the coordination number
-and $\sigma^2$ is the mean-square displacement of the set of interatomic
-distances $R$ sampled by an EXAFS measurement is a simple way to account
-for disorder in the set of near-neighbor distances in a system.  A real
-EXAFS measurement samples billions of X-ray absorption events, and each of
-these will sample a snapshot of the environment around a particular
-absorbing atom.  For the present time, we'll model this distribution with a
-two parameters: the average distance $R$ and the mean-square-displacement
-$\sigma^2$.    More complete accounting of the range of distances seen would
-use more complex models of distribution function of interatomic distances,
-but we'll leave this aside for the present discussion.
+The explanation so far of what goes into the EXAFS equation gives the most
+salient features of the physical picture for EXAFS.  but ignores many
+nuances.  In order to be able to quantitatively analyze EXAFS in real
+systems, we'll need to cover some of these subtleties, giving four main
+points to discuss.  These are 1) the finite photo-electron mean-free-path,
+2) the relaxation due to the passive (non-core) electrons of the excited
+atom, 3) multiple-scattering of the photo-electron,  4) a more detailed
+treatment of structural and thermal disorder, and 5) a brief description of
+the effect of X-ray polarization.
 
-Though we have a reasonably good explanation of the origin of the terms in
-the EXAFS equation, there are a few topics to discuss before leaving this
-section.  These are 1) polarization dependence, 2) intrinsic losses, and
-3) multiple scattering.
+\subsection{$\lambda(k)$: The inelastic mean-free-path}
 
-X-ray emitted by synchrotron sources are highly polarized in the horizontal
-plane, unless specifically altered by the source or X-ray optics.   The
-emitted photo-electron preserves this polarization.  This can have
-implications for EXAFS from ordered materials that do not have cubic
-symmetry around the absorbing atom.
+\begin{Nfig}{width=3.0truein}{lambda}
+  \caption{The photo-electron mean-free-path for XAFS $\lambda(k)$,
+    representing how far the photo-electron can travel and still participate
+    in the XAFS.  This term accounts for both the inelastic scattering of the
+    photo-electron, and the finite lifetime of the core-hole.}
+  \label{Fig:THE:lambda}
+\end{Nfig}
 
-For $K$ shell edges, the dipole transition from the $s$ electron level means
-the photo-electron goes as a $p$ wave, with electron probability having a
-$\cos^2\theta$ dependence, with $\theta$ being the angle relative to the
-horizontal plane.   Because of this, $K$ edge EXAFS is actually completely
-blind to scattering atoms in the direction of the X-ray beam and  in the
-vertical plane, above and below the absorbing atom.   For samples that are
-isotropic, randomly oriented, or with cubic symmetry, the polarization is
-of no consequence, but for anisotropic systems, and surfaces, this can
-either be viewed as a complication, or exploited by carefully orienting the
-sample relative to the horizontal plane.  Mathematically, we simply add
-a $\epsilon \cdot \hat{R}$ term to the EXAFS equation which now becomes
+The most significant approximation we made above was to assert that the
+outgoing photo-electron went out as a spherical wave, as given in
+Eq.~\ref{Eq:spherical}.  In doing so, we neglected the fact that the
+photo-electron can also scatter {\emph{inelastically}} from other sources
+-- other conduction electrons, phonons, and so on.  In order to participate
+in the XAFS, the photo-electron has to scatter from the neighboring atom
+and return to the absorbing atom {\emph{elastically}} (that is, at the same
+energy) as the outgoing photo-electron.  In addition, the scattered portion
+of the photo-electron has to make it back to the absorbing atom before the
+excited state decays (that is, before the core-hole is filled through the
+Auger or fluorescence process).  To account for both the inelastic
+scattering and the finite {\emph{core-hole lifetime}}, we can use a damped
+spherical wave:
 \begin{equation}
-  \chi(k) = \sum_j {
-    {{ \frac{N_j e^{-2k^2\sigma_j^2}
-          e^{-2R/\lambda(k)}(\epsilon \cdot \hat{R_j}) f_j(k) }{kR_j^2}}}\>
-      \sin[2kR_j + \delta_j(k)] }
-      \label{Eq:xafs_withpolar}
+  \psi(k,r) = {\frac{e^{ikr} e^{-r/\lambda(k)}}{kr}},
+    \label{Eq:damped}
 \end{equation}
 \noindent
-where $\epsilon$ is X-ray polarization vector, and $\hat{R}$ is the unit vector from
-absorbing atom to scattering atom.  For  $L_{\rm{III}}$ and $L_{\rm{ II}}$
-edges, as well as $M$ edges, the polarization dependence can be more
-complex than the simple $\cos^2\theta$ dependence of $K$ shells due to the
-fact that these edge have multiple allowed angular momentum states for the
-outgoing photo-electron.
-
-A second topic to discuss is the passive electron factor, $S_0^2$.  In the
-description above, we ignored the relaxation due to the other electrons in
-the excited atom.  That is, our ``initial state'' and ``final state'' above
-should have been for the entire atom, but we considered only the core-level
-electron. Writing ${| \Phi^{Z-1}_0 \rangle }$ for the remaining $Z-1$
-electrons in unexcited atom, and ${\langle \Phi^{Z-1}_f|}$ for the $Z-1$
-electrons in the excited atoms, we need to place a factor $S_0^2 = {
-  |{\langle \Phi^{Z-1}_f |\Phi^{Z-1}_0 \rangle}|^2} $ as a pre-factor to
-the EXAFS equation.  Though recent research has suggested that $S_0^2$ may
-have some $k$ dependence, especially at low $k$, it is usually interpreted
-simply as a constant value, so that the EXAFS equation becomes
+for the photo-electron wave-function in place of the spherical wave of
+Eq.~\ref{Eq:spherical}.  Here, $\lambda$ is the {\emph{mean free path}} of
+the photo-electron, representing how far it can typically travel before
+scattering inelastically or before the core-hole is filled.  The core-hole
+lifetime is on the order of $10^{-15}$ s, depending somewhat on the energy
+of the core-level.  The mean-free-path is typically 5 to 30 {\AA} and
+varies with $k$ with a fairly universal dependence on $k$, shown in
+Figure~\ref{Fig:THE:lambda}.  Including this $\lambda(k)$, the EXAFS equation
+becomes
 \begin{equation}
   \chi(k) = \sum_j {
-    {{\frac{S_0^2 N_j e^{-2k^2\sigma_j^2} e^{-2R_j/\lambda(k)}  (\epsilon \cdot \hat{R_j}) f_j(k)}{kR_j^2}}}\>
-    \sin[2kR_j + \delta_j(k)] }.
+    {{ \frac{N_j e^{-2k^2\sigma_j^2} e^{-2R_j/\lambda(k)}  f_j(k)}{kR_j^2}}}\>
+    \sin[2kR_j + \delta_j(k)] }
+  \label{Eq:xafs4}
+\end{equation}
+\noindent
+It is the finite size of $\lambda$, as well as the $1/R^2$ term (which also
+originates from the wavefunction of the outgoing photo-electron) in the
+EXAFS equation that shows EXAFS to be a local probe, insensitive to atomic
+structure beyond 10 {\AA} or so.
+
+As an aside, we note that it is possible to treat the losses that are
+described by $\lambda(k)$ as a complex wavenumber, so that $k$ becomes $p =
+k + i/\lambda$, and the EXAFS Equation can be written with $p$ instead of
+$k$.  This reflects the common usage in the theoretical condensed matter
+physics literature that the photo-electron energy is complex, and so
+includes the effects of the mean-free-path not only in a $e^{-2R/\lambda}$
+term, but also in the disorder terms, which can be important in some
+analyses.  This can be incorporated into quantitative analysis tools, but
+is beyond the scope of the present work, so we will continue to use the
+form of the EXAFS Equation above, with the explicit $\lambda$ term.
+
+\subsection{$S_0^2$ : intrinsic losses}
+
+A second approximation we made in the description above was to ignore the
+relaxation due to the other electrons in the excited atom.  That is, our
+``initial state'' and ``final state'' above should have been for the entire
+atom, but we considered only the core-level electron. Writing ${|
+  \Phi^{Z-1}_0 \rangle }$ for the remaining $Z-1$ electrons in unexcited
+atom, and ${\langle \Phi^{Z-1}_f|}$ for the $Z-1$ electrons in the excited
+atoms, we end up with a factor of
+\begin{equation}
+  S_0^2 =  {  |{\langle \Phi^{Z-1}_f |\Phi^{Z-1}_0 \rangle}|^2}
+  \label{Eq:S02}
+\end{equation}
+\noindent
+that can be placed in front of the EXAFS equation.  Though recent research
+has suggested that $S_0^2$ may have some $k$ dependence, especially at low
+$k$, it is usually interpreted simply as a constant value, so that the
+EXAFS equation becomes
+\begin{equation}
+  \chi(k) = \sum_j {
+    {{\frac{S_0^2 N_j e^{-2k^2\sigma_j^2} e^{-2R_j/\lambda(k)}  f_j(k)}{kR_j^2}}}\>
+    \sin[2kR_j + \delta_j(k)] }
   \label{Eq:xafs_withs02}
 \end{equation}
 \noindent
-Though $S_0^2$ is assumed to be constant, and generally found to be $ 0.7 < S_0^2
+which is the final form of the EXAFS equation that we will use for
+analysis.
+
+
+$S_0^2$ is assumed to be constant, and generally found to be $ 0.7 < S_0^2
 < 1.0 $.  By far the biggest consequence of this is that this factor is
 {\emph{completely correlated with $N$}} in the EXAFS equation.  This fact,
 along with the data reduction complication discussed later that the edge
@@ -251,14 +374,7 @@ step $\Delta\mu$ in Eq.~\ref{Eq:mu2chi} is challenging to determine
 experimentally, makes absolute values for the coordination number $N$
 difficult to determine with high accuracy.
 
-
-The third and final topic to discuss is multiple scattering. So far the
-treatment of EXAFS has implied that the photo-electron always scatters from
-one neighboring atom and returns to the absorber.  In fact, the
-photo-electron can scatter from more than one neighboring atom, making a
-more convoluted {\emph{scattering path}} than simply to one scattering atom
-and back.  Examples of the more important types of multiple scattering
-paths are illustrated in Figure~\ref{Fig:THE:ms}.
+\subsection{Multiple scattering of the photo-electron}
 
 \begin{Nfig}{width=3.0truein}{mspaths}
   \caption{Multiple scattering paths for the photo-electron.  While
@@ -269,6 +385,12 @@ paths are illustrated in Figure~\ref{Fig:THE:ms}.
   \label{Fig:THE:ms}
 \end{Nfig}
 
+So far the treatment of EXAFS has implied that the photo-electron always
+scatters from one neighboring atom and returns to the absorber.  In fact,
+the photo-electron can scatter from more than one neighboring atom, making
+a more convoluted {\emph{scattering path}} than simply to one scattering
+atom and back.  Examples of the more important types of multiple scattering
+paths are illustrated in Figure~\ref{Fig:THE:ms}.
 
 Multiple scattering paths can give important contributions for EXAFS,
 especially beyond the first coordination shell, and are nearly always
@@ -296,6 +418,139 @@ EXAFS spectra grows quickly (exponentially) with path distance.  This puts
 a practical limit on our ability to fully interpret EXAFS spectra from
 completely unknown systems.
 
+\subsection{Disorder terms and $g(R)$ }
+
+We gave a simple description of disorder above, using $Ne^{-2k^2\sigma^2}$
+in the EXAFS equation, where $N$ is the coordination number and $\sigma^2$
+is the mean-square displacement of the set of interatomic distances $R$
+sampled by an EXAFS measurement.  As noted above, the core-hole lifetime is
+typically in the femtosecond range.  Since thermal vibrations are on the
+picosecond time-scale, each x-ray absorbed in an EXAFS measurement gives a
+``snapshot'' of the structure around 1 randomly selected absorbing atom in
+the sample, and the neighboring atoms will be essentially frozen in some
+configuration.  Building up a full spectrum will result in a ``blurry
+picture'' due to the addition of many (often billions) of these snapshots.
+This has the important consequence that a single EXAFS measurement cannot
+distinguish thermal disorder due to atomic vibrations from static disorder.
+
+An EXAFS measurement is then a {\emph{sampling}} of the configuration of
+atoms around the average absorbing atom.  This configuration is called the
+Partial Pair Distribution function, $g(R)$, which gives the probability that
+an atom is found a distance $R$ away from an atom of the selected type.
+Pair distribution functions are found from many structural probes (notably
+scattering techniques), but the Partial aspect is unique to EXAFS and other
+element-specific probes.  EXAFS is sensitive only to the pairs of atoms
+including that absorbing atom.  Thus while scattering can give very
+accurate measures of the total pair distribution function, EXAFS is
+particularly useful for looking at low concentration elements in complex
+systems.
+
+To better account for the sampling of $g(R)$, we should replace our
+$\sigma^2$ term with an integral over {\emph{all}} absorbing atoms, as with
+(using a simplified form of the EXAFS Equation in exponential notation and
+recalling that $k$ might be replaced by $p$, the complex wavenumber to
+account for the mean-free-path $\lambda(k)$):
+\begin{equation}
+    \chi(k)  = \Biggl\langle \sum_j {\frac{f_j(k)e^{i2kR_j + i\delta_j(k)}}{kR_j^2}} \Biggr\rangle
+\end{equation}
+\noindent
+where the angle brackets mean averaging over the distribution function:
+\begin{equation*}
+  \langle x \rangle = \int dR\, x \, g(R) / \int dR\, g(R)
+\end{equation*}
+\noindent
+There are a few different approaches that can be used for modeling $g(R)$
+in EXAFS.  First, one can ask what the principal moments of $g(R)$ might be.
+Recognizing that $e^{i2kR}$ term (or $\sin(2kR)$
+term) is the most sensitive part to small changes in $R$, and pulling out the
+other terms, we have
+\begin{equation}
+    \chi(k)  =   \sum_j {f_j(k){\frac{e^{ i\delta_j(k)} }{kR_j^2}}}   \biggl\langle e^{i2kR_j}  \biggr\rangle
+\end{equation}
+\noindent
+This average of an exponential term can be described by the
+{\emph{cumulants}} of the distribution
+$g(R)$, as
+\begin{equation*}
+  \biggl\langle e^{i2kR} \biggr\rangle = \exp \bigg[ \sum_{n=1}^{\infty} { \frac{(2ik)^n}{n!}}C_n  \bigg].
+\end{equation*}
+\noindent where the coefficients $C_n$ are the cumulants.
+The cumulants of a distribution can be related to the more familiar moments
+of the distribution.  The lowest order cumulants are
+\begin{eqnarray*}
+  C_1  &  =& \langle r \rangle \\
+  C_2  &  =& \langle r^2 \rangle - \langle r \rangle^2 \\
+  C_3  &  =& \langle r^3 \rangle - 3 \langle r^2 \rangle  \langle r \rangle  + 2 \langle r \rangle^3     \\
+  C_4  & = & \langle r^4 \rangle - 3 \langle r^2 \rangle^2  - 4\langle r^3 \rangle \langle r \rangle
+      +12  \langle r^2 \rangle  \langle r \rangle^2   - 6\langle r \rangle^4
+\end{eqnarray*}
+\noindent where $r= R - R_0$ and $R_0$ is the mean $R$ value of the
+distribution.  $C_1$ is then simply a shift in centroid, and $C_2$ is the
+mean-square-displacement, $\sigma^2$. $C_3$ and $C_4$ measure the skewness
+and kurtosis for the distribution, and are 0 for a Gaussian distribution.
+Because the low order terms in the cumulant expansion represent a small
+modification to the Gaussian approximation and can be readily applied to
+any spectrum, it is included in many analyses codes and discussed widely in
+the EXAFS literature.  The skewness term, $C_3$, is sometimes found to be
+important in analysis of moderately disordered systems.
+
+Another approach to modeling complex disorder is to parametrize $g(R)$ by
+some functional form and use this parametrization in the EXAFS Equation.
+This can be done either analytically by putting in a functional form for
+$g(R)$\cite{gnxas}, or by building a histogram with weights given by the
+parametrized $g(R)$.  This approach can be readily done with existing
+analysis tools, and can give noticeably better results than the cumulant
+expansion for very high disorder.  For some problems, a more sophisticated
+analysis using a {\emph{Monte Carlo}} approach of calculating the EXAFS for
+a large set of atomic clusters can be useful.  For example, atomic
+configurations from a series of molecular dynamics simulations may be used
+to predict EXAFS spectra including complex configurations and disorder.
+Such work can be computationally expensive, but can also give additional
+insight into the interactions between atoms and molecules in complex
+systems.  We'll continue to use $N$ and $\sigma^2$ as the normal form of
+the EXAFS Equation, but will remember that these more complex descriptions
+of the distribution of atoms are possible and that we are not limited to
+studying well-behaved systems with Gaussian distributions.
+
+
+\subsection{Polarization}
+
+
+X-ray emitted by synchrotron sources are highly polarized in the horizontal
+plane, unless specifically altered by the source or X-ray optics.   The
+emitted photo-electron preserves this polarization.  This can have
+implications for EXAFS from ordered materials that do not have cubic
+symmetry around the absorbing atom.
+
+For $K$ shell edges, the dipole transition from the $s$ electron level means
+the photo-electron goes as a $p$ wave, with electron probability having a
+$\cos^2\theta$ dependence, with $\theta$ being the angle relative to the
+horizontal plane.   Because of this, $K$ edge EXAFS is actually completely
+blind to scattering atoms in the direction of the X-ray beam and  in the
+vertical plane, above and below the absorbing atom.   For samples that are
+isotropic, randomly oriented, or with cubic symmetry, the polarization is
+of no consequence, but for anisotropic systems, and surfaces, this can
+either be viewed as a complication, or exploited by carefully orienting the
+sample relative to the horizontal plane.  Mathematically, we simply add
+a $\epsilon \cdot \hat{R}$ term to the EXAFS equation,
+where $\epsilon$ is X-ray polarization vector, and $\hat{R}$ is the unit vector from
+absorbing atom to scattering atom.  Our EXAFS equation  now becomes
+\begin{equation}
+  \chi(k) = \sum_j {
+    {{ \frac{N_j e^{-2k^2\sigma_j^2}
+          e^{-2R/\lambda(k)} (\epsilon \cdot \hat{R_j}) f_j(k) }{kR_j^2}}}\>
+    \sin[2kR_j + \delta_j(k)] } \>
+      \label{Eq:xafs_withpolar}
+\end{equation}
+\noindent
+For  $L_{\rm{III}}$ and $L_{\rm{ II}}$ edges, as well as $M$ edges, the
+polarization dependence can be more complex than the simple $\cos^2\theta$
+dependence of $K$ shells due to the fact that these edge have multiple
+allowed angular momentum states for the outgoing photo-electron.
+
+\subsection{Discussion}
+
+
 We've used a simple physical picture of photo-electron scattering to
 develop the EXAFS equation that we can use in the quantitative analysis of
 EXAFS spectra,
@@ -317,5 +572,25 @@ This will lead us to use Fourier transforms in the analysis.  Finally, in
 order to extract the distances and coordination numbers, we need to have
 accurate values for the scattering amplitude and phase-shifts $f(k)$ and
 $\delta(k)$ from the neighboring atoms.
+
+This last point here -- the need for accurate scattering amplitude and
+phase-shifts -- has been a crucial issue in the field of EXAFS.  Though
+early attempts to calculate the terms were qualitatively successful and
+instructive, they were generally not accurate enough to be used in
+analysis.  In the earliest EXAFS analyses, these factors were most often
+determined from experimental spectra in which the near-neighbor distances
+and species were known.  Such experimental standards can be quite accurate,
+but are generally restricted to first neighbor shell.  Since the 1990s,
+calculations of $f(k)$ and $\delta(k)$ have become more accurate and
+readily available, and use of experimental standards in EXAFS analysis is
+now somewhat rare, and restricted to studies of small changes in distances
+of fairly well-characterized systems.  Calculated scattering factors are not
+without problems, but they have been shown numerous times to be accurate
+enough to be used in real analysis, and in some cases are more accurate
+than experimentally derived scattering factors.  The calculated factors are
+not restricted to the first shell, and can account for multiple-scattering
+of the photo-electron.  In section~{\ref{sect:modeling}}, we'll use
+calculations of $f(k)$ and $\delta(k)$ from {\scshape{feff}} to model real
+data.
 
 
