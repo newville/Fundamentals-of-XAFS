@@ -1,0 +1,60 @@
+#!/usr/bin/env python
+"""Convert PDF to PNG with convert program
+"""
+import sys
+import subprocess
+import getopt
+
+
+convert = "convert -antialias -alpha on -channel rgba -fuzz 5%"
+density = 600
+quality = 90
+transparent = None
+
+def show_usage():
+    print """pdf2png [options] pdffile pdffile2 ...
+Convert PDF to PNG
+options:
+   -h --help          show this help
+   -d --density=      set density (dpi) (default 600)
+   -q --quality=      set quality percentage (default 90)
+   -t --transparent=  set color to make transparent (eg, 'white', default None)
+
+This runs the convert script from ImageMagick:
+ convert -antialias -alpha on -channel rgba -fuzz 5% -quality 90 -density 600  pdffile PNG32:pngfile
+"""
+    sys.exit()
+
+opts, args = getopt.getopt(sys.argv[1:], "hd:q:t:", ["help",
+                                                     "density=",
+                                                     "quality=",
+                                                     "transparent="])
+
+for key, val in opts:
+    if key in ("-h", "--help"):
+        show_usage()
+    if key in ("-d", "--debug"):
+        density = int(val)
+    if key in ("-q", "--quality"):
+        quality = int(val)
+    if key in ("-t", "--transparent"):
+        transparent = val
+
+convert = "%s -density %i -quality %i" % (convert, density, quality)
+if transparent is not None:
+    convert = "%s -transparent %s" % (convert, transparent)
+
+
+for fname in args:
+    if fname.endswith('.pdf'):
+        fname = fname[:-4]
+    elif fname.endswith('.'):
+        fname = fname[:-1]
+
+    command = "%s %s.pdf PNG32:%s.png" % (convert, fname, fname)
+    result = subprocess.call(command, shell=True)
+    if result:
+        print 'Conversion failed for %s.pdf' % fname
+    else:
+        print 'Wrote %s.png' % fname
+
